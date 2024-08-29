@@ -679,21 +679,30 @@ namespace GameFrameX.UI.UGUI.Runtime
             CloseUIForm(uiForm, null);
         }
 
-        public void CloseUIForm<T>()
+        /// <summary>
+        /// 关闭界面。
+        /// </summary>
+        /// <param name="userData">用户自定义数据。</param>
+        /// <typeparam name="T"></typeparam>
+        public void CloseUIForm<T>(object userData = null) where T : IUIForm
         {
-            /*var fullName = typeof(T).FullName;
+            var fullName = typeof(T).FullName;
             IUIForm[] uiForms = GetAllLoadedUIForms();
             foreach (IUIForm uiForm in uiForms)
             {
+                if (uiForm.FullName != fullName)
+                {
+                    continue;
+                }
+
                 if (!HasUIFormFullName(uiForm.FullName))
                 {
                     continue;
                 }
 
                 CloseUIForm(uiForm, userData);
+                break;
             }
-
-            CloseUIForm(fullName);*/
         }
 
         /// <summary>
