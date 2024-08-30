@@ -706,6 +706,58 @@ namespace GameFrameX.UI.UGUI.Runtime
         }
 
         /// <summary>
+        /// 释放界面
+        /// </summary>
+        /// <param name="serialId"></param>
+        public void DisposeUIForm(int serialId)
+        {
+            IUIForm[] uiForms = GetAllLoadedUIForms();
+            foreach (IUIForm uiForm in uiForms)
+            {
+                if (!HasUIForm(serialId))
+                {
+                    continue;
+                }
+
+                CloseUIForm(uiForm);
+                ReleaseUI(uiForm);
+                break;
+            }
+        }
+
+        /// <summary>
+        /// 释放界面
+        /// </summary>
+        /// <typeparam name="T">界面对象</typeparam>
+        public void DisposeUIForm<T>() where T : IUIForm
+        {
+            var fullName = typeof(T).FullName;
+            IUIForm[] uiForms = GetAllLoadedUIForms();
+            foreach (IUIForm uiForm in uiForms)
+            {
+                if (uiForm.FullName != fullName)
+                {
+                    continue;
+                }
+
+                if (!HasUIFormFullName(uiForm.FullName))
+                {
+                    continue;
+                }
+
+                CloseUIForm(uiForm);
+                ReleaseUI(uiForm);
+                break;
+            }
+        }
+
+        private void ReleaseUI(IUIForm uiForm)
+        {
+            m_InstancePool.Unspawn(uiForm.Handle);
+            m_InstancePool.ReleaseObject(uiForm.Handle);
+        }
+
+        /// <summary>
         /// 关闭界面。
         /// </summary>
         /// <param name="uiForm">要关闭的界面。</param>
