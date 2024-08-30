@@ -14,7 +14,10 @@ namespace GameFrameX.UI.UGUI.Runtime
         {
             m_Types = new[]
             {
+                typeof(RectTransformExtension),
                 typeof(UIManager),
+                typeof(UGUIFormHelper),
+                typeof(UGUI),
             };
         }
     }
