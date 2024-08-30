@@ -753,7 +753,7 @@ namespace GameFrameX.UI.UGUI.Runtime
 
         private void ReleaseUI(IUIForm uiForm)
         {
-            m_InstancePool.Unspawn(uiForm.Handle);
+            // m_InstancePool.Unspawn(uiForm.Handle);
             m_InstancePool.ReleaseObject(uiForm.Handle);
         }
 
