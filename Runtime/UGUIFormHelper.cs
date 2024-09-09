@@ -9,12 +9,14 @@ using GameFrameX.Asset.Runtime;
 using GameFrameX.Runtime;
 using GameFrameX.UI.Runtime;
 using UnityEngine;
+using UnityEngine.Scripting;
 
 namespace GameFrameX.UI.UGUI.Runtime
 {
     /// <summary>
     /// 默认界面辅助器。
     /// </summary>
+    [Preserve]
     public sealed class UGUIFormHelper : UIFormHelperBase
     {
         private AssetComponent m_AssetComponent = null;

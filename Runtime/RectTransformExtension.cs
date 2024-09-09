@@ -1,7 +1,9 @@
 ﻿using UnityEngine;
+using UnityEngine.Scripting;
 
 namespace GameFrameX.UI.UGUI.Runtime
 {
+    [Preserve]
     public static class RectTransformExtension
     {
         /// <summary>

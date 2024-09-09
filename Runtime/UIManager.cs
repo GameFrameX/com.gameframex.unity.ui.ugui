@@ -14,12 +14,14 @@ using GameFrameX.ObjectPool;
 using GameFrameX.Runtime;
 using GameFrameX.UI.Runtime;
 using UnityEngine;
+using UnityEngine.Scripting;
 
 namespace GameFrameX.UI.UGUI.Runtime
 {
     /// <summary>
     /// 界面管理器。
     /// </summary>
+    [Preserve]
     internal sealed partial class UIManager : GameFrameworkModule, IUIManager
     {
         private readonly Dictionary<string, UIGroup> m_UIGroups;

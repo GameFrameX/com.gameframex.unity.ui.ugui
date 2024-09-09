@@ -7,12 +7,14 @@
 
 using GameFrameX.UI.Runtime;
 using UnityEngine;
+using UnityEngine.Scripting;
 
 namespace GameFrameX.UI.UGUI.Runtime
 {
     /// <summary>
     /// UGUI界面组辅助器。
     /// </summary>
+    [Preserve]
     public sealed class UGUIUIGroupHelper : UIGroupHelperBase
     {
         /// <summary>

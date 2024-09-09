@@ -1,8 +1,10 @@
 ﻿using GameFrameX.UI.Runtime;
 using UnityEngine;
+using UnityEngine.Scripting;
 
 namespace GameFrameX.UI.UGUI.Runtime
 {
+    [Preserve]
     public class UGUI : UIFormLogic
     {
         /// <summary>
