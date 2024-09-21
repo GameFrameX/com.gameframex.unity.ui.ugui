@@ -6,8 +6,8 @@
 //------------------------------------------------------------
 
 using GameFrameX.ObjectPool;
+using GameFrameX.Runtime;
 using GameFrameX.UI.Runtime;
-using UnityEngine.Scripting;
 
 namespace GameFrameX.UI.UGUI.Runtime
 {
