@@ -3,7 +3,7 @@
   "displayName": "Game Frame X UI UGUI",
   "category": "Game Framework X",
   "description": "Game Frame X UGUI Component",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "unity": "2017.1",
   "keywords": [
     "Game Framework X"
@@ -18,6 +18,5 @@
     "email": "alianblank@outlook.com",
     "url": "https://gameframex.doc.alianblank.com"
   },
-  "dependencies": {
-  }
+  "dependencies": {}
 }
