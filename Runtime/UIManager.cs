@@ -168,14 +168,25 @@ namespace GameFrameX.UI.UGUI.Runtime
             while (m_RecycleQueue.Count > 0)
             {
                 IUIForm uiForm = m_RecycleQueue.Dequeue();
-                uiForm.OnRecycle();
-                m_InstancePool.Unspawn(uiForm.Handle);
+                Recycle(uiForm);
             }
 
             foreach (KeyValuePair<string, UIGroup> uiGroup in m_UIGroups)
             {
                 uiGroup.Value.Update(elapseSeconds, realElapseSeconds);
             }
+        }
+
+        private void Recycle(IUIForm uiForm)
+        {
+            uiForm.OnRecycle();
+            m_InstancePool.Unspawn(uiForm.Handle);
+        }
+
+        private void RecycleNow(IUIForm uiForm)
+        {
+            uiForm.OnRecycle();
+            m_InstancePool.Unspawn(uiForm.Handle);
         }
 
         /// <summary>
@@ -585,6 +596,7 @@ namespace GameFrameX.UI.UGUI.Runtime
             return await OpenUIFormAsync(uiFormAssetPath, uiFormAssetName, uiGroupName, typeof(T), false, userData);
         }
 
+
         /// <summary>
         /// 打开界面。
         /// </summary>
@@ -594,8 +606,9 @@ namespace GameFrameX.UI.UGUI.Runtime
         /// <param name="uiFormType">界面逻辑类型。</param>
         /// <param name="pauseCoveredUIForm">是否暂停被覆盖的界面。</param>
         /// <param name="userData">用户自定义数据。</param>
+        /// <param name="isFullScreen">是否是全屏</param>
         /// <returns>界面的序列编号。</returns>
-        public async Task<IUIForm> OpenUIFormAsync(string uiFormAssetPath, string uiFormAssetName, string uiGroupName, Type uiFormType, bool pauseCoveredUIForm, object userData)
+        public async Task<IUIForm> OpenUIFormAsync(string uiFormAssetPath, string uiFormAssetName, string uiGroupName, Type uiFormType, bool pauseCoveredUIForm, object userData, bool isFullScreen = false)
         {
             GameFrameworkGuard.NotNull(m_AssetManager, nameof(m_AssetManager));
             GameFrameworkGuard.NotNull(m_UIFormHelper, nameof(m_UIFormHelper));
@@ -613,7 +626,7 @@ namespace GameFrameX.UI.UGUI.Runtime
             if (uiFormInstanceObject == null)
             {
                 m_UIFormsBeingLoaded.Add(serialId, uiFormAssetName);
-                OpenUIFormInfo openUIFormInfo = OpenUIFormInfo.Create(serialId, uiGroup, uiFormType, pauseCoveredUIForm, userData);
+                OpenUIFormInfo openUIFormInfo = OpenUIFormInfo.Create(serialId, uiGroup, uiFormType, pauseCoveredUIForm, userData, isFullScreen);
                 if (uiFormAssetPath.IndexOf(Utility.Asset.Path.BundlesDirectoryName, StringComparison.OrdinalIgnoreCase) >= 0)
                 {
                     string assetPath = PathHelper.Combine(uiFormAssetPath, uiFormAssetName);
@@ -650,6 +663,7 @@ namespace GameFrameX.UI.UGUI.Runtime
             CloseUIForm(serialId, null);
         }
 
+
         /// <summary>
         /// 关闭界面。
         /// </summary>
@@ -673,6 +687,7 @@ namespace GameFrameX.UI.UGUI.Runtime
             CloseUIForm(uiForm, userData);
         }
 
+
         /// <summary>
         /// 关闭界面。
         /// </summary>
@@ -681,6 +696,7 @@ namespace GameFrameX.UI.UGUI.Runtime
         {
             CloseUIForm(uiForm, null);
         }
+
 
         /// <summary>
         /// 关闭界面。
@@ -708,59 +724,6 @@ namespace GameFrameX.UI.UGUI.Runtime
             }
         }
 
-        /*
-        /// <summary>
-        /// 释放界面
-        /// </summary>
-        /// <param name="serialId"></param>
-        public void DisposeUIForm(int serialId)
-        {
-            IUIForm[] uiForms = GetAllLoadedUIForms();
-            foreach (IUIForm uiForm in uiForms)
-            {
-                if (!HasUIForm(serialId))
-                {
-                    continue;
-                }
-
-                CloseUIForm(uiForm);
-                ReleaseUI(uiForm);
-                break;
-            }
-        }
-
-        /// <summary>
-        /// 释放界面
-        /// </summary>
-        /// <typeparam name="T">界面对象</typeparam>
-        public void DisposeUIForm<T>() where T : IUIForm
-        {
-            var fullName = typeof(T).FullName;
-            IUIForm[] uiForms = GetAllLoadedUIForms();
-            foreach (IUIForm uiForm in uiForms)
-            {
-                if (uiForm.FullName != fullName)
-                {
-                    continue;
-                }
-
-                if (!HasUIFormFullName(uiForm.FullName))
-                {
-                    continue;
-                }
-
-                CloseUIForm(uiForm);
-                ReleaseUI(uiForm);
-                break;
-            }
-        }
-
-        private void ReleaseUI(IUIForm uiForm)
-        {
-            // m_InstancePool.Unspawn(uiForm.Handle);
-            m_InstancePool.ReleaseObject(uiForm.Handle);
-        }*/
-
         /// <summary>
         /// 关闭界面。
         /// </summary>
@@ -784,6 +747,98 @@ namespace GameFrameX.UI.UGUI.Runtime
             }
 
             m_RecycleQueue.Enqueue(uiForm);
+        }
+
+        /// <summary>
+        /// 立即关闭界面。
+        /// </summary>
+        /// <param name="serialId">要关闭界面的序列编号。</param>
+        public void CloseUIFormNow(int serialId)
+        {
+            CloseUIFormNow(serialId, null);
+        }
+
+        /// <summary>
+        /// 立即关闭界面。
+        /// </summary>
+        /// <param name="serialId">要关闭界面的序列编号。</param>
+        /// <param name="userData">用户自定义数据。</param>
+        public void CloseUIFormNow(int serialId, object userData)
+        {
+            if (IsLoadingUIForm(serialId))
+            {
+                m_UIFormsToReleaseOnLoad.Add(serialId);
+                m_UIFormsBeingLoaded.Remove(serialId);
+                return;
+            }
+
+            IUIForm uiForm = GetUIForm(serialId);
+            if (uiForm == null)
+            {
+                throw new GameFrameworkException(Utility.Text.Format("Can not find UI form '{0}'.", serialId));
+            }
+
+            CloseUIFormNow(uiForm, userData);
+        }
+
+        /// <summary>
+        /// 立即关闭界面。
+        /// </summary>
+        /// <param name="uiForm">要关闭的界面。</param>
+        public void CloseUIFormNow(IUIForm uiForm)
+        {
+            CloseUIFormNow(uiForm, null);
+        }
+
+        /// <summary>
+        /// 立即关闭界面。
+        /// </summary>
+        /// <param name="userData">用户自定义数据。</param>
+        /// <typeparam name="T"></typeparam>
+        public void CloseUIFormNow<T>(object userData) where T : IUIForm
+        {
+            var fullName = typeof(T).FullName;
+            IUIForm[] uiForms = GetAllLoadedUIForms();
+            foreach (IUIForm uiForm in uiForms)
+            {
+                if (uiForm.FullName != fullName)
+                {
+                    continue;
+                }
+
+                if (!HasUIFormFullName(uiForm.FullName))
+                {
+                    continue;
+                }
+
+                CloseUIFormNow(uiForm, userData);
+                break;
+            }
+        }
+
+        /// <summary>
+        /// 立即关闭界面。
+        /// </summary>
+        /// <param name="uiForm">要关闭的界面。</param>
+        /// <param name="userData">用户自定义数据。</param>
+        public void CloseUIFormNow(IUIForm uiForm, object userData)
+        {
+            GameFrameworkGuard.NotNull(uiForm, nameof(uiForm));
+            GameFrameworkGuard.NotNull(uiForm.UIGroup, nameof(uiForm.UIGroup));
+            UIGroup uiGroup = (UIGroup)uiForm.UIGroup;
+
+            uiGroup.RemoveUIForm(uiForm);
+            uiForm.OnClose(m_IsShutdown, userData);
+            uiGroup.Refresh();
+
+            if (m_CloseUIFormCompleteEventHandler != null)
+            {
+                CloseUIFormCompleteEventArgs closeUIFormCompleteEventArgs = CloseUIFormCompleteEventArgs.Create(uiForm.SerialId, uiForm.UIFormAssetName, uiGroup, userData);
+                m_CloseUIFormCompleteEventHandler(this, closeUIFormCompleteEventArgs);
+                // ReferencePool.Release(closeUIFormCompleteEventArgs);
+            }
+
+            RecycleNow(uiForm);
         }
 
         /// <summary>
