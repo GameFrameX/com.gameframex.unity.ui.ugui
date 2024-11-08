@@ -5,7 +5,7 @@ using UnityEngine.Scripting;
 namespace GameFrameX.UI.UGUI.Runtime
 {
     [Preserve]
-    public class UGUI : UIFormLogic
+    public class UGUI : UIForm
     {
         /// <summary>
         /// 设置UI的显示状态，不发出事件

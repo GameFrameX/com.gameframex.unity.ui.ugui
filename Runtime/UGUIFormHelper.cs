@@ -5,11 +5,13 @@
 // Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 
+using System;
 using GameFrameX.Asset.Runtime;
 using GameFrameX.Runtime;
 using GameFrameX.UI.Runtime;
 using UnityEngine;
 using UnityEngine.Scripting;
+using Object = UnityEngine.Object;
 
 namespace GameFrameX.UI.UGUI.Runtime
 {
@@ -36,9 +38,10 @@ namespace GameFrameX.UI.UGUI.Runtime
         /// </summary>
         /// <param name="uiFormInstance">界面实例。</param>
         /// <param name="uiGroup">界面所属的界面组。</param>
+        /// <param name="uiFormType">界面逻辑类</param>
         /// <param name="userData">用户自定义数据。</param>
         /// <returns>界面。</returns>
-        public override IUIForm CreateUIForm(object uiFormInstance, IUIGroup uiGroup, object userData)
+        public override IUIForm CreateUIForm(object uiFormInstance, IUIGroup uiGroup, Type uiFormType, object userData)
         {
             GameObject gameObject = uiFormInstance as GameObject;
             if (gameObject == null)
@@ -51,7 +54,8 @@ namespace GameFrameX.UI.UGUI.Runtime
             transform.SetParent(((MonoBehaviour)uiGroup.Helper).transform);
             transform.localScale = Vector3.one;
 
-            return gameObject.GetOrAddComponent<UIForm>();
+            var componentType = gameObject.GetOrAddComponent(uiFormType);
+            return componentType as IUIForm;
         }
 
         /// <summary>
