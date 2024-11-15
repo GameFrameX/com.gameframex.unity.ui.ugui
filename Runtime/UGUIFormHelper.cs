@@ -21,8 +21,6 @@ namespace GameFrameX.UI.UGUI.Runtime
     [Preserve]
     public sealed class UGUIFormHelper : UIFormHelperBase
     {
-        private AssetComponent m_AssetComponent = null;
-
         /// <summary>
         /// 实例化界面。
         /// </summary>
@@ -67,16 +65,6 @@ namespace GameFrameX.UI.UGUI.Runtime
         {
             // m_AssetComponent.UnloadAsset(uiFormAsset);
             Destroy((Object)uiFormInstance);
-        }
-
-        private void Start()
-        {
-            m_AssetComponent = GameEntry.GetComponent<AssetComponent>();
-            if (m_AssetComponent == null)
-            {
-                Log.Fatal("Asset component is invalid.");
-                return;
-            }
         }
     }
 }
