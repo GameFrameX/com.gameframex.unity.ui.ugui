@@ -634,7 +634,9 @@ namespace GameFrameX.UI.UGUI.Runtime
                     var assetHandle = await m_AssetManager.LoadAssetAsync<UnityEngine.Object>(assetPath);
                     if (assetHandle.IsSucceed)
                     {
-                        return LoadAssetSuccessCallback(assetPath, assetHandle.InstantiateSync(), assetHandle.Progress, openUIFormInfo);
+                        GameObject gameObject = assetHandle.InstantiateSync();
+                        gameObject.name = uiFormAssetName;
+                        return LoadAssetSuccessCallback(assetPath, gameObject, assetHandle.Progress, openUIFormInfo);
                     }
                     else
                     {
@@ -645,7 +647,9 @@ namespace GameFrameX.UI.UGUI.Runtime
                 {
                     string assetPath = PathHelper.Combine(uiFormAssetPath, uiFormAssetName);
                     // 从Resources 中加载
-                    return LoadAssetSuccessCallback(assetPath, Resources.Load(assetPath), 0, openUIFormInfo);
+                    var gameObject = (GameObject)Resources.Load(assetPath);
+                    gameObject.name = uiFormAssetName;
+                    return LoadAssetSuccessCallback(assetPath, gameObject, 0, openUIFormInfo);
                 }
             }
             else
