@@ -2,6 +2,7 @@
     "name": "GameFrameX.UI.UGUI.Editor",
     "references": [
         "GameFrameX.Editor",
+        "GameFrameX.UI.Runtime",
         "GameFrameX.UI.UGUI.Runtime",
         "GameFrameX.Runtime"
     ],
