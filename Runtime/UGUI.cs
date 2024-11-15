@@ -5,7 +5,8 @@ using UnityEngine.Scripting;
 namespace GameFrameX.UI.UGUI.Runtime
 {
     [Preserve]
-    public class UGUI : UIForm
+    [DisallowMultipleComponent]
+    public abstract class UGUI : UIForm
     {
         /// <summary>
         /// 设置UI的显示状态，不发出事件
