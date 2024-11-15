@@ -8,6 +8,7 @@
 using GameFrameX.ObjectPool;
 using GameFrameX.Runtime;
 using GameFrameX.UI.Runtime;
+using UnityEngine;
 
 namespace GameFrameX.UI.UGUI.Runtime
 {
@@ -34,6 +35,12 @@ namespace GameFrameX.UI.UGUI.Runtime
                 }
 
                 UIFormInstanceObject uiFormInstanceObject = ReferencePool.Acquire<UIFormInstanceObject>();
+
+                if (uiFormInstance is GameObject gameObject)
+                {
+                    gameObject.name = name;
+                }
+
                 uiFormInstanceObject.Initialize(name, uiFormInstance);
                 uiFormInstanceObject.m_UIFormAsset = uiFormAsset;
                 uiFormInstanceObject.m_UIFormHelper = uiFormHelper;
