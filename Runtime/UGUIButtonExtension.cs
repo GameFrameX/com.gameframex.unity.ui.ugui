@@ -48,6 +48,7 @@ namespace GameFrameX.UI.UGUI.Runtime
         public static void Set(this Button.ButtonClickedEvent self, UnityAction action)
         {
             GameFrameworkGuard.NotNull(action, nameof(action));
+            self.Clear();
             self.Add(action);
         }
     }
