@@ -57,6 +57,7 @@ namespace GameFrameX.UI.UGUI.Editor
             string className = selectedObject.name;
             codeBuilder.AppendLine("/** This is an automatically generated class by UGUI. Please do not modify it. **/");
             codeBuilder.AppendLine();
+            codeBuilder.AppendLine("#if ENABLE_UI_UGUI");
             codeBuilder.AppendLine("using Cysharp.Threading.Tasks;");
             codeBuilder.AppendLine("using GameFrameX.Entity.Runtime;");
             codeBuilder.AppendLine("using GameFrameX.UI.Runtime;");
@@ -90,6 +91,7 @@ namespace GameFrameX.UI.UGUI.Editor
             codeBuilder.AppendLine();
             codeBuilder.AppendLine("\t}");
             codeBuilder.AppendLine("}");
+            codeBuilder.AppendLine("#endif");
             return codeBuilder.ToString().Replace("\r\n", "\n");
         }
 
