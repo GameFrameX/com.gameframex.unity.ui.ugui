@@ -2,6 +2,7 @@
 using System.IO;
 using System.Text;
 using GameFrameX.Runtime;
+using GameFrameX.UI.UGUI.Runtime;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -238,6 +239,12 @@ namespace GameFrameX.UI.UGUI.Editor
             if (component != null)
             {
                 return typeof(RawImage).FullName;
+            }
+
+            component = transform.GetComponent<UIImage>();
+            if (component != null)
+            {
+                return typeof(UIImage).FullName;
             }
 
             component = transform.GetComponent<Image>();
