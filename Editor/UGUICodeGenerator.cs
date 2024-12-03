@@ -71,6 +71,7 @@ namespace GameFrameX.UI.UGUI.Editor
             codeBuilder.AppendLine("\t/// <summary>");
             codeBuilder.AppendLine($"\t/// 代码生成的UI代码{className}");
             codeBuilder.AppendLine("\t/// </summary>");
+            codeBuilder.AppendLine("\t[DisallowMultipleComponent]");
             codeBuilder.AppendLine($"\tpublic sealed partial class {className} : UGUI");
             codeBuilder.AppendLine("\t{");
 
@@ -80,7 +81,7 @@ namespace GameFrameX.UI.UGUI.Editor
             List<NodeInfo> nodeInfos = new List<NodeInfo>();
 
             // 遍历所有子节点并生成获取子节点的代码
-            PropertyHandler(selectedObject, null, nodeInfos);
+            PropertyHandler(selectedObject, null, nodeInfos, true);
             PropertyCodeHandler(codeBuilder, nodeInfos);
 
             // 生成预制体实例化代码
@@ -122,34 +123,50 @@ namespace GameFrameX.UI.UGUI.Editor
             codeBuilder.AppendLine();
         }
 
-        private static void PropertyHandler(GameObject selectedObject, NodeInfo parentInfo, List<NodeInfo> nodeInfos)
+        private static bool PropertyHandler(GameObject selectedObject, NodeInfo parentInfo, List<NodeInfo> nodeInfos, bool isRoot = false)
         {
-            if (PrefabUtility.GetPrefabAssetType(selectedObject) != PrefabAssetType.NotAPrefab)
-            {
-                var children = selectedObject.transform.childCount;
-                for (var index = 0; index < children; index++)
-                {
-                    var child = selectedObject.transform.GetChild(index);
-                    var type = ConvertType(child);
-                    var name = $"{child.name.Replace(" ", string.Empty).Replace("(", string.Empty).Replace(")", string.Empty)}";
-                    if (parentInfo != null)
-                    {
-                        name = $"{parentInfo.Name}__{name}";
-                    }
+            var prefabAssetType = PrefabUtility.GetPrefabAssetType(selectedObject);
 
-                    var nodeInfo = new NodeInfo()
-                    {
-                        Name = name,
-                        Path = child.name,
-                        Type = type,
-                        GameObject = child.gameObject,
-                        Transform = child,
-                        Parent = parentInfo
-                    };
+            if (prefabAssetType == PrefabAssetType.NotAPrefab)
+            {
+                return false;
+            }
+
+            var uguiComponent = selectedObject.GetComponent<Runtime.UGUI>();
+            if (uguiComponent != null && !isRoot)
+            {
+                return false;
+            }
+
+            var children = selectedObject.transform.childCount;
+            for (var index = 0; index < children; index++)
+            {
+                var child = selectedObject.transform.GetChild(index);
+                var type = ConvertType(child);
+                var name = $"{child.name.Replace(" ", string.Empty).Replace("(", string.Empty).Replace(")", string.Empty)}";
+                if (parentInfo != null)
+                {
+                    name = $"{parentInfo.Name}__{name}";
+                }
+
+                var nodeInfo = new NodeInfo()
+                {
+                    Name = name,
+                    Path = child.name,
+                    Type = type,
+                    GameObject = child.gameObject,
+                    Transform = child,
+                    Parent = parentInfo
+                };
+
+                var result = PropertyHandler(child.gameObject, nodeInfo, nodeInfos);
+                if (result)
+                {
                     nodeInfos.Add(nodeInfo);
-                    PropertyHandler(child.gameObject, nodeInfo, nodeInfos);
                 }
             }
+
+            return true;
         }
 
         class NodeInfo
