@@ -28,7 +28,7 @@ namespace GameFrameX.UI.UGUI.Runtime
         /// <returns>实例化后的界面。</returns>
         public override object InstantiateUIForm(object uiFormAsset)
         {
-            return Instantiate((Object)uiFormAsset);
+            return (Object)uiFormAsset;
         }
 
         /// <summary>
