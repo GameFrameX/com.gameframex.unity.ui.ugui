@@ -51,5 +51,24 @@ namespace GameFrameX.UI.UGUI.Runtime
             self.Clear();
             self.Add(action);
         }
+
+        /// <summary>
+        /// 设置按钮点击事件
+        /// </summary>
+        /// <param name="self"></param>
+        /// <param name="action">点击回调</param>
+        /// <param name="userData">用户数据</param>
+        public static void Set(this Button.ButtonClickedEvent self, UnityAction<object> action, object userData)
+        {
+            GameFrameworkGuard.NotNull(action, nameof(action));
+            self.Clear();
+
+            void Call()
+            {
+                action.Invoke(userData);
+            }
+
+            self.AddListener(Call);
+        }
     }
 }
