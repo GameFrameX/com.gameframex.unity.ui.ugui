@@ -647,7 +647,8 @@ namespace GameFrameX.UI.UGUI.Runtime
                 {
                     string assetPath = PathHelper.Combine(uiFormAssetPath, uiFormAssetName);
                     // 从Resources 中加载
-                    var gameObject = (GameObject)Resources.Load(assetPath);
+                    var original = (GameObject)Resources.Load(assetPath);
+                    var gameObject = UnityEngine.Object.Instantiate(original);
                     gameObject.name = uiFormAssetName;
                     return LoadAssetSuccessCallback(assetPath, gameObject, 0, openUIFormInfo);
                 }
