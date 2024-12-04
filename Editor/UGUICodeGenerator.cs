@@ -28,27 +28,36 @@ namespace GameFrameX.UI.UGUI.Editor
                 {
                     if (PrefabUtility.GetPrefabAssetType(selectedObject) != PrefabAssetType.NotAPrefab)
                     {
-                        string className = selectedObject.name;
-                        string savePath = PathHelper.Combine(Application.dataPath, "Hotfix", "UI", "UGUI", className);
-                        CreateFoldersIfNotExist(savePath);
-                        var codeString = GenerateCode(selectedObject);
-                        string filePath = Path.Combine(savePath, className + ".cs");
-                        if (File.Exists(filePath))
-                        {
-                            File.Delete(filePath);
-                        }
-
-                        File.WriteAllText(filePath, codeString, Encoding.UTF8);
-                        AssetDatabase.Refresh();
-
-                        Debug.Log("生成UI代码完成");
-                        Debug.Log("现在请将生成的代码挂载到当前的UGUI预制体上,然后点击重新绑定列表");
-                        return;
+                        Generate(selectedObject);
                     }
                 }
             }
 
             Debug.LogError("请选择一个有效的UGUI预制体进行操作");
+        }
+
+        /// <summary>
+        /// 生成代码
+        /// </summary>
+        /// <param name="selectedObject"></param>
+        internal static void Generate(GameObject selectedObject)
+        {
+            string className = selectedObject.name;
+            string savePath = PathHelper.Combine(Application.dataPath, "Hotfix", "UI", "UGUI", className);
+            CreateFoldersIfNotExist(savePath);
+            var codeString = GenerateCode(selectedObject);
+            string filePath = Path.Combine(savePath, className + ".cs");
+            if (File.Exists(filePath))
+            {
+                File.Delete(filePath);
+            }
+
+            File.WriteAllText(filePath, codeString, Encoding.UTF8);
+            AssetDatabase.Refresh();
+
+            Debug.Log("生成UI代码完成");
+            Debug.Log("现在请将生成的代码挂载到当前的UGUI预制体上,然后点击重新绑定列表");
+            return;
         }
 
         private static string GenerateCode(GameObject selectedObject)
