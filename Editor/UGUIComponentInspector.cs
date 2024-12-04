@@ -51,6 +51,7 @@ namespace GameFrameX.UI.UGUI.Editor
         }
 
         private readonly GUIContent _reBind = new GUIContent("重新绑定列表");
+        private readonly GUIContent _reGenerate = new GUIContent("重新生成代码");
 
         public override void OnInspectorGUI()
         {
@@ -62,8 +63,14 @@ namespace GameFrameX.UI.UGUI.Editor
                 var fieldInfos = targetUGUI.GetType().GetFields(BindingFlags.Instance | BindingFlags.NonPublic);
                 EditorGUI.BeginDisabledGroup(EditorApplication.isPlayingOrWillChangePlaymode);
                 {
+                    bool buttonGenerateClicked = EditorGUILayout.DropdownButton(_reGenerate, FocusType.Passive, CustomButtonStyle);
+                    if (buttonGenerateClicked && !EditorApplication.isPlaying)
+                    {
+                        UGUICodeGenerator.Generate(targetGameObject);
+                    }
+
                     bool buttonClicked = EditorGUILayout.DropdownButton(_reBind, FocusType.Passive, CustomButtonStyle);
-                    if (buttonClicked)
+                    if (buttonClicked && !EditorApplication.isPlaying)
                     {
                         // 重新绑定
                         Dictionary<string, string> fieldMap = new Dictionary<string, string>();
