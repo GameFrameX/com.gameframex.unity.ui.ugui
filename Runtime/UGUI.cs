@@ -33,7 +33,7 @@ namespace GameFrameX.UI.UGUI.Runtime
 
                 return gameObject.activeSelf;
             }
-            set
+            protected set
             {
                 if (gameObject == null)
                 {
