@@ -621,14 +621,14 @@ namespace GameFrameX.UI.UGUI.Runtime
             }
 
             int serialId = ++m_Serial;
-            UIFormInstanceObject uiFormInstanceObject = m_InstancePool.Spawn(uiFormAssetName);
+            string assetPath = PathHelper.Combine(uiFormAssetPath, uiFormAssetName);
+            UIFormInstanceObject uiFormInstanceObject = m_InstancePool.Spawn(assetPath);
             if (uiFormInstanceObject == null)
             {
                 m_UIFormsBeingLoaded.Add(serialId, uiFormAssetName);
                 OpenUIFormInfo openUIFormInfo = OpenUIFormInfo.Create(serialId, uiGroup, uiFormType, pauseCoveredUIForm, userData, isFullScreen);
                 if (uiFormAssetPath.IndexOf(Utility.Asset.Path.BundlesDirectoryName, StringComparison.OrdinalIgnoreCase) >= 0)
                 {
-                    string assetPath = PathHelper.Combine(uiFormAssetPath, uiFormAssetName);
                     // 从包中加载
                     var assetHandle = await m_AssetManager.LoadAssetAsync<UnityEngine.Object>(assetPath);
                     if (assetHandle.IsSucceed)
@@ -644,7 +644,6 @@ namespace GameFrameX.UI.UGUI.Runtime
                 }
                 else
                 {
-                    string assetPath = PathHelper.Combine(uiFormAssetPath, uiFormAssetName);
                     // 从Resources 中加载
                     var original = (GameObject)Resources.Load(assetPath);
                     var gameObject = UnityEngine.Object.Instantiate(original);
