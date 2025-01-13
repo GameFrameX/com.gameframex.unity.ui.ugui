@@ -944,6 +944,7 @@ namespace GameFrameX.UI.UGUI.Runtime
                 uiForm.OnInit(serialId, uiFormAssetName, uiGroup, null, pauseCoveredUIForm, isNewInstance, userData, isFullScreen);
                 uiGroup.AddUIForm(uiForm);
                 uiForm.OnOpen(userData);
+                uiForm.UpdateLocalization();
                 uiGroup.Refresh();
 
                 if (m_OpenUIFormSuccessEventHandler != null)
