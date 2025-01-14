@@ -941,7 +941,7 @@ namespace GameFrameX.UI.UGUI.Runtime
                     throw new GameFrameworkException("Can not create UI form in UI form helper.");
                 }
 
-                uiForm.OnInit(serialId, uiFormAssetName, uiGroup, null, pauseCoveredUIForm, isNewInstance, userData, isFullScreen);
+                uiForm.Init(serialId, uiFormAssetName, uiGroup, null, pauseCoveredUIForm, isNewInstance, userData, isFullScreen);
                 uiGroup.AddUIForm(uiForm);
                 uiForm.OnOpen(userData);
                 uiForm.UpdateLocalization();
