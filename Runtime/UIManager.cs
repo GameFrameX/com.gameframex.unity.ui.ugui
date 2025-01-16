@@ -625,6 +625,7 @@ namespace GameFrameX.UI.UGUI.Runtime
             UIFormInstanceObject uiFormInstanceObject = m_InstancePool.Spawn(assetPath);
             if (uiFormInstanceObject == null)
             {
+                Transform parentRoot = ((MonoBehaviour)uiGroup.Helper).transform;
                 m_UIFormsBeingLoaded.Add(serialId, uiFormAssetName);
                 OpenUIFormInfo openUIFormInfo = OpenUIFormInfo.Create(serialId, uiGroup, uiFormType, pauseCoveredUIForm, userData, isFullScreen);
                 if (uiFormAssetPath.IndexOf(Utility.Asset.Path.BundlesDirectoryName, StringComparison.OrdinalIgnoreCase) >= 0)
@@ -633,7 +634,7 @@ namespace GameFrameX.UI.UGUI.Runtime
                     var assetHandle = await m_AssetManager.LoadAssetAsync<UnityEngine.Object>(assetPath);
                     if (assetHandle.IsSucceed)
                     {
-                        GameObject gameObject = assetHandle.InstantiateSync();
+                        GameObject gameObject = assetHandle.InstantiateSync(parentRoot);
                         gameObject.name = uiFormAssetName;
                         return LoadAssetSuccessCallback(assetPath, gameObject, assetHandle.Progress, openUIFormInfo);
                     }
@@ -646,7 +647,7 @@ namespace GameFrameX.UI.UGUI.Runtime
                 {
                     // 从Resources 中加载
                     var original = (GameObject)Resources.Load(assetPath);
-                    var gameObject = UnityEngine.Object.Instantiate(original);
+                    var gameObject = UnityEngine.Object.Instantiate(original,parentRoot);
                     gameObject.name = uiFormAssetName;
                     return LoadAssetSuccessCallback(assetPath, gameObject, 0, openUIFormInfo);
                 }
