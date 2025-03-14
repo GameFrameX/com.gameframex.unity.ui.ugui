@@ -35,25 +35,42 @@ namespace GameFrameX.UI.UGUI.Runtime
         /// 创建界面。
         /// </summary>
         /// <param name="uiFormInstance">界面实例。</param>
-        /// <param name="uiGroup">界面所属的界面组。</param>
         /// <param name="uiFormType">界面逻辑类</param>
         /// <param name="userData">用户自定义数据。</param>
         /// <returns>界面。</returns>
-        public override IUIForm CreateUIForm(object uiFormInstance, IUIGroup uiGroup, Type uiFormType, object userData)
+        public override IUIForm CreateUIForm(object uiFormInstance, Type uiFormType, object userData)
         {
-            GameObject gameObject = uiFormInstance as GameObject;
-            if (gameObject == null)
+            var uiGameObject = uiFormInstance as GameObject;
+            if (uiGameObject == null)
             {
                 Log.Error("UI form instance is invalid.");
                 return null;
             }
 
-            Transform transform = gameObject.transform;
-            transform.SetParent(((MonoBehaviour)uiGroup.Helper).transform);
-            transform.localScale = Vector3.one;
+            var componentType = uiGameObject.GetOrAddComponent(uiFormType);
+            if (!(componentType is IUIForm uiForm))
+            {
+                Log.Error("UI form instance is invalid.");
+                return null;
+            }
 
-            var componentType = gameObject.GetOrAddComponent(uiFormType);
-            return componentType as IUIForm;
+            if (uiForm.IsAwake == false)
+            {
+                uiForm.OnAwake();
+            }
+
+            var uiGroup = uiForm.UIGroup;
+
+            if (uiGroup == null)
+            {
+                Log.Error("UI group is invalid.");
+                return null;
+            }
+
+            var uiTransform = uiGameObject.transform;
+            uiTransform.SetParent(((MonoBehaviour)uiGroup.Helper).transform);
+            uiTransform.localScale = Vector3.one;
+            return uiForm;
         }
 
         /// <summary>
