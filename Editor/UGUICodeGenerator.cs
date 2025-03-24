@@ -46,7 +46,7 @@ namespace GameFrameX.UI.UGUI.Editor
             string savePath = PathHelper.Combine(Application.dataPath, "Hotfix", "UI", "UGUI", className);
             CreateFoldersIfNotExist(savePath);
             var codeString = GenerateCode(selectedObject);
-            string filePath = Path.Combine(savePath, className + ".cs");
+            string filePath = Path.Combine(savePath, className + ".UI.cs");
             if (File.Exists(filePath))
             {
                 File.Delete(filePath);
