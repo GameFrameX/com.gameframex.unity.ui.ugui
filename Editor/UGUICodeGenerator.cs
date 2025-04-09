@@ -43,7 +43,7 @@ namespace GameFrameX.UI.UGUI.Editor
         internal static void Generate(GameObject selectedObject)
         {
             string className = selectedObject.name;
-            string savePath = PathHelper.Combine(Application.dataPath, "Hotfix", "UI", "UGUI", className);
+            string savePath = System.IO.Path.Combine(Application.dataPath, "Hotfix", "UI", "UGUI", className);
             CreateFoldersIfNotExist(savePath);
             var codeString = GenerateCode(selectedObject);
             string filePath = Path.Combine(savePath, className + ".UI.cs");
