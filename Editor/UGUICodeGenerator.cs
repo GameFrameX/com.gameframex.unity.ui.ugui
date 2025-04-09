@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Text;
-using GameFrameX.Runtime;
 using GameFrameX.UI.UGUI.Runtime;
 using UnityEditor;
 using UnityEngine;
@@ -55,7 +54,7 @@ namespace GameFrameX.UI.UGUI.Editor
             File.WriteAllText(filePath, codeString, Encoding.UTF8);
             AssetDatabase.Refresh();
 
-            Debug.Log("生成UI代码完成");
+            Debug.Log("生成UI代码完成 文件路径:" + filePath);
             Debug.Log("现在请将生成的代码挂载到当前的UGUI预制体上,然后点击重新绑定列表");
             return;
         }
