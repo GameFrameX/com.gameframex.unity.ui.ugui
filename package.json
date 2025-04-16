@@ -2,9 +2,9 @@
   "name": "com.gameframex.unity.ui.ugui",
   "displayName": "Game Frame X UI UGUI",
   "category": "Game Framework X",
-  "description": "Game Frame X UGUI Component",
-  "version": "1.0.6",
-  "unity": "2017.1",
+  "description": "独立游戏前后端一体化解决方案,独立游戏开发者的圆梦大使。\n文档地址: https://gameframex.doc.alianblank.com \n Game Frame X UGUI 组件 - Unity UI功能包，提供UGUI组件的封装，使UGUI组件的使用更加简单高效。",
+  "version": "1.2.3",
+  "unity": "2019.4",
   "keywords": [
     "Game Framework X"
   ],
@@ -18,5 +18,10 @@
     "email": "alianblank@outlook.com",
     "url": "https://gameframex.doc.alianblank.com"
   },
-  "dependencies": {}
+  "dependencies": {
+    "com.gameframex.unity": "1.1.1",
+    "com.gameframex.unity.ui": "1.0.0",
+    "com.gameframex.unity.asset": "1.0.6",
+    "com.gameframex.unity.event": "1.0.0"
+  }
 }
