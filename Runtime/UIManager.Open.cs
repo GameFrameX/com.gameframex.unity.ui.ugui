@@ -112,15 +112,15 @@ namespace GameFrameX.UI.UGUI.Runtime
             GameFrameworkGuard.NotNull(m_UIFormHelper, nameof(m_UIFormHelper));
             GameFrameworkGuard.NotNull(uiFormType, nameof(uiFormType));
             var uiFormAssetName = uiFormType.Name;
-            int serialId = ++m_Serial;
             string assetPath = PathHelper.Combine(uiFormAssetPath, uiFormAssetName);
             UIFormInstanceObject uiFormInstanceObject = m_InstancePool.Spawn(assetPath);
             if (uiFormInstanceObject != null && isMultiple == false)
             {
                 // 如果对象池存在
-                return InternalOpenUIForm(serialId, uiFormAssetName, uiFormType, uiFormInstanceObject.Target, pauseCoveredUIForm, false, 0f, userData, isFullScreen);
+                return InternalOpenUIForm(-1, uiFormAssetName, uiFormType, uiFormInstanceObject.Target, pauseCoveredUIForm, false, 0f, userData, isFullScreen);
             }
 
+            int serialId = ++m_Serial;
             m_UIFormsBeingLoaded.Add(serialId, uiFormAssetName);
             OpenUIFormInfo openUIFormInfo = OpenUIFormInfo.Create(serialId, uiFormType, pauseCoveredUIForm, userData, isFullScreen);
             if (uiFormAssetPath.IndexOf(Utility.Asset.Path.BundlesDirectoryName, StringComparison.OrdinalIgnoreCase) < 0)
