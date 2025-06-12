@@ -18,9 +18,6 @@ namespace GameFrameX.UI.UGUI.Runtime
     /// </summary>
     internal sealed partial class UIManager
     {
-        private EventHandler<OpenUIFormSuccessEventArgs> m_OpenUIFormSuccessEventHandler;
-        private EventHandler<OpenUIFormFailureEventArgs> m_OpenUIFormFailureEventHandler;
-
         // private EventHandler<OpenUIFormUpdateEventArgs> m_OpenUIFormUpdateEventHandler;
         // private EventHandler<OpenUIFormDependencyAssetEventArgs> m_OpenUIFormDependencyAssetEventHandler;
 
@@ -33,23 +30,6 @@ namespace GameFrameX.UI.UGUI.Runtime
             set { m_InstancePool.Priority = value; }
         }*/
 
-        /// <summary>
-        /// 打开界面成功事件。
-        /// </summary>
-        public event EventHandler<OpenUIFormSuccessEventArgs> OpenUIFormSuccess
-        {
-            add { m_OpenUIFormSuccessEventHandler += value; }
-            remove { m_OpenUIFormSuccessEventHandler -= value; }
-        }
-
-        /// <summary>
-        /// 打开界面失败事件。
-        /// </summary>
-        public event EventHandler<OpenUIFormFailureEventArgs> OpenUIFormFailure
-        {
-            add { m_OpenUIFormFailureEventHandler += value; }
-            remove { m_OpenUIFormFailureEventHandler -= value; }
-        }
 
         /*
         /// <summary>
@@ -69,51 +49,15 @@ namespace GameFrameX.UI.UGUI.Runtime
             add { m_OpenUIFormDependencyAssetEventHandler += value; }
             remove { m_OpenUIFormDependencyAssetEventHandler -= value; }
         }*/
-        /// <summary>
-        /// 打开界面。
-        /// </summary>
-        /// <param name="uiFormAssetPath">界面所在路径</param>
-        /// <param name="uiFormType">界面逻辑类型。</param>
-        /// <param name="pauseCoveredUIForm">是否暂停被覆盖的界面。</param>
-        /// <param name="userData">用户自定义数据。</param>
-        /// <param name="isFullScreen">是否全屏</param>
-        /// <returns>界面的序列编号。</returns>
-        public async Task<IUIForm> OpenUIFormAsync(string uiFormAssetPath, Type uiFormType, bool pauseCoveredUIForm, object userData, bool isFullScreen = false)
-        {
-            GameFrameworkGuard.NotNull(m_AssetManager, nameof(m_AssetManager));
-            GameFrameworkGuard.NotNull(m_UIFormHelper, nameof(m_UIFormHelper));
-            GameFrameworkGuard.NotNull(uiFormType, nameof(uiFormType));
 
-            return await InnerOpenUIFormAsync(uiFormAssetPath, uiFormType, pauseCoveredUIForm, userData, isFullScreen);
-        }
-
-        /// <summary>
-        /// 打开界面。
-        /// </summary>
-        /// <param name="uiFormAssetPath">界面所在路径</param>
-        /// <param name="pauseCoveredUIForm">是否暂停被覆盖的界面。</param>
-        /// <param name="userData">用户自定义数据。</param>
-        /// <param name="isFullScreen">是否是全屏</param>
-        /// <param name="isMultiple">是否创建新界面</param>
-        /// <returns>界面的序列编号。</returns>
-        public Task<IUIForm> OpenUIFormAsync<T>(string uiFormAssetPath, bool pauseCoveredUIForm, object userData, bool isFullScreen = false, bool isMultiple = false) where T : class, IUIForm
-        {
-            return InnerOpenUIFormAsync(uiFormAssetPath, typeof(T), pauseCoveredUIForm, userData, isFullScreen, isMultiple);
-        }
-
-        public async Task<IUIForm> OpenUIFormAsync(string uiFormAssetPath, Type uiFormType, bool pauseCoveredUIForm, object userData, bool isFullScreen = false, bool isMultiple = false)
-        {
-            return await InnerOpenUIFormAsync(uiFormAssetPath, uiFormType, pauseCoveredUIForm, userData, isFullScreen, isMultiple);
-        }
-
-        private async Task<IUIForm> InnerOpenUIFormAsync(string uiFormAssetPath, Type uiFormType, bool pauseCoveredUIForm, object userData, bool isFullScreen, bool isMultiple = false)
+        protected override async Task<IUIForm> InnerOpenUIFormAsync(string uiFormAssetPath, Type uiFormType, bool pauseCoveredUIForm, object userData, bool isFullScreen, bool isMultiple = false)
         {
             GameFrameworkGuard.NotNull(m_AssetManager, nameof(m_AssetManager));
             GameFrameworkGuard.NotNull(m_UIFormHelper, nameof(m_UIFormHelper));
             GameFrameworkGuard.NotNull(uiFormType, nameof(uiFormType));
             var uiFormAssetName = uiFormType.Name;
             string assetPath = PathHelper.Combine(uiFormAssetPath, uiFormAssetName);
-            UIFormInstanceObject uiFormInstanceObject = m_InstancePool.Spawn(assetPath);
+            var uiFormInstanceObject = m_InstancePool.Spawn(assetPath);
             if (uiFormInstanceObject != null && isMultiple == false)
             {
                 // 如果对象池存在
@@ -207,7 +151,7 @@ namespace GameFrameX.UI.UGUI.Runtime
             }
 
             m_UIFormsBeingLoaded.Remove(openUIFormInfo.SerialId);
-            UIFormInstanceObject uiFormInstanceObject = UIFormInstanceObject.Create(uiFormAssetName, uiFormAsset, m_UIFormHelper.InstantiateUIForm(uiFormAsset), m_UIFormHelper);
+            var uiFormInstanceObject = UIFormInstanceObject.Create(uiFormAssetName, uiFormAsset, m_UIFormHelper.InstantiateUIForm(uiFormAsset), m_UIFormHelper);
             m_InstancePool.Register(uiFormInstanceObject, true);
 
             var uiForm = InternalOpenUIForm(openUIFormInfo.SerialId, uiFormAssetName, openUIFormInfo.FormType, uiFormInstanceObject.Target, openUIFormInfo.PauseCoveredUIForm, true, duration, openUIFormInfo.UserData, openUIFormInfo.IsFullScreen);
@@ -273,28 +217,5 @@ namespace GameFrameX.UI.UGUI.Runtime
                 ReferencePool.Release(openUIFormDependencyAssetEventArgs);
             }
         }*/
-        /// <summary>
-        /// 激活界面。
-        /// </summary>
-        /// <param name="uiForm">要激活的界面。</param>
-        public void RefocusUIForm(IUIForm uiForm)
-        {
-            RefocusUIForm(uiForm, null);
-        }
-
-        /// <summary>
-        /// 激活界面。
-        /// </summary>
-        /// <param name="uiForm">要激活的界面。</param>
-        /// <param name="userData">用户自定义数据。</param>
-        public void RefocusUIForm(IUIForm uiForm, object userData)
-        {
-            GameFrameworkGuard.NotNull(uiForm, nameof(uiForm));
-            GameFrameworkGuard.NotNull(uiForm.UIGroup, nameof(uiForm.UIGroup));
-            UIGroup uiGroup = (UIGroup)uiForm.UIGroup;
-            uiGroup.RefocusUIForm(uiForm, userData);
-            uiGroup.Refresh();
-            uiForm.OnRefocus(userData);
-        }
     }
 }
