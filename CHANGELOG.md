@@ -1,5 +1,9 @@
 # Changelog
 
+## [2.0.0](https://github.com/GameFrameX/com.gameframex.unity.ui.ugui/tree/2.0.0) (2025-06-12)
+
+[Full Changelog](https://github.com/GameFrameX/com.gameframex.unity.ui.ugui/compare/1.2.5...2.0.0)
+
 ## [1.2.5](https://github.com/GameFrameX/com.gameframex.unity.ui.ugui/tree/1.2.5) (2025-05-31)
 
 [Full Changelog](https://github.com/GameFrameX/com.gameframex.unity.ui.ugui/compare/1.2.4...1.2.5)
