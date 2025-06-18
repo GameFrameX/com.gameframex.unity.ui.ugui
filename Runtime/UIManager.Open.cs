@@ -109,6 +109,8 @@ namespace GameFrameX.UI.UGUI.Runtime
                 }
 
                 uiForm.OnOpen(userData);
+                uiForm.BindEvent();
+                uiForm.LoadData();
                 uiForm.UpdateLocalization();
                 uiGroup.Refresh();
 
