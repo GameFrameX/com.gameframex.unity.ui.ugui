@@ -23,6 +23,6 @@ namespace GameFrameX.UI.UGUI.Editor
         /// </summary>
         /// <param name="transform">要转换的Transform</param>
         /// <returns>转换后的类型名称</returns>
-        public string Run(Transform transform);
+        string Run(Transform transform);
     }
 }
