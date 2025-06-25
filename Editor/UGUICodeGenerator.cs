@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using GameFrameX.Runtime;
 using GameFrameX.UI.UGUI.Runtime;
 using UnityEditor;
 using UnityEngine;
@@ -10,12 +12,12 @@ using UnityEngine.UI;
 namespace GameFrameX.UI.UGUI.Editor
 {
     /// <summary>
-    /// UGUI代码生成
+    /// UGUI代码生成器,用于自动生成UI代码文件
     /// </summary>
     internal static class UGUICodeGenerator
     {
         /// <summary>
-        /// 生成UI代码
+        /// 生成UI代码的菜单项
         /// </summary>
         [MenuItem("GameObject/UI/Generate UGUI Code(生成UGUI代码)", false, 1)]
         static void Code()
@@ -36,14 +38,40 @@ namespace GameFrameX.UI.UGUI.Editor
         }
 
         /// <summary>
-        /// 生成代码
+        /// UI控件类型转换处理器列表
         /// </summary>
-        /// <param name="selectedObject"></param>
+        private static List<IUGUIGeneratorCodeConvertTypeHandler> _handler;
+
+        /// <summary>
+        /// 生成UI代码的主要方法
+        /// </summary>
+        /// <param name="selectedObject">选中的游戏对象</param>
         internal static void Generate(GameObject selectedObject)
         {
+            // 获取所有实现了IUGUICodeConvertType接口的类型
+            var types = Utility.Assembly.GetTypes();
+            _handler = new List<IUGUIGeneratorCodeConvertTypeHandler>();
+            foreach (var type in types)
+            {
+                if (type.IsImplWithInterface(typeof(IUGUIGeneratorCodeConvertTypeHandler)))
+                {
+                    var handler = (IUGUIGeneratorCodeConvertTypeHandler)Activator.CreateInstance(type);
+                    _handler.Add(handler);
+                }
+            }
+
+            // 按优先级排序处理器
+            if (_handler.Count > 0)
+            {
+                _handler.Sort((x, y) => x.Priority.CompareTo(y.Priority));
+            }
+
+            // 设置代码生成路径
             string className = selectedObject.name;
             string savePath = System.IO.Path.Combine(Application.dataPath, "Hotfix", "UI", "UGUI", className);
             CreateFoldersIfNotExist(savePath);
+
+            // 生成代码并保存
             var codeString = GenerateCode(selectedObject);
             string filePath = Path.Combine(savePath, className + ".UI.cs");
             if (File.Exists(filePath))
@@ -59,11 +87,17 @@ namespace GameFrameX.UI.UGUI.Editor
             return;
         }
 
+        /// <summary>
+        /// 生成具体的代码内容
+        /// </summary>
+        /// <param name="selectedObject">选中的游戏对象</param>
+        /// <returns>生成的代码字符串</returns>
         private static string GenerateCode(GameObject selectedObject)
         {
             StringBuilder codeBuilder = new StringBuilder();
-            // 定义类名，可以根据预制体名称等规则来定，这里简单示例
             string className = selectedObject.name;
+
+            // 生成代码头部
             codeBuilder.AppendLine("/** This is an automatically generated class by UGUI. Please do not modify it. **/");
             codeBuilder.AppendLine();
             codeBuilder.AppendLine("#if ENABLE_UI_UGUI");
@@ -74,6 +108,8 @@ namespace GameFrameX.UI.UGUI.Editor
             codeBuilder.AppendLine("using GameFrameX.UI.UGUI.Runtime;");
             codeBuilder.AppendLine("using UnityEngine;");
             codeBuilder.AppendLine();
+
+            // 生成命名空间和类定义
             codeBuilder.AppendLine("namespace Hotfix.UI");
             codeBuilder.AppendLine("{");
             codeBuilder.AppendLine("\t/// <summary>");
@@ -83,16 +119,16 @@ namespace GameFrameX.UI.UGUI.Editor
             codeBuilder.AppendLine($"\tpublic sealed partial class {className} : UGUI");
             codeBuilder.AppendLine("\t{");
 
-
+            // 生成self属性
             codeBuilder.AppendLine("\t\tpublic GameObject self { get; private set; }");
             codeBuilder.AppendLine();
-            List<NodeInfo> nodeInfos = new List<NodeInfo>();
 
-            // 遍历所有子节点并生成获取子节点的代码
+            // 处理所有UI节点
+            List<NodeInfo> nodeInfos = new List<NodeInfo>();
             PropertyHandler(selectedObject, null, nodeInfos, true);
             PropertyCodeHandler(codeBuilder, nodeInfos);
 
-            // 生成预制体实例化代码
+            // 生成初始化方法
             codeBuilder.AppendLine("\t\tprotected override void InitView()");
             codeBuilder.AppendLine("\t\t{");
             codeBuilder.AppendLine("\t\t\tthis.self = this.gameObject;");
@@ -105,6 +141,11 @@ namespace GameFrameX.UI.UGUI.Editor
             return codeBuilder.ToString().Replace("\r\n", "\n");
         }
 
+        /// <summary>
+        /// 处理节点路径,生成完整的节点路径字符串
+        /// </summary>
+        /// <param name="nodeInfo">节点信息</param>
+        /// <returns>完整的节点路径</returns>
         private static string PathHandler(NodeInfo nodeInfo)
         {
             if (nodeInfo.Parent == null)
@@ -116,6 +157,11 @@ namespace GameFrameX.UI.UGUI.Editor
             return path;
         }
 
+        /// <summary>
+        /// 生成属性相关的代码
+        /// </summary>
+        /// <param name="codeBuilder">代码构建器</param>
+        /// <param name="nodeInfos">节点信息列表</param>
         private static void PropertyCodeHandler(StringBuilder codeBuilder, List<NodeInfo> nodeInfos)
         {
             codeBuilder.AppendLine("\t\t#region Properties");
@@ -131,6 +177,14 @@ namespace GameFrameX.UI.UGUI.Editor
             codeBuilder.AppendLine();
         }
 
+        /// <summary>
+        /// 处理UI预制体的属性,递归遍历所有子节点
+        /// </summary>
+        /// <param name="selectedObject">选中的游戏对象</param>
+        /// <param name="parentInfo">父节点信息</param>
+        /// <param name="nodeInfos">节点信息列表</param>
+        /// <param name="isRoot">是否为根节点</param>
+        /// <returns>是否成功处理</returns>
         private static bool PropertyHandler(GameObject selectedObject, NodeInfo parentInfo, List<NodeInfo> nodeInfos, bool isRoot = false)
         {
             var prefabAssetType = PrefabUtility.GetPrefabAssetType(selectedObject);
@@ -177,6 +231,9 @@ namespace GameFrameX.UI.UGUI.Editor
             return true;
         }
 
+        /// <summary>
+        /// UI节点信息类,用于存储节点的各种属性
+        /// </summary>
         class NodeInfo
         {
             /// <summary>
@@ -194,18 +251,43 @@ namespace GameFrameX.UI.UGUI.Editor
             /// </summary>
             public string Type { get; set; }
 
+            /// <summary>
+            /// 节点对应的GameObject
+            /// </summary>
             public GameObject GameObject { get; set; }
+
+            /// <summary>
+            /// 节点的Transform组件
+            /// </summary>
             public Transform Transform { get; set; }
+
+            /// <summary>
+            /// 父节点信息
+            /// </summary>
             public NodeInfo Parent { get; set; }
         }
 
         /// <summary>
-        /// UI 控件类型转换
+        /// UI控件类型转换,将Transform转换为对应的UI控件类型
         /// </summary>
-        /// <param name="transform"></param>
-        /// <returns></returns>
+        /// <param name="transform">要转换的Transform</param>
+        /// <returns>控件类型的完整名称</returns>
         private static string ConvertType(Transform transform)
         {
+            // 首先使用自定义处理器进行处理
+            if (_handler != null)
+            {
+                foreach (var handler in _handler)
+                {
+                    var type = handler.Run(transform);
+                    if (type != null)
+                    {
+                        return type;
+                    }
+                }
+            }
+
+            // 依次检查是否包含各种UI组件
             UIBehaviour component = transform.GetComponent<Button>();
             if (component != null)
             {
