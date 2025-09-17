@@ -6,6 +6,7 @@
 //------------------------------------------------------------
 
 using System;
+using System.Reflection;
 using GameFrameX.Asset.Runtime;
 using GameFrameX.Runtime;
 using GameFrameX.UI.Runtime;
@@ -21,6 +22,9 @@ namespace GameFrameX.UI.UGUI.Runtime
     [Preserve]
     public sealed class UGUIFormHelper : UIFormHelperBase
     {
+        private UIComponent m_UIComponent = null;
+        private AssetComponent m_AssetComponent = null;
+
         /// <summary>
         /// 实例化界面。
         /// </summary>
@@ -60,6 +64,14 @@ namespace GameFrameX.UI.UGUI.Runtime
             }
 
             var uiGroup = uiForm.UIGroup;
+            if (uiGroup == null)
+            {
+                var attribute = uiFormType.GetCustomAttribute(typeof(OptionUIGroup));
+                if (attribute is OptionUIGroup optionUIGroup)
+                {
+                    uiGroup = m_UIComponent.GetUIGroup(optionUIGroup.GroupName);
+                }
+            }
 
             if (uiGroup == null)
             {
@@ -82,6 +94,23 @@ namespace GameFrameX.UI.UGUI.Runtime
         {
             // m_AssetComponent.UnloadAsset(uiFormAsset);
             Destroy((Object)uiFormInstance);
+        }
+
+        private void Awake()
+        {
+            m_AssetComponent = GameEntry.GetComponent<AssetComponent>();
+            if (m_AssetComponent == null)
+            {
+                Log.Fatal("Asset component is invalid.");
+                return;
+            }
+
+            m_UIComponent = GameEntry.GetComponent<UIComponent>();
+            if (m_UIComponent == null)
+            {
+                Log.Fatal("UI component is invalid.");
+                return;
+            }
         }
     }
 }
