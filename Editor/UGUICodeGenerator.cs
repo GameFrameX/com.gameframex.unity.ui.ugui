@@ -30,6 +30,7 @@ namespace GameFrameX.UI.UGUI.Editor
                     if (PrefabUtility.GetPrefabAssetType(selectedObject) != PrefabAssetType.NotAPrefab)
                     {
                         Generate(selectedObject);
+                        return;
                     }
                 }
             }
