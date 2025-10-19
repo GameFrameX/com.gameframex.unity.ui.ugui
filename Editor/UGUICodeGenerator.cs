@@ -166,11 +166,19 @@ namespace GameFrameX.UI.UGUI.Editor
         private static void PropertyCodeHandler(StringBuilder codeBuilder, List<NodeInfo> nodeInfos)
         {
             codeBuilder.AppendLine("\t\t#region Properties");
+            codeBuilder.AppendLine();
+
             foreach (var nodeInfo in nodeInfos)
             {
                 string path = PathHandler(nodeInfo);
-                codeBuilder.AppendLine($"\t\t[SerializeField] [UGUIElementProperty(\"{path}\")] private {nodeInfo.Type} m{nodeInfo.Name};");
-                codeBuilder.AppendLine($"\t\tpublic {nodeInfo.Type} m_{nodeInfo.Name} {{ get {{ return m{nodeInfo.Name};}} }}");
+                codeBuilder.AppendLine($"\t\t[SerializeField] [UGUIElementProperty(\"{path}\")]");
+                codeBuilder.AppendLine($"\t\tprivate {nodeInfo.Type} {nodeInfo.Name};");
+                codeBuilder.AppendLine();
+
+                codeBuilder.AppendLine($"\t\tpublic {nodeInfo.Type} m_{nodeInfo.Name}");
+                codeBuilder.AppendLine($"\t\t{{");
+                codeBuilder.AppendLine($"\t\t\tget {{ return {nodeInfo.Name};}}");
+                codeBuilder.AppendLine($"\t\t}}");
                 codeBuilder.AppendLine();
             }
 
