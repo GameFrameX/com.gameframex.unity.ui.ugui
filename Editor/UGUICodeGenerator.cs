@@ -133,9 +133,9 @@ namespace GameFrameX.UI.UGUI.Editor
             codeBuilder.AppendLine("\t\tprotected override void InitView()");
             codeBuilder.AppendLine("\t\t{");
             codeBuilder.AppendLine("\t\t\tthis.self = this.gameObject;");
+            PropertyInitCodeHandler(codeBuilder, nodeInfos);
             codeBuilder.AppendLine("\t\t}");
 
-            codeBuilder.AppendLine();
             codeBuilder.AppendLine("\t}");
             codeBuilder.AppendLine("}");
             codeBuilder.AppendLine("#endif");
@@ -184,6 +184,20 @@ namespace GameFrameX.UI.UGUI.Editor
 
             codeBuilder.AppendLine("\t\t#endregion");
             codeBuilder.AppendLine();
+        }
+
+        /// <summary>
+        /// 生成属性相关的代码
+        /// </summary>
+        /// <param name="codeBuilder">代码构建器</param>
+        /// <param name="nodeInfos">节点信息列表</param>
+        private static void PropertyInitCodeHandler(StringBuilder codeBuilder, List<NodeInfo> nodeInfos)
+        {
+            foreach (var nodeInfo in nodeInfos)
+            {
+                string path = PathHandler(nodeInfo);
+                codeBuilder.AppendLine($"\t\t\t{nodeInfo.Name} = gameObject.transform.FindChildName(\"{path}\").GetComponent<{nodeInfo.Type}>();");
+            }
         }
 
         /// <summary>
