@@ -121,7 +121,15 @@ namespace GameFrameX.UI.UGUI.Editor
             codeBuilder.AppendLine();
 
             // 生成命名空间和类定义
-            codeBuilder.AppendLine("namespace Hotfix.UI");
+            if (assetPath.Contains(nameof(Resources)))
+            {
+                codeBuilder.AppendLine("namespace Unity.Startup");
+            }
+            else
+            {
+                codeBuilder.AppendLine("namespace Hotfix.UI");
+            }
+
             codeBuilder.AppendLine("{");
             codeBuilder.AppendLine("\t/// <summary>");
             codeBuilder.AppendLine($"\t/// 代码生成的UI代码{className}");
