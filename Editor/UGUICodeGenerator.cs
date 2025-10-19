@@ -49,6 +49,7 @@ namespace GameFrameX.UI.UGUI.Editor
         /// <param name="selectedObject">选中的游戏对象</param>
         internal static void Generate(GameObject selectedObject)
         {
+            var assetPath = AssetDatabase.GetAssetPath(selectedObject);
             // 获取所有实现了IUGUICodeConvertType接口的类型
             var types = Utility.Assembly.GetTypes();
             _handler = new List<IUGUIGeneratorCodeConvertTypeHandler>();
@@ -69,11 +70,20 @@ namespace GameFrameX.UI.UGUI.Editor
 
             // 设置代码生成路径
             string className = selectedObject.name;
-            string savePath = System.IO.Path.Combine(Application.dataPath, "Hotfix", "UI", "UGUI", className);
+            string savePath;
+            if (assetPath.Contains(nameof(Resources)))
+            {
+                savePath = System.IO.Path.Combine(Application.dataPath, "Scripts", "Game", "UGUI", className);
+            }
+            else
+            {
+                savePath = System.IO.Path.Combine(Application.dataPath, "Hotfix", "UI", "UGUI", className);
+            }
+
             CreateFoldersIfNotExist(savePath);
 
             // 生成代码并保存
-            var codeString = GenerateCode(selectedObject);
+            var codeString = GenerateCode(selectedObject, assetPath);
             string filePath = Path.Combine(savePath, className + ".UI.cs");
             if (File.Exists(filePath))
             {
@@ -93,7 +103,7 @@ namespace GameFrameX.UI.UGUI.Editor
         /// </summary>
         /// <param name="selectedObject">选中的游戏对象</param>
         /// <returns>生成的代码字符串</returns>
-        private static string GenerateCode(GameObject selectedObject)
+        private static string GenerateCode(GameObject selectedObject, string assetPath)
         {
             StringBuilder codeBuilder = new StringBuilder();
             string className = selectedObject.name;
