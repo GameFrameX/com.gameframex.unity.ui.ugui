@@ -209,7 +209,7 @@ namespace GameFrameX.UI.UGUI.Editor
                 var name = $"{child.name.Replace(" ", string.Empty).Replace("(", string.Empty).Replace(")", string.Empty)}";
                 if (parentInfo != null)
                 {
-                    name = $"{parentInfo.Name}__{name}";
+                    name = $"{parentInfo.Name}_{name}";
                 }
 
                 var nodeInfo = new NodeInfo()
