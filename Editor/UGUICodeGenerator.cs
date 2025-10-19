@@ -135,6 +135,11 @@ namespace GameFrameX.UI.UGUI.Editor
             codeBuilder.AppendLine($"\t/// 代码生成的UI代码{className}");
             codeBuilder.AppendLine("\t/// </summary>");
             codeBuilder.AppendLine("\t[DisallowMultipleComponent]");
+            if (!assetPath.Contains(nameof(Resources)))
+            {
+                codeBuilder.AppendLine($"\t[OptionUIConfig(null, \"{assetPath}\")]");
+            }
+
             codeBuilder.AppendLine($"\tpublic sealed partial class {className} : UGUI");
             codeBuilder.AppendLine("\t{");
 
