@@ -18,6 +18,12 @@ namespace GameFrameX.UI.UGUI.Runtime
                 typeof(UIManager),
                 typeof(UGUIFormHelper),
                 typeof(UGUI),
+                typeof(UGUIButtonExtension),
+                typeof(UGUIElementPropertyAttribute),
+                typeof(UGUIFormHelper),
+                typeof(UGUIUIGroupHelper),
+                typeof(UIImage),
+                typeof(UIManager),
             };
         }
     }
