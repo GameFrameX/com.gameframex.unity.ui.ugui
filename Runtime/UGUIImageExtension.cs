@@ -17,11 +17,13 @@ namespace GameFrameX.UI.UGUI.Runtime
         public static async void SetIcon(this UnityEngine.UI.Image self, string icon)
         {
             var assetComponent = GameEntry.GetComponent<AssetComponent>();
-            var valueHandle = await assetComponent.LoadAssetAsync<Texture2D>(icon);
-            if (valueHandle.IsSucceed)
+            using (var valueHandle = await assetComponent.LoadAssetAsync<Texture2D>(icon))
             {
-                var texture2D = valueHandle.GetAssetObject<Texture2D>();
-                self.sprite = Sprite.Create(texture2D, new Rect(0, 0, texture2D.width, texture2D.height), new Vector2(0.5f, 0.5f));
+                if (valueHandle.IsSucceed)
+                {
+                    var texture2D = valueHandle.GetAssetObject<Texture2D>();
+                    self.sprite = Sprite.Create(texture2D, new Rect(0, 0, texture2D.width, texture2D.height), new Vector2(0.5f, 0.5f));
+                }
             }
         }
     }
