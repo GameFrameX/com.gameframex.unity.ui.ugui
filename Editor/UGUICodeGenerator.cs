@@ -50,6 +50,12 @@ namespace GameFrameX.UI.UGUI.Editor
         internal static void Generate(GameObject selectedObject)
         {
             var assetPath = AssetDatabase.GetAssetPath(selectedObject);
+
+            if (assetPath.IsNullOrWhiteSpace())
+            {
+                assetPath = PrefabUtility.GetPrefabAssetPathOfNearestInstanceRoot(selectedObject);
+            }
+
             // 获取所有实现了IUGUICodeConvertType接口的类型
             var types = Utility.Assembly.GetTypes();
             _handler = new List<IUGUIGeneratorCodeConvertTypeHandler>();
@@ -137,7 +143,10 @@ namespace GameFrameX.UI.UGUI.Editor
             codeBuilder.AppendLine("\t[DisallowMultipleComponent]");
             if (!assetPath.Contains(nameof(Resources)))
             {
-                codeBuilder.AppendLine($"\t[OptionUIConfig(null, \"{assetPath.Substring(0, assetPath.LastIndexOf('/'))}\")]");
+                if (assetPath.IsNotNullOrWhiteSpace())
+                {
+                    codeBuilder.AppendLine($"\t[OptionUIConfig(null, \"{assetPath.Substring(0, assetPath.LastIndexOf('/'))}\")]");
+                }
             }
 
             codeBuilder.AppendLine($"\tpublic sealed partial class {className} : UGUI");
