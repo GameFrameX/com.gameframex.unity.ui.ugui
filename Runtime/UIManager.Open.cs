@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using GameFrameX.Runtime;
 using GameFrameX.UI.Runtime;
 using UnityEngine;
+using YooAsset;
 
 namespace GameFrameX.UI.UGUI.Runtime
 {
@@ -50,7 +51,7 @@ namespace GameFrameX.UI.UGUI.Runtime
             remove { m_OpenUIFormDependencyAssetEventHandler -= value; }
         }*/
 
-        protected override async Task<IUIForm> InnerOpenUIFormAsync(string uiFormAssetPath, Type uiFormType, bool pauseCoveredUIForm, object userData, bool isFullScreen, bool isMultiple = false)
+        protected override async Task<IUIForm> InnerOpenUIFormAsync(string uiFormAssetPath, Type uiFormType, bool pauseCoveredUIForm, object userData, bool isFullScreen = false, bool isMultiple = false)
         {
             GameFrameworkGuard.NotNull(m_AssetManager, nameof(m_AssetManager));
             GameFrameworkGuard.NotNull(m_UIFormHelper, nameof(m_UIFormHelper));
@@ -78,7 +79,7 @@ namespace GameFrameX.UI.UGUI.Runtime
 
             // 从包中加载
             var assetHandle = await m_AssetManager.LoadAssetAsync<UnityEngine.Object>(assetPath);
-            if (assetHandle.IsSucceed)
+            if (assetHandle.IsSucceed())
             {
                 // 加载成功
                 var gameObject = assetHandle.InstantiateSync();
