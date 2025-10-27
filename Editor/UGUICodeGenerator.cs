@@ -137,7 +137,7 @@ namespace GameFrameX.UI.UGUI.Editor
             codeBuilder.AppendLine("\t[DisallowMultipleComponent]");
             if (!assetPath.Contains(nameof(Resources)))
             {
-                codeBuilder.AppendLine($"\t[OptionUIConfig(null, \"{assetPath}\")]");
+                codeBuilder.AppendLine($"\t[OptionUIConfig(null, \"{assetPath.Substring(0, assetPath.LastIndexOf('/'))}\")]");
             }
 
             codeBuilder.AppendLine($"\tpublic sealed partial class {className} : UGUI");
