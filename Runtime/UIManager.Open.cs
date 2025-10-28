@@ -1,8 +1,33 @@
-﻿// GameFrameX 组织下的以及组织衍生的项目的版权、商标、专利和其他相关权利均受相应法律法规的保护。使用本项目应遵守相关法律法规和许可证的要求。
+﻿// ==========================================================================================
+//  GameFrameX 组织及其衍生项目的版权、商标、专利及其他相关权利
+//  GameFrameX organization and its derivative projects' copyrights, trademarks, patents, and related rights
+//  均受中华人民共和国及相关国际法律法规保护。
+//  are protected by the laws of the People's Republic of China and relevant international regulations.
 // 
-// 本项目主要遵循 MIT 许可证和 Apache 许可证（版本 2.0）进行分发和使用。许可证位于源代码树根目录中的 LICENSE 文件。
+//  使用本项目须严格遵守相应法律法规及开源许可证之规定。
+//  Usage of this project must strictly comply with applicable laws, regulations, and open-source licenses.
 // 
-// 不得利用本项目从事危害国家安全、扰乱社会秩序、侵犯他人合法权益等法律法规禁止的活动！任何基于本项目二次开发而产生的一切法律纠纷和责任，我们不承担任何责任！
+//  本项目采用 MIT 许可证与 Apache License 2.0 双许可证分发，
+//  This project is dual-licensed under the MIT License and Apache License 2.0,
+//  完整许可证文本请参见源代码根目录下的 LICENSE 文件。
+//  please refer to the LICENSE file in the root directory of the source code for the full license text.
+// 
+//  禁止利用本项目实施任何危害国家安全、破坏社会秩序、
+//  It is prohibited to use this project to engage in any activities that endanger national security, disrupt social order,
+//  侵犯他人合法权益等法律法规所禁止的行为！
+//  or infringe upon the legitimate rights and interests of others, as prohibited by laws and regulations!
+//  因基于本项目二次开发所产生的一切法律纠纷与责任，
+//  Any legal disputes and liabilities arising from secondary development based on this project
+//  本项目组织与贡献者概不承担。
+//  shall be borne solely by the developer; the project organization and contributors assume no responsibility.
+// 
+//  GitHub 仓库：https://github.com/GameFrameX
+//  GitHub Repository: https://github.com/GameFrameX
+//  Gitee  仓库：https://gitee.com/GameFrameX
+//  Gitee Repository:  https://gitee.com/GameFrameX
+//  官方文档：https://gameframex.doc.alianblank.com/
+//  Official Documentation: https://gameframex.doc.alianblank.com/
+// ==========================================================================================
 
 using System;
 using System.Collections.Generic;
@@ -19,38 +44,6 @@ namespace GameFrameX.UI.UGUI.Runtime
     /// </summary>
     internal sealed partial class UIManager
     {
-        // private EventHandler<OpenUIFormUpdateEventArgs> m_OpenUIFormUpdateEventHandler;
-        // private EventHandler<OpenUIFormDependencyAssetEventArgs> m_OpenUIFormDependencyAssetEventHandler;
-
-        /*/// <summary>
-        /// 获取或设置界面实例对象池的优先级。
-        /// </summary>
-        public int InstancePriority
-        {
-            get { return m_InstancePool.Priority; }
-            set { m_InstancePool.Priority = value; }
-        }*/
-
-
-        /*
-        /// <summary>
-        /// 打开界面更新事件。
-        /// </summary>
-        public event EventHandler<OpenUIFormUpdateEventArgs> OpenUIFormUpdate
-        {
-            add { m_OpenUIFormUpdateEventHandler += value; }
-            remove { m_OpenUIFormUpdateEventHandler -= value; }
-        }
-
-        /// <summary>
-        /// 打开界面时加载依赖资源事件。
-        /// </summary>
-        public event EventHandler<OpenUIFormDependencyAssetEventArgs> OpenUIFormDependencyAsset
-        {
-            add { m_OpenUIFormDependencyAssetEventHandler += value; }
-            remove { m_OpenUIFormDependencyAssetEventHandler -= value; }
-        }*/
-
         protected override async Task<IUIForm> InnerOpenUIFormAsync(string uiFormAssetPath, Type uiFormType, bool pauseCoveredUIForm, object userData, bool isFullScreen = false, bool isMultiple = false)
         {
             GameFrameworkGuard.NotNull(m_AssetManager, nameof(m_AssetManager));
@@ -187,38 +180,5 @@ namespace GameFrameX.UI.UGUI.Runtime
 
             throw new GameFrameworkException(appendErrorMessage);
         }
-
-        /*
-        private void LoadAssetUpdateCallback(string uiFormAssetName, float progress, object userData)
-        {
-            OpenUIFormInfo openUIFormInfo = (OpenUIFormInfo)userData;
-            if (openUIFormInfo == null)
-            {
-                throw new GameFrameworkException("Open UI form info is invalid.");
-            }
-
-            if (m_OpenUIFormUpdateEventHandler != null)
-            {
-                OpenUIFormUpdateEventArgs openUIFormUpdateEventArgs = OpenUIFormUpdateEventArgs.Create(openUIFormInfo.SerialId, uiFormAssetName, openUIFormInfo.UIGroup.Name, openUIFormInfo.PauseCoveredUIForm, progress, openUIFormInfo.UserData);
-                m_OpenUIFormUpdateEventHandler(this, openUIFormUpdateEventArgs);
-                ReferencePool.Release(openUIFormUpdateEventArgs);
-            }
-        }
-
-        private void LoadAssetDependencyAssetCallback(string uiFormAssetName, string dependencyAssetName, int loadedCount, int totalCount, object userData)
-        {
-            OpenUIFormInfo openUIFormInfo = (OpenUIFormInfo)userData;
-            if (openUIFormInfo == null)
-            {
-                throw new GameFrameworkException("Open UI form info is invalid.");
-            }
-
-            if (m_OpenUIFormDependencyAssetEventHandler != null)
-            {
-                OpenUIFormDependencyAssetEventArgs openUIFormDependencyAssetEventArgs = OpenUIFormDependencyAssetEventArgs.Create(openUIFormInfo.SerialId, uiFormAssetName, openUIFormInfo.UIGroup.Name, openUIFormInfo.PauseCoveredUIForm, dependencyAssetName, loadedCount, totalCount, openUIFormInfo.UserData);
-                m_OpenUIFormDependencyAssetEventHandler(this, openUIFormDependencyAssetEventArgs);
-                ReferencePool.Release(openUIFormDependencyAssetEventArgs);
-            }
-        }*/
     }
 }
