@@ -193,8 +193,16 @@ namespace GameFrameX.UI.UGUI.Editor
             PropertyCodeHandler(codeBuilder, nodeInfos);
 
             // 生成初始化方法
+            codeBuilder.AppendLine("\t\tprivate bool _isInitView = false;");
+            codeBuilder.AppendLine();
             codeBuilder.AppendLine("\t\tprotected override void InitView()");
             codeBuilder.AppendLine("\t\t{");
+            codeBuilder.AppendLine("\t\t\tif (_isInitView)");
+            codeBuilder.AppendLine("\t\t\t{");
+            codeBuilder.AppendLine("\t\t\t\treturn;");
+            codeBuilder.AppendLine("\t\t\t}");
+            codeBuilder.AppendLine();
+            codeBuilder.AppendLine("\t\t\t_isInitView = true;");
             codeBuilder.AppendLine("\t\t\tthis.self = this.gameObject;");
             PropertyInitCodeHandler(codeBuilder, nodeInfos);
             codeBuilder.AppendLine("\t\t}");
