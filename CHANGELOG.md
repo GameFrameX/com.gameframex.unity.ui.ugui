@@ -1,5 +1,13 @@
 # Changelog
 
+## [Unreleased](https://github.com/GameFrameX/com.gameframex.unity.ui.ugui/tree/HEAD)
+
+[Full Changelog](https://github.com/GameFrameX/com.gameframex.unity.ui.ugui/compare/2.1.3...HEAD)
+
+**Closed issues:**
+
+- 关于UGUI中InitView\(\)逻辑的调用时机问题 [\#2](https://github.com/GameFrameX/com.gameframex.unity.ui.ugui/issues/2)
+
 ## [2.1.3](https://github.com/GameFrameX/com.gameframex.unity.ui.ugui/tree/2.1.3) (2025-10-27)
 
 [Full Changelog](https://github.com/GameFrameX/com.gameframex.unity.ui.ugui/compare/2.1.2...2.1.3)
