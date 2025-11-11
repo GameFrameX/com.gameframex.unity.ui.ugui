@@ -77,6 +77,7 @@ namespace GameFrameX.UI.UGUI.Runtime
                 // 加载成功
                 var gameObject = assetHandle.InstantiateSync();
                 gameObject.name = uiFormAssetName;
+                openUIFormInfo.SetAssetHandle(assetHandle);
                 return LoadAssetSuccessCallback(assetPath, gameObject, assetHandle.Progress, openUIFormInfo);
             }
 
@@ -147,13 +148,13 @@ namespace GameFrameX.UI.UGUI.Runtime
             {
                 var form = GetUIForm(openUIFormInfo.SerialId);
                 m_UIFormsToReleaseOnLoad.Remove(openUIFormInfo.SerialId);
+                m_UIFormHelper.ReleaseUIForm(uiFormAsset, null, openUIFormInfo.AssetHandle);
                 ReferencePool.Release(openUIFormInfo);
-                m_UIFormHelper.ReleaseUIForm(uiFormAsset, null);
                 return form;
             }
 
             m_UIFormsBeingLoaded.Remove(openUIFormInfo.SerialId);
-            var uiFormInstanceObject = UIFormInstanceObject.Create(uiFormAssetName, uiFormAsset, m_UIFormHelper.InstantiateUIForm(uiFormAsset), m_UIFormHelper);
+            var uiFormInstanceObject = UIFormInstanceObject.Create(uiFormAssetName, uiFormAsset, m_UIFormHelper.InstantiateUIForm(uiFormAsset), m_UIFormHelper, openUIFormInfo.AssetHandle);
             m_InstancePool.Register(uiFormInstanceObject, true);
 
             var uiForm = InternalOpenUIForm(openUIFormInfo.SerialId, uiFormAssetName, openUIFormInfo.FormType, uiFormInstanceObject.Target, openUIFormInfo.PauseCoveredUIForm, true, duration, openUIFormInfo.UserData, openUIFormInfo.IsFullScreen);
