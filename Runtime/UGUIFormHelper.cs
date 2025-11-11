@@ -97,6 +97,7 @@ namespace GameFrameX.UI.UGUI.Runtime
                 }
             }
 
+            uiForm.UIGroup = uiGroup;
             if (uiGroup == null)
             {
                 Log.Error("UI group is invalid.");
