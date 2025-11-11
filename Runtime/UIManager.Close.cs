@@ -48,17 +48,24 @@ namespace GameFrameX.UI.UGUI.Runtime
         protected override void RecycleUIForm(IUIForm uiForm, bool isDispose = false)
         {
             uiForm.OnRecycle();
-            if (isDispose)
+            if (!isDispose)
             {
-                var formHandle = uiForm.Handle as GameObject;
-                if (formHandle)
-                {
-                    formHandle.DestroyObject();
-                }
-
                 return;
             }
 
+            var formHandle = uiForm.Handle as GameObject;
+            if (formHandle)
+            {
+                formHandle.DestroyObject();
+            }
+        }
+
+        /// <summary>
+        /// 回收界面实例对象到实例池。
+        /// </summary>
+        /// <param name="uiForm">要回收的界面实例对象。</param>
+        protected override void RecycleToPoolUIForm(IUIForm uiForm)
+        {
             m_InstancePool.Unspawn(uiForm.Handle);
         }
     }
