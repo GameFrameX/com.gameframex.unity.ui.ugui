@@ -56,7 +56,7 @@ namespace GameFrameX.UI.UGUI.Runtime
             var formHandle = uiForm.Handle as GameObject;
             if (formHandle)
             {
-                formHandle.DestroyObject();
+                m_InstancePool.ReleaseObject(uiForm.Handle);
             }
         }
 
