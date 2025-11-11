@@ -90,14 +90,15 @@ namespace GameFrameX.UI.UGUI.Runtime
             var uiGroup = uiForm.UIGroup;
             if (uiGroup == null)
             {
-                var attribute = uiFormType.GetCustomAttribute(typeof(OptionUIGroup));
-                if (attribute is OptionUIGroup optionUIGroup)
+                var attribute = uiFormType.GetCustomAttribute(typeof(OptionUIGroupAttribute));
+                if (attribute is OptionUIGroupAttribute optionUIGroup)
                 {
                     uiGroup = m_UIComponent.GetUIGroup(optionUIGroup.GroupName);
                 }
+
+                uiForm.UIGroup = uiGroup;
             }
 
-            uiForm.UIGroup = uiGroup;
             if (uiGroup == null)
             {
                 Log.Error("UI group is invalid.");
