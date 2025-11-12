@@ -71,14 +71,14 @@ namespace GameFrameX.UI.UGUI.Runtime
             var uiGameObject = uiFormInstance as GameObject;
             if (uiGameObject == null)
             {
-                Log.Error("UI form instance is invalid.");
+                Log.Error($"UI form instance type {uiFormType} is invalid.");
                 return null;
             }
 
             var componentType = uiGameObject.GetOrAddComponent(uiFormType);
             if (!(componentType is IUIForm uiForm))
             {
-                Log.Error("UI form instance is invalid.");
+                Log.Error($"UI form instance type {uiFormType} is invalid.");
                 return null;
             }
 
