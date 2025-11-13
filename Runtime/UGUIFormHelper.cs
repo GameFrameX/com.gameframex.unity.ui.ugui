@@ -106,12 +106,20 @@ namespace GameFrameX.UI.UGUI.Runtime
                 uiForm.EnableShowAnimation = optionShowAnimation.Enable;
                 uiForm.ShowAnimationName = optionShowAnimation.AnimationName;
             }
+            else
+            {
+                uiForm.EnableShowAnimation = m_UIComponent.IsEnableUIShowAnimation;
+            }
 
             var hideAnimationAttribute = uiFormType.GetCustomAttribute(typeof(OptionUIHideAnimationAttribute));
             if (hideAnimationAttribute is OptionUIHideAnimationAttribute optionHideAnimation)
             {
                 uiForm.EnableHideAnimation = optionHideAnimation.Enable;
                 uiForm.HideAnimationName = optionHideAnimation.AnimationName;
+            }
+            else
+            {
+                uiForm.EnableHideAnimation = m_UIComponent.IsEnableUIHideAnimation;
             }
 
             if (uiGroup == null)
