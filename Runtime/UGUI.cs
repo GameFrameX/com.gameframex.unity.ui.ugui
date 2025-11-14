@@ -29,6 +29,7 @@
 //  Official Documentation: https://gameframex.doc.alianblank.com/
 // ==========================================================================================
 
+using System;
 using GameFrameX.UI.Runtime;
 using UnityEngine;
 using UnityEngine.Scripting;
@@ -37,8 +38,43 @@ namespace GameFrameX.UI.UGUI.Runtime
 {
     [Preserve]
     [DisallowMultipleComponent]
-    public abstract class UGUI : UIForm
+    public class UGUI : UIForm
     {
+        /// <summary>
+        /// 界面显示。
+        /// </summary>
+        /// <param name="handler">界面显示处理接口</param>
+        /// <param name="complete">完成回调</param>
+        public override void Show(IUIFormShowHandler handler, Action complete)
+        {
+            if (handler != null)
+            {
+                handler.Handler(Handle, EnableShowAnimation, ShowAnimationName, complete);
+            }
+            else
+            {
+                complete?.Invoke();
+            }
+        }
+
+
+        /// <summary>
+        /// 界面隐藏。
+        /// </summary>
+        /// <param name="handler">界面隐藏处理接口</param>
+        /// <param name="complete">完成回调</param>
+        public override void Hide(IUIFormHideHandler handler, Action complete)
+        {
+            if (handler != null)
+            {
+                handler.Handler(Handle, EnableHideAnimation, HideAnimationName, complete);
+            }
+            else
+            {
+                complete?.Invoke();
+            }
+        }
+
         /// <summary>
         /// 设置UI的显示状态，不发出事件
         /// </summary>
