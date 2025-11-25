@@ -144,7 +144,7 @@ namespace GameFrameX.UI.UGUI.Runtime
                 throw new GameFrameworkException("Open UI form info is invalid.");
             }
 
-            if (m_UIFormsToReleaseOnLoad.ContainsKey(openUIFormInfo.SerialId))
+            if (m_UIFormsToReleaseOnLoad.Contains(openUIFormInfo.SerialId))
             {
                 var form = GetUIForm(openUIFormInfo.SerialId);
                 m_UIFormsToReleaseOnLoad.Remove(openUIFormInfo.SerialId);
@@ -170,10 +170,11 @@ namespace GameFrameX.UI.UGUI.Runtime
                 throw new GameFrameworkException("Open UI form info is invalid.");
             }
 
-            if (m_UIFormsToReleaseOnLoad.ContainsKey(openUIFormInfo.SerialId))
+            if (m_UIFormsToReleaseOnLoad.Contains(openUIFormInfo.SerialId))
             {
                 var uiForm = GetUIForm(openUIFormInfo.SerialId);
                 m_UIFormsToReleaseOnLoad.Remove(openUIFormInfo.SerialId);
+                ReferencePool.Release(openUIFormInfo);
                 return uiForm;
             }
 
