@@ -96,7 +96,7 @@ namespace GameFrameX.UI.UGUI.Runtime
                 }
 
                 var uiGroup = uiForm.UIGroup;
-                uiForm.Init(serialId, uiFormAssetName, uiGroup, null, pauseCoveredUIForm, isNewInstance, userData, isFullScreen);
+                uiForm.Init(serialId, uiFormAssetName, uiGroup, null, pauseCoveredUIForm, isNewInstance, userData, RecycleInterval, isFullScreen);
 
                 if (!uiGroup.InternalHasInstanceUIForm(uiFormAssetName, uiForm))
                 {
