@@ -58,15 +58,10 @@ namespace GameFrameX.UI.UGUI.Runtime
             {
                 m_InstancePool.ReleaseObject(uiForm.Handle);
             }
-        }
-
-        /// <summary>
-        /// 回收界面实例对象到实例池。
-        /// </summary>
-        /// <param name="uiForm">要回收的界面实例对象。</param>
-        protected override void RecycleToPoolUIForm(IUIForm uiForm)
-        {
-            m_InstancePool.Unspawn(uiForm.Handle);
+            else
+            {
+                m_InstancePool.Unspawn(uiForm.Handle);
+            }
         }
     }
 }
