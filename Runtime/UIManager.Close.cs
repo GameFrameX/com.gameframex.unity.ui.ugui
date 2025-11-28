@@ -48,13 +48,13 @@ namespace GameFrameX.UI.UGUI.Runtime
         protected override void RecycleUIForm(IUIForm uiForm, bool isDispose = false)
         {
             uiForm.OnRecycle();
-            if (!isDispose)
+            var formHandle = uiForm.Handle as GameObject;
+            if(!formHandle)
             {
                 return;
             }
 
-            var formHandle = uiForm.Handle as GameObject;
-            if (formHandle)
+            if (isDispose)
             {
                 m_InstancePool.ReleaseObject(uiForm.Handle);
             }
