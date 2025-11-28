@@ -49,18 +49,15 @@ namespace GameFrameX.UI.UGUI.Runtime
         {
             uiForm.OnRecycle();
             var formHandle = uiForm.Handle as GameObject;
-            if(!formHandle)
+            if (!formHandle)
             {
                 return;
             }
 
+            m_InstancePool.Unspawn(uiForm.Handle);
             if (isDispose)
             {
                 m_InstancePool.ReleaseObject(uiForm.Handle);
-            }
-            else
-            {
-                m_InstancePool.Unspawn(uiForm.Handle);
             }
         }
     }
