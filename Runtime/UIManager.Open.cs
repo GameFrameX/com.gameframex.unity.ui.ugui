@@ -44,7 +44,7 @@ namespace GameFrameX.UI.UGUI.Runtime
     /// </summary>
     internal sealed partial class UIManager
     {
-        protected override async Task<IUIForm> InnerOpenUIFormAsync(string uiFormAssetPath, Type uiFormType, bool pauseCoveredUIForm, object userData, bool isFullScreen = false, bool isMultiple = false)
+        protected override async Task<IUIForm> InnerOpenUIFormAsync(string uiFormAssetPath, Type uiFormType, bool pauseCoveredUIForm, object userData, bool isFullScreen = false)
         {
             GameFrameworkGuard.NotNull(m_AssetManager, nameof(m_AssetManager));
             GameFrameworkGuard.NotNull(m_UIFormHelper, nameof(m_UIFormHelper));
@@ -52,7 +52,7 @@ namespace GameFrameX.UI.UGUI.Runtime
             var uiFormAssetName = uiFormType.Name;
             string assetPath = PathHelper.Combine(uiFormAssetPath, uiFormAssetName);
             var uiFormInstanceObject = m_InstancePool.Spawn(assetPath);
-            if (uiFormInstanceObject != null && isMultiple == false)
+            if (uiFormInstanceObject != null)
             {
                 // 如果对象池存在
                 return InternalOpenUIForm(-1, uiFormAssetName, uiFormType, uiFormInstanceObject.Target, pauseCoveredUIForm, false, 0f, userData, isFullScreen);
