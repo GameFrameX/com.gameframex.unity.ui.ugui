@@ -44,6 +44,9 @@ namespace GameFrameX.UI.UGUI.Runtime
     /// </summary>
     internal sealed partial class UIManager
     {
+        private readonly List<UIFormLoadingObject> m_LoadingUIForms = new List<UIFormLoadingObject>(64);
+        private readonly List<UIFormLoadingObject> m_UIFormsRemoveList = new List<UIFormLoadingObject>(64);
+
         protected override async Task<IUIForm> InnerOpenUIFormAsync(string uiFormAssetPath, Type uiFormType, bool pauseCoveredUIForm, object userData, bool isFullScreen = false)
         {
             GameFrameworkGuard.NotNull(m_AssetManager, nameof(m_AssetManager));
@@ -58,6 +61,43 @@ namespace GameFrameX.UI.UGUI.Runtime
                 return InternalOpenUIForm(-1, uiFormAssetName, uiFormType, uiFormInstanceObject.Target, pauseCoveredUIForm, false, 0f, userData, isFullScreen);
             }
 
+            var uiForm = InnerLoadUIFormAsync(uiFormAssetPath, uiFormType, pauseCoveredUIForm, userData, isFullScreen, uiFormAssetName, assetPath);
+            UIFormLoadingObject uiFormLoadingObject = UIFormLoadingObject.Create(uiFormAssetPath, uiFormAssetName, uiFormType, uiForm);
+            m_LoadingUIForms.Add(uiFormLoadingObject);
+            var result = await uiForm;
+
+            foreach (var value in m_LoadingUIForms)
+            {
+                if (value.UIFormAssetPath == uiFormAssetPath && value.UIFormAssetName == uiFormAssetName && value.UIFormType == uiFormType)
+                {
+                    m_UIFormsRemoveList.Add(value);
+                }
+            }
+
+            foreach (var value in m_UIFormsRemoveList)
+            {
+                m_LoadingUIForms.Remove(value);
+                ReferencePool.Release(value);
+            }
+
+            m_UIFormsRemoveList.Clear();
+
+            return result;
+        }
+
+        /// <summary>
+        /// 异步加载界面。
+        /// </summary>
+        /// <param name="uiFormAssetPath">界面资源路径。</param>
+        /// <param name="uiFormType">界面类型。</param>
+        /// <param name="pauseCoveredUIForm">是否暂停被覆盖的界面。</param>
+        /// <param name="userData">用户自定义数据。</param>
+        /// <param name="isFullScreen">是否全屏显示。</param>
+        /// <param name="uiFormAssetName">界面资源名称。</param>
+        /// <param name="assetPath">界面资源路径。</param>
+        /// <returns>界面实例。</returns>
+        private async Task<IUIForm> InnerLoadUIFormAsync(string uiFormAssetPath, Type uiFormType, bool pauseCoveredUIForm, object userData, bool isFullScreen, string uiFormAssetName, string assetPath)
+        {
             int serialId = ++m_Serial;
             m_UIFormsBeingLoaded.Add(serialId, uiFormAssetName);
             OpenUIFormInfo openUIFormInfo = OpenUIFormInfo.Create(serialId, uiFormType, pauseCoveredUIForm, userData, isFullScreen);
