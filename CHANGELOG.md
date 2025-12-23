@@ -1,3 +1,26 @@
+# [2.2.0](https://github.com/gameframex/com.gameframex.unity.ui.ugui/compare/2.1.4...2.2.0) (2025-12-23)
+
+
+### Bug Fixes
+
+* **UGUIFormHelper:** 改进无效UI表单实例的错误日志信息 ([d10994e](https://github.com/gameframex/com.gameframex.unity.ui.ugui/commit/d10994e9643a851ec10b5c835cbffee82307ee32))
+* **UGUI:** 修复UI表单组分配逻辑错误 ([046b6af](https://github.com/gameframex/com.gameframex.unity.ui.ugui/commit/046b6afe4653664eec4f4a54fca64313a0740b36))
+* **UGUI:** 修复未设置UIForm的UIGroup问题 ([cc108b1](https://github.com/gameframex/com.gameframex.unity.ui.ugui/commit/cc108b1ca748bbf45839bfa0e0331cb21cdce3aa))
+* **UGUI:** 当未设置动画属性时使用默认动画配置 ([a8f7bc9](https://github.com/gameframex/com.gameframex.unity.ui.ugui/commit/a8f7bc917089b1b0a1091507366adb6d9ea69877))
+* **UIManager:** 使用对象池释放UI对象而非直接销毁 ([36eb439](https://github.com/gameframex/com.gameframex.unity.ui.ugui/commit/36eb439d5ec4f8f857102464cba894ef0f4a3763))
+* **UIManager:** 修复UI回收逻辑并添加回收至实例池方法 ([5a0d772](https://github.com/gameframex/com.gameframex.unity.ui.ugui/commit/5a0d772bb0223e668c4e155329ea3884d74434b3))
+* **UIManager:** 修复UI表单释放时未正确释放资源的问题 ([5f872e3](https://github.com/gameframex/com.gameframex.unity.ui.ugui/commit/5f872e3949be2878fc977446c056589b37e9423a))
+* **UIManager:** 修复UI表单释放时的重复获取问题 ([5364481](https://github.com/gameframex/com.gameframex.unity.ui.ugui/commit/5364481768f1062061a683c6efc317c3be12240c))
+* **UI资源管理:** 修复UI资源释放时未处理资源句柄的问题 ([f19b290](https://github.com/gameframex/com.gameframex.unity.ui.ugui/commit/f19b2900f4951b93c085f2701c8e112dda5cea21))
+* 在UIForm.Init调用中添加RecycleInterval参数 ([d094245](https://github.com/gameframex/com.gameframex.unity.ui.ugui/commit/d09424506b89d9780b58d3be42d41ed033b4f6df))
+
+
+### Features
+
+* **UGUI:** 实现界面显示和隐藏的完整逻辑 ([ae30d91](https://github.com/gameframex/com.gameframex.unity.ui.ugui/commit/ae30d913b4f2684ad5bb97b9554f67d4f27a2b97))
+* **UIManager:** 添加异步加载UI表单的队列管理功能 ([68f4912](https://github.com/gameframex/com.gameframex.unity.ui.ugui/commit/68f4912fc7c4bb7130a09e3dd990b2ee1e654752))
+* **UI:** 添加UI表单显示和隐藏动画支持 ([43bf8f9](https://github.com/gameframex/com.gameframex.unity.ui.ugui/commit/43bf8f9eeaa4bac8a0401182189138097597a73e))
+
 # Changelog
 
 ## [Unreleased](https://github.com/GameFrameX/com.gameframex.unity.ui.ugui/tree/HEAD)
