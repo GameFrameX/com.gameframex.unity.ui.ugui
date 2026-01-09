@@ -30,6 +30,7 @@
 // ==========================================================================================
 
 using System;
+using GameFrameX.Runtime;
 using GameFrameX.UI.Runtime;
 using UnityEngine;
 using UnityEngine.Scripting;
