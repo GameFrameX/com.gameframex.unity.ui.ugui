@@ -1,3 +1,10 @@
+## [2.3.1](https://github.com/gameframex/com.gameframex.unity.ui.ugui/compare/2.3.0...2.3.1) (2026-03-05)
+
+
+### Bug Fixes
+
+* 修正异步资源加载成功状态检查条件 ([ad6b92f](https://github.com/gameframex/com.gameframex.unity.ui.ugui/commit/ad6b92f9f965a8cb63a9213b6235cf7a150cb636))
+
 # [2.3.0](https://github.com/gameframex/com.gameframex.unity.ui.ugui/compare/2.2.2...2.3.0) (2026-03-05)
 
 
