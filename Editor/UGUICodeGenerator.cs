@@ -179,6 +179,13 @@ namespace GameFrameX.UI.UGUI.Editor
                     codeBuilder.AppendLine($"\t[OptionUIConfig(null, \"{assetPath.Substring(0, assetPath.LastIndexOf('/'))}\")]");
                 }
             }
+            else
+            {
+                if (assetPath.IsNotNullOrWhiteSpace())
+                {
+                    codeBuilder.AppendLine($"\t[OptionUIConfig(true)]");
+                }
+            }
 
             codeBuilder.AppendLine($"\tpublic sealed partial class {className} : UGUI");
             codeBuilder.AppendLine("\t{");
