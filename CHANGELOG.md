@@ -1,3 +1,10 @@
+## [2.2.2](https://github.com/gameframex/com.gameframex.unity.ui.ugui/compare/2.2.1...2.2.2) (2026-03-05)
+
+
+### Bug Fixes
+
+* **代码生成器:** 修复资源路径为空时未添加OptionUIConfig特性 ([5c3cd88](https://github.com/gameframex/com.gameframex.unity.ui.ugui/commit/5c3cd88081bd25121cd8b11743d03b7413234885))
+
 ## [2.2.1](https://github.com/gameframex/com.gameframex.unity.ui.ugui/compare/2.2.0...2.2.1) (2026-03-05)
 
 
