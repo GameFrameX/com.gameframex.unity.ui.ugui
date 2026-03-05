@@ -35,6 +35,9 @@ using System.IO;
 using System.Text;
 using GameFrameX.Runtime;
 using GameFrameX.UI.UGUI.Runtime;
+#if ENABLE_UI_TEXT_MESH_PRO
+using TMPro;
+#endif
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -459,6 +462,30 @@ namespace GameFrameX.UI.UGUI.Editor
             if (component != null)
             {
                 return typeof(Image).FullName;
+            }
+#if ENABLE_UI_TEXT_MESH_PRO
+            component = transform.GetComponent<TextMeshProUGUI>();
+            if (component != null)
+            {
+                return typeof(TextMeshProUGUI).FullName;
+            }
+
+            component = transform.GetComponent<TMP_InputField>();
+            if (component != null)
+            {
+                return typeof(TMP_InputField).FullName;
+            }
+
+            component = transform.GetComponent<TMP_Dropdown>();
+            if (component != null)
+            {
+                return typeof(TMP_Dropdown).FullName;
+            }
+#endif
+            var rectTransform = transform.GetComponent<RectTransform>();
+            if (rectTransform != null)
+            {
+                return typeof(RectTransform).FullName;
             }
 
             return typeof(Transform).FullName;
