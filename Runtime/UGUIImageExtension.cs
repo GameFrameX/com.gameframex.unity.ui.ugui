@@ -51,7 +51,7 @@ namespace GameFrameX.UI.UGUI.Runtime
             var assetComponent = GameEntry.GetComponent<AssetComponent>();
             using (var valueHandle = await assetComponent.LoadAssetAsync<Texture2D>(icon))
             {
-                if (valueHandle.IsSucceed())
+                if (valueHandle.IsDone && valueHandle.Status == EOperationStatus.Succeed)
                 {
                     var texture2D = valueHandle.GetAssetObject<Texture2D>();
                     self.sprite = Sprite.Create(texture2D, new Rect(0, 0, texture2D.width, texture2D.height), new Vector2(0.5f, 0.5f));

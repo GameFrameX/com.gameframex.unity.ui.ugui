@@ -112,7 +112,7 @@ namespace GameFrameX.UI.UGUI.Runtime
 
             // 从包中加载
             var assetHandle = await m_AssetManager.LoadAssetAsync<UnityEngine.Object>(assetPath);
-            if (assetHandle.IsSucceed())
+            if (assetHandle.IsDone && assetHandle.Status == EOperationStatus.Succeed)
             {
                 // 加载成功
                 var gameObject = assetHandle.InstantiateSync();
