@@ -1,3 +1,10 @@
+## [2.2.1](https://github.com/gameframex/com.gameframex.unity.ui.ugui/compare/2.2.0...2.2.1) (2026-03-05)
+
+
+### Bug Fixes
+
+* **UI:** 修复UI组辅助器深度设置问题并优化创建逻辑 ([20e45ce](https://github.com/gameframex/com.gameframex.unity.ui.ugui/commit/20e45ce925f15ce5d64dfb0817a6c26b27762bba))
+
 # [2.2.0](https://github.com/gameframex/com.gameframex.unity.ui.ugui/compare/2.1.4...2.2.0) (2025-12-23)
 
 
