@@ -1,3 +1,10 @@
+# [2.3.0](https://github.com/gameframex/com.gameframex.unity.ui.ugui/compare/2.2.2...2.3.0) (2026-03-05)
+
+
+### Features
+
+* **UI编辑器:** 添加对TextMeshPro组件的代码生成支持 ([245edda](https://github.com/gameframex/com.gameframex.unity.ui.ugui/commit/245edda5dff518e037bbd756dac21fe9441ac659))
+
 ## [2.2.2](https://github.com/gameframex/com.gameframex.unity.ui.ugui/compare/2.2.1...2.2.2) (2026-03-05)
 
 
