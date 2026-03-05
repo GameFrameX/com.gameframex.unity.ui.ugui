@@ -43,24 +43,50 @@ namespace GameFrameX.UI.UGUI.Runtime
     public sealed class UGUIUIGroupHelper : UIGroupHelperBase
     {
         /// <summary>
+        /// 获取界面组深度。
+        /// </summary>
+        public override int Depth { get; protected set; }
+
+        /// <summary>
         /// 设置界面组深度。
         /// </summary>
         /// <param name="depth">界面组深度。</param>
         public override void SetDepth(int depth)
         {
+            Depth = depth;
             transform.localPosition = new Vector3(0, 0, depth * 1000);
         }
 
-        public override IUIGroupHelper Handler(Transform root, string groupName, string uiGroupHelperTypeName, IUIGroupHelper customUIGroupHelper)
+
+        /// <summary>
+        /// 创建界面组。
+        /// </summary>
+        /// <param name="root">根节点。</param>
+        /// <param name="groupName">界面组名称。</param>
+        /// <param name="uiGroupHelperTypeName">界面组辅助器类型名。</param>
+        /// <param name="customUIGroupHelper">自定义的界面组辅助器.</param>
+        /// <param name="depth">界面组深度。</param>
+        public override IUIGroupHelper Handler(Transform root, string groupName, string uiGroupHelperTypeName, IUIGroupHelper customUIGroupHelper, int depth = 0)
         {
+            SetDepth(depth);
             GameObject component = new GameObject();
             var comName = groupName;
             component.name = comName;
             component.transform.SetParent(root, false);
-            component.SetLayerRecursively(LayerMask.NameToLayer("UI"));
+            var uiLayer = LayerMask.NameToLayer("UI");
+            component.SetLayerRecursively(uiLayer);
+
             RectTransform rectTransform = component.GetOrAddComponent<RectTransform>();
             rectTransform.MakeFullScreen();
-            return GameFrameX.Runtime.Helper.CreateHelper(component, uiGroupHelperTypeName, (UIGroupHelperBase)customUIGroupHelper, 0);
+            // var canvas = component.AddComponent<Canvas>();
+            // // canvas.pixelPerfect = true;
+            // // canvas.overridePixelPerfect = true;
+            // canvas.sortingLayerID = uiLayer;
+            // canvas.sortingLayerName = "UI";
+            // canvas.overrideSorting = true;
+            // canvas.additionalShaderChannels = AdditionalCanvasShaderChannels.Normal | AdditionalCanvasShaderChannels.Tangent | AdditionalCanvasShaderChannels.TexCoord1 | AdditionalCanvasShaderChannels.TexCoord2 | AdditionalCanvasShaderChannels.TexCoord3;
+            var uiGroupHelper = Helper.CreateHelper(component, uiGroupHelperTypeName, (UIGroupHelperBase)customUIGroupHelper, 0);
+            return uiGroupHelper;
         }
     }
 }
