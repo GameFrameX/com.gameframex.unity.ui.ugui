@@ -176,7 +176,7 @@ namespace GameFrameX.UI.UGUI.Runtime
             }
         }
 
-        private IUIForm LoadAssetSuccessCallback(string uiFormAssetName, object uiFormAsset, float duration, object userData)
+        private IUIForm LoadAssetSuccessCallback(string uiFormAssetPath, object uiFormAsset, float duration, object userData)
         {
             OpenUIFormInfo openUIFormInfo = (OpenUIFormInfo)userData;
             if (openUIFormInfo == null)
@@ -188,16 +188,16 @@ namespace GameFrameX.UI.UGUI.Runtime
             {
                 var form = GetUIForm(openUIFormInfo.SerialId);
                 m_UIFormsToReleaseOnLoad.Remove(openUIFormInfo.SerialId);
-                m_UIFormHelper.ReleaseUIForm(uiFormAsset, null, openUIFormInfo.AssetHandle);
+                m_UIFormHelper.ReleaseUIForm(uiFormAsset, null, openUIFormInfo.AssetHandle, uiFormAssetPath);
                 ReferencePool.Release(openUIFormInfo);
                 return form;
             }
 
             m_UIFormsBeingLoaded.Remove(openUIFormInfo.SerialId);
-            var uiFormInstanceObject = UIFormInstanceObject.Create(uiFormAssetName, uiFormAsset, m_UIFormHelper.InstantiateUIForm(uiFormAsset), m_UIFormHelper, openUIFormInfo.AssetHandle);
+            var uiFormInstanceObject = UIFormInstanceObject.Create(uiFormAssetPath, uiFormAsset, m_UIFormHelper.InstantiateUIForm(uiFormAsset), m_UIFormHelper, openUIFormInfo.AssetHandle);
             m_InstancePool.Register(uiFormInstanceObject, true);
 
-            var uiForm = InternalOpenUIForm(openUIFormInfo.SerialId, uiFormAssetName, openUIFormInfo.FormType, uiFormInstanceObject.Target, openUIFormInfo.PauseCoveredUIForm, true, duration, openUIFormInfo.UserData, openUIFormInfo.IsFullScreen);
+            var uiForm = InternalOpenUIForm(openUIFormInfo.SerialId, uiFormAssetPath, openUIFormInfo.FormType, uiFormInstanceObject.Target, openUIFormInfo.PauseCoveredUIForm, true, duration, openUIFormInfo.UserData, openUIFormInfo.IsFullScreen);
             ReferencePool.Release(openUIFormInfo);
             return uiForm;
         }
