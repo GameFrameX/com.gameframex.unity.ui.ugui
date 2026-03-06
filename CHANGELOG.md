@@ -1,3 +1,10 @@
+## [2.3.2](https://github.com/gameframex/com.gameframex.unity.ui.ugui/compare/2.3.1...2.3.2) (2026-03-06)
+
+
+### Bug Fixes
+
+* **UI:** 修复UI资源释放时未使用正确路径的问题 ([6fb66c5](https://github.com/gameframex/com.gameframex.unity.ui.ugui/commit/6fb66c577ad333ecc0799dde94aed17febaa078c))
+
 ## [2.3.1](https://github.com/gameframex/com.gameframex.unity.ui.ugui/compare/2.3.0...2.3.1) (2026-03-05)
 
 
