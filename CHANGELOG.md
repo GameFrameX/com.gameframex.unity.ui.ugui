@@ -1,3 +1,10 @@
+## [2.3.3](https://github.com/gameframex/com.gameframex.unity.ui.ugui/compare/2.3.2...2.3.3) (2026-03-19)
+
+
+### Bug Fixes
+
+* **UI:** 根据资源路径选择正确的资源卸载方式 ([fa0c5ee](https://github.com/gameframex/com.gameframex.unity.ui.ugui/commit/fa0c5ee58cfdb7426524eedbe430c74de4d88e68))
+
 ## [2.3.2](https://github.com/gameframex/com.gameframex.unity.ui.ugui/compare/2.3.1...2.3.2) (2026-03-06)
 
 
