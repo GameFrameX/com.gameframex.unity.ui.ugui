@@ -1,3 +1,10 @@
+## [2.3.4](https://github.com/gameframex/com.gameframex.unity.ui.ugui/compare/2.3.3...2.3.4) (2026-03-19)
+
+
+### Bug Fixes
+
+* **UGUICodeGenerator:** 公开类和方法并添加预制体验证 ([dfd5c03](https://github.com/gameframex/com.gameframex.unity.ui.ugui/commit/dfd5c0308db28f6f8eb77025fbb749d190445ab2))
+
 ## [2.3.3](https://github.com/gameframex/com.gameframex.unity.ui.ugui/compare/2.3.2...2.3.3) (2026-03-19)
 
 
