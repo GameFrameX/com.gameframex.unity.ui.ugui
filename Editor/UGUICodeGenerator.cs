@@ -48,7 +48,7 @@ namespace GameFrameX.UI.UGUI.Editor
     /// <summary>
     /// UGUI代码生成器,用于自动生成UI代码文件
     /// </summary>
-    internal static class UGUICodeGenerator
+    public static class UGUICodeGenerator
     {
         /// <summary>
         /// 生成UI代码的菜单项
@@ -81,8 +81,14 @@ namespace GameFrameX.UI.UGUI.Editor
         /// 生成UI代码的主要方法
         /// </summary>
         /// <param name="selectedObject">选中的游戏对象</param>
-        internal static void Generate(GameObject selectedObject)
+        public static void Generate(GameObject selectedObject)
         {
+            if (PrefabUtility.GetPrefabAssetType(selectedObject) != PrefabAssetType.NotAPrefab)
+            {
+                Debug.LogError("请选择一个有效的UGUI预制体进行操作");
+                return;
+            }
+            
             var assetPath = AssetDatabase.GetAssetPath(selectedObject);
 
             if (assetPath.IsNullOrWhiteSpace())
