@@ -143,7 +143,15 @@ namespace GameFrameX.UI.UGUI.Runtime
         /// <param name="uiFormAssetPath">界面资源路径。</param>
         public override void ReleaseUIForm(object uiFormAsset, object uiFormInstance, object assetHandle, string uiFormAssetPath)
         {
-            m_AssetComponent.UnloadAsset(uiFormAssetPath);
+            if (uiFormAssetPath.IndexOf(Utility.Asset.Path.BundlesDirectoryName, StringComparison.OrdinalIgnoreCase) >= 0)
+            {
+                m_AssetComponent.UnloadAsset(uiFormAssetPath);
+            }
+            else
+            {
+                UnityEngine.Resources.UnloadAsset((Object)uiFormInstance);
+            }
+
             Destroy((Object)uiFormInstance);
         }
 
