@@ -1,3 +1,12 @@
+## [2.3.5](https://github.com/gameframex/com.gameframex.unity.ui.ugui/compare/2.3.4...2.3.5) (2026-03-27)
+
+
+### Bug Fixes
+
+* **UI:** 修复UI组助手为空时实例化崩溃并增加资源名参数 ([55c2a73](https://github.com/gameframex/com.gameframex.unity.ui.ugui/commit/55c2a731c8499ebb4709d092c6ce4cad7d1484b2))
+* **UI资源加载:** 增加Resources.Load失败时的错误处理 ([5b46177](https://github.com/gameframex/com.gameframex.unity.ui.ugui/commit/5b46177daace1385c9ad59309b0aa3b6f473d9a4))
+* 修正格式化字符串中的参数索引错误 ([3d5468e](https://github.com/gameframex/com.gameframex.unity.ui.ugui/commit/3d5468e38757be995c40e21017f5665c80e0c93c))
+
 ## [2.3.4](https://github.com/gameframex/com.gameframex.unity.ui.ugui/compare/2.3.3...2.3.4) (2026-03-19)
 
 
