@@ -99,7 +99,6 @@ namespace GameFrameX.UI.UGUI.Runtime
                 uiForm.UIGroup = uiGroup;
             }
 
-
             var showAnimationAttribute = uiFormType.GetCustomAttribute(typeof(OptionUIShowAnimationAttribute));
             if (showAnimationAttribute is OptionUIShowAnimationAttribute optionShowAnimation)
             {
@@ -129,7 +128,13 @@ namespace GameFrameX.UI.UGUI.Runtime
             }
 
             var uiTransform = uiGameObject.transform;
-            uiTransform.SetParent(((MonoBehaviour)uiGroup.Helper).transform);
+            var helper = uiGroup.Helper as MonoBehaviour;
+            if (helper == null)
+            {
+                Log.Error("UI group helper is invalid.");
+                return null;
+            }
+            uiTransform.SetParent(helper.transform);
             uiTransform.localScale = Vector3.one;
             return uiForm;
         }
@@ -141,7 +146,8 @@ namespace GameFrameX.UI.UGUI.Runtime
         /// <param name="uiFormInstance">要释放的界面实例。</param>
         /// <param name="assetHandle">资源句柄。</param>
         /// <param name="uiFormAssetPath">界面资源路径。</param>
-        public override void ReleaseUIForm(object uiFormAsset, object uiFormInstance, object assetHandle, string uiFormAssetPath)
+        /// <param name="uiFormAssetName">界面资源名称。</param>
+        public override void ReleaseUIForm(object uiFormAsset, object uiFormInstance, object assetHandle, string uiFormAssetPath, string uiFormAssetName)
         {
             if (uiFormAssetPath.IndexOf(Utility.Asset.Path.BundlesDirectoryName, StringComparison.OrdinalIgnoreCase) >= 0)
             {

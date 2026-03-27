@@ -58,7 +58,7 @@ namespace GameFrameX.UI.UGUI.Runtime
             if (uiFormInstanceObject != null)
             {
                 // 如果对象池存在
-                return InternalOpenUIForm(-1, uiFormAssetName, uiFormType, uiFormInstanceObject.Target, pauseCoveredUIForm, false, 0f, userData, isFullScreen);
+                return InternalOpenUIForm(-1, uiFormAssetPath, uiFormAssetName, uiFormType, uiFormInstanceObject.Target, pauseCoveredUIForm, false, 0f, userData, isFullScreen);
             }
 
             var uiForm = InnerLoadUIFormAsync(uiFormAssetPath, uiFormType, pauseCoveredUIForm, userData, isFullScreen, uiFormAssetName, assetPath);
@@ -100,7 +100,7 @@ namespace GameFrameX.UI.UGUI.Runtime
         {
             int serialId = ++m_Serial;
             m_UIFormsBeingLoaded.Add(serialId, uiFormAssetName);
-            OpenUIFormInfo openUIFormInfo = OpenUIFormInfo.Create(serialId, uiFormType, pauseCoveredUIForm, userData, isFullScreen);
+            OpenUIFormInfo openUIFormInfo = OpenUIFormInfo.Create(serialId, assetPath, uiFormAssetName, uiFormType, pauseCoveredUIForm, userData, isFullScreen);
             if (uiFormAssetPath.IndexOf(Utility.Asset.Path.BundlesDirectoryName, StringComparison.OrdinalIgnoreCase) < 0)
             {
                 // 从Resources 中加载
@@ -125,7 +125,7 @@ namespace GameFrameX.UI.UGUI.Runtime
             return LoadAssetFailureCallback(assetPath, assetHandle.LastError, openUIFormInfo);
         }
 
-        private IUIForm InternalOpenUIForm(int serialId, string uiFormAssetName, Type uiFormType, object uiFormInstance, bool pauseCoveredUIForm, bool isNewInstance, float duration, object userData, bool isFullScreen)
+        private IUIForm InternalOpenUIForm(int serialId, string uiFormAssetPath, string uiFormAssetName, Type uiFormType, object uiFormInstance, bool pauseCoveredUIForm, bool isNewInstance, float duration, object userData, bool isFullScreen)
         {
             try
             {
@@ -136,7 +136,7 @@ namespace GameFrameX.UI.UGUI.Runtime
                 }
 
                 var uiGroup = uiForm.UIGroup;
-                uiForm.Init(serialId, uiFormAssetName, uiGroup, null, pauseCoveredUIForm, isNewInstance, userData, RecycleInterval, isFullScreen);
+                uiForm.Init(serialId, uiFormAssetPath, uiFormAssetName, uiGroup, null, pauseCoveredUIForm, isNewInstance, userData, RecycleInterval, isFullScreen);
 
                 if (!uiGroup.InternalHasInstanceUIForm(uiFormAssetName, uiForm))
                 {
@@ -188,16 +188,16 @@ namespace GameFrameX.UI.UGUI.Runtime
             {
                 var form = GetUIForm(openUIFormInfo.SerialId);
                 m_UIFormsToReleaseOnLoad.Remove(openUIFormInfo.SerialId);
-                m_UIFormHelper.ReleaseUIForm(uiFormAsset, null, openUIFormInfo.AssetHandle, uiFormAssetPath);
+                m_UIFormHelper.ReleaseUIForm(uiFormAsset, null, openUIFormInfo.AssetHandle, uiFormAssetPath, openUIFormInfo.AssetName);
                 ReferencePool.Release(openUIFormInfo);
                 return form;
             }
 
             m_UIFormsBeingLoaded.Remove(openUIFormInfo.SerialId);
-            var uiFormInstanceObject = UIFormInstanceObject.Create(uiFormAssetPath, uiFormAsset, m_UIFormHelper.InstantiateUIForm(uiFormAsset), m_UIFormHelper, openUIFormInfo.AssetHandle);
+            var uiFormInstanceObject = UIFormInstanceObject.Create(uiFormAssetPath, openUIFormInfo.AssetName, uiFormAsset, m_UIFormHelper.InstantiateUIForm(uiFormAsset), m_UIFormHelper, openUIFormInfo.AssetHandle);
             m_InstancePool.Register(uiFormInstanceObject, true);
 
-            var uiForm = InternalOpenUIForm(openUIFormInfo.SerialId, uiFormAssetPath, openUIFormInfo.FormType, uiFormInstanceObject.Target, openUIFormInfo.PauseCoveredUIForm, true, duration, openUIFormInfo.UserData, openUIFormInfo.IsFullScreen);
+            var uiForm = InternalOpenUIForm(openUIFormInfo.SerialId, uiFormAssetPath, openUIFormInfo.AssetName, openUIFormInfo.FormType, uiFormInstanceObject.Target, openUIFormInfo.PauseCoveredUIForm, true, duration, openUIFormInfo.UserData, openUIFormInfo.IsFullScreen);
             ReferencePool.Release(openUIFormInfo);
             return uiForm;
         }
