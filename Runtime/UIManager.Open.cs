@@ -105,6 +105,10 @@ namespace GameFrameX.UI.UGUI.Runtime
             {
                 // 从Resources 中加载
                 var original = (GameObject)Resources.Load(assetPath);
+                if (original == null)
+                {
+                    return LoadAssetFailureCallback(assetPath, $"Resources.Load failed for path: {assetPath}", openUIFormInfo);
+                }
                 var gameObject = UnityEngine.Object.Instantiate(original);
                 gameObject.name = uiFormAssetName;
                 return LoadAssetSuccessCallback(assetPath, gameObject, 0, openUIFormInfo);
