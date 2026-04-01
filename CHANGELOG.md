@@ -1,3 +1,16 @@
+## [2.3.6](https://github.com/gameframex/com.gameframex.unity.ui.ugui/compare/2.3.5...2.3.6) (2026-04-01)
+
+
+### Bug Fixes
+
+* **UGUI:** 禁用自动释放时跳过资源卸载 ([b52f2b5](https://github.com/gameframex/com.gameframex.unity.ui.ugui/commit/b52f2b583b38d4750e4d953ffdc3a8ae386abb25))
+* **UI:** 为Unity IL2CPP代码裁剪添加Preserve属性 ([0ee56cf](https://github.com/gameframex/com.gameframex.unity.ui.ugui/commit/0ee56cf66e5c52a8b0500202f8f2871b776e04c6))
+
+
+### Performance Improvements
+
+* 异步加载图标以提升界面响应性能 ([6e15382](https://github.com/gameframex/com.gameframex.unity.ui.ugui/commit/6e153825bedbb784fa511002687bbcdd6b2d24e8))
+
 ## [2.3.5](https://github.com/gameframex/com.gameframex.unity.ui.ugui/compare/2.3.4...2.3.5) (2026-03-27)
 
 
