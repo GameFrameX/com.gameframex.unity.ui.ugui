@@ -38,6 +38,7 @@ namespace GameFrameX.UI.UGUI.Runtime
     [Preserve]
     public class GameFrameXUIToUGUICroppingHelper : MonoBehaviour
     {
+        [Preserve]
         private Type[] m_Types;
 
         [Preserve]

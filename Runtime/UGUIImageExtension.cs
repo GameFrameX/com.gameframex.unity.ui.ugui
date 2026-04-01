@@ -46,6 +46,7 @@ namespace GameFrameX.UI.UGUI.Runtime
         /// </summary>
         /// <param name="self"></param>
         /// <param name="icon">icon地址</param>
+        [UnityEngine.Scripting.Preserve]
         public static async void SetIcon(this UnityEngine.UI.Image self, string icon)
         {
             var assetComponent = GameEntry.GetComponent<AssetComponent>();

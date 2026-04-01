@@ -1,4 +1,4 @@
-﻿// ==========================================================================================
+// ==========================================================================================
 //  GameFrameX 组织及其衍生项目的版权、商标、专利及其他相关权利
 //  GameFrameX organization and its derivative projects' copyrights, trademarks, patents, and related rights
 //  均受中华人民共和国及相关国际法律法规保护。
@@ -41,8 +41,10 @@ namespace GameFrameX.UI.UGUI.Runtime
         /// <summary>
         /// 控件路径
         /// </summary>
+        [UnityEngine.Scripting.Preserve]
         public string Path { get; }
 
+        [UnityEngine.Scripting.Preserve]
         public UGUIElementPropertyAttribute(string path)
         {
             Path = path;

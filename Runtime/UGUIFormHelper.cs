@@ -1,4 +1,4 @@
-﻿// ==========================================================================================
+// ==========================================================================================
 //  GameFrameX 组织及其衍生项目的版权、商标、专利及其他相关权利
 //  GameFrameX organization and its derivative projects' copyrights, trademarks, patents, and related rights
 //  均受中华人民共和国及相关国际法律法规保护。
@@ -46,7 +46,9 @@ namespace GameFrameX.UI.UGUI.Runtime
     [Preserve]
     public sealed class UGUIFormHelper : UIFormHelperBase
     {
+        [UnityEngine.Scripting.Preserve]
         private UIComponent m_UIComponent = null;
+        [UnityEngine.Scripting.Preserve]
         private AssetComponent m_AssetComponent = null;
 
         /// <summary>
@@ -54,6 +56,7 @@ namespace GameFrameX.UI.UGUI.Runtime
         /// </summary>
         /// <param name="uiFormAsset">要实例化的界面资源。</param>
         /// <returns>实例化后的界面。</returns>
+        [UnityEngine.Scripting.Preserve]
         public override object InstantiateUIForm(object uiFormAsset)
         {
             return (Object)uiFormAsset;
@@ -66,6 +69,7 @@ namespace GameFrameX.UI.UGUI.Runtime
         /// <param name="uiFormType">界面逻辑类</param>
         /// <param name="userData">用户自定义数据。</param>
         /// <returns>界面。</returns>
+        [UnityEngine.Scripting.Preserve]
         public override IUIForm CreateUIForm(object uiFormInstance, Type uiFormType, object userData)
         {
             var uiGameObject = uiFormInstance as GameObject;
@@ -147,6 +151,7 @@ namespace GameFrameX.UI.UGUI.Runtime
         /// <param name="assetHandle">资源句柄。</param>
         /// <param name="uiFormAssetPath">界面资源路径。</param>
         /// <param name="uiFormAssetName">界面资源名称。</param>
+        [UnityEngine.Scripting.Preserve]
         public override void ReleaseUIForm(object uiFormAsset, object uiFormInstance, object assetHandle, string uiFormAssetPath, string uiFormAssetName)
         {
             if (uiFormAssetPath.IndexOf(Utility.Asset.Path.BundlesDirectoryName, StringComparison.OrdinalIgnoreCase) >= 0)
@@ -161,6 +166,7 @@ namespace GameFrameX.UI.UGUI.Runtime
             Destroy((Object)uiFormInstance);
         }
 
+        [UnityEngine.Scripting.Preserve]
         private void Awake()
         {
             m_AssetComponent = GameEntry.GetComponent<AssetComponent>();

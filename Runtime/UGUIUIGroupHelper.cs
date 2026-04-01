@@ -1,4 +1,4 @@
-﻿// ==========================================================================================
+// ==========================================================================================
 //  GameFrameX 组织及其衍生项目的版权、商标、专利及其他相关权利
 //  GameFrameX organization and its derivative projects' copyrights, trademarks, patents, and related rights
 //  均受中华人民共和国及相关国际法律法规保护。
@@ -45,12 +45,14 @@ namespace GameFrameX.UI.UGUI.Runtime
         /// <summary>
         /// 获取界面组深度。
         /// </summary>
+        [UnityEngine.Scripting.Preserve]
         public override int Depth { get; protected set; }
 
         /// <summary>
         /// 设置界面组深度。
         /// </summary>
         /// <param name="depth">界面组深度。</param>
+        [UnityEngine.Scripting.Preserve]
         public override void SetDepth(int depth)
         {
             Depth = depth;
@@ -66,6 +68,7 @@ namespace GameFrameX.UI.UGUI.Runtime
         /// <param name="uiGroupHelperTypeName">界面组辅助器类型名。</param>
         /// <param name="customUIGroupHelper">自定义的界面组辅助器.</param>
         /// <param name="depth">界面组深度。</param>
+        [UnityEngine.Scripting.Preserve]
         public override IUIGroupHelper Handler(Transform root, string groupName, string uiGroupHelperTypeName, IUIGroupHelper customUIGroupHelper, int depth = 0)
         {
             SetDepth(depth);

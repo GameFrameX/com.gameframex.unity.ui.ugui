@@ -1,4 +1,4 @@
-﻿// ==========================================================================================
+// ==========================================================================================
 //  GameFrameX 组织及其衍生项目的版权、商标、专利及其他相关权利
 //  GameFrameX organization and its derivative projects' copyrights, trademarks, patents, and related rights
 //  均受中华人民共和国及相关国际法律法规保护。
@@ -45,6 +45,7 @@ namespace GameFrameX.UI.UGUI.Runtime
         /// </summary>
         /// <param name="self"></param>
         /// <param name="action">点击回调</param>
+        [UnityEngine.Scripting.Preserve]
         public static void Add(this Button.ButtonClickedEvent self, UnityAction action)
         {
             GameFrameworkGuard.NotNull(action, nameof(action));
@@ -56,6 +57,7 @@ namespace GameFrameX.UI.UGUI.Runtime
         /// </summary>
         /// <param name="self"></param>
         /// <param name="action">点击回调</param>
+        [UnityEngine.Scripting.Preserve]
         public static void Remove(this Button.ButtonClickedEvent self, UnityAction action)
         {
             GameFrameworkGuard.NotNull(action, nameof(action));
@@ -66,6 +68,7 @@ namespace GameFrameX.UI.UGUI.Runtime
         /// 清除按钮点击事件
         /// </summary>
         /// <param name="self"></param>
+        [UnityEngine.Scripting.Preserve]
         public static void Clear(this Button.ButtonClickedEvent self)
         {
             self.RemoveAllListeners();
@@ -76,6 +79,7 @@ namespace GameFrameX.UI.UGUI.Runtime
         /// </summary>
         /// <param name="self"></param>
         /// <param name="action">点击回调</param>
+        [UnityEngine.Scripting.Preserve]
         public static void Set(this Button.ButtonClickedEvent self, UnityAction action)
         {
             GameFrameworkGuard.NotNull(action, nameof(action));
@@ -89,6 +93,7 @@ namespace GameFrameX.UI.UGUI.Runtime
         /// <param name="self"></param>
         /// <param name="action">点击回调</param>
         /// <param name="userData">用户数据</param>
+        [UnityEngine.Scripting.Preserve]
         public static void Set(this Button.ButtonClickedEvent self, UnityAction<object> action, object userData)
         {
             GameFrameworkGuard.NotNull(action, nameof(action));

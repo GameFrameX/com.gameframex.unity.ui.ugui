@@ -1,4 +1,4 @@
-﻿// ==========================================================================================
+// ==========================================================================================
 //  GameFrameX 组织及其衍生项目的版权、商标、专利及其他相关权利
 //  GameFrameX organization and its derivative projects' copyrights, trademarks, patents, and related rights
 //  均受中华人民共和国及相关国际法律法规保护。
@@ -34,12 +34,27 @@ using UnityEngine.Scripting;
 
 namespace GameFrameX.UI.UGUI.Runtime
 {
+    /// <summary>
+    /// 提供 <see cref="RectTransform"/> 的扩展方法。
+    /// </summary>
+    /// <remarks>
+    /// Provides extension methods for <see cref="RectTransform"/>.
+    /// </remarks>
     [Preserve]
     public static class RectTransformExtension
     {
         /// <summary>
-        /// 设置当前UI对象为全屏
+        /// 设置当前UI对象为全屏。
         /// </summary>
+        /// <remarks>
+        /// Sets the current UI element to full screen.
+        /// <para>
+        /// This method configures the anchors to stretch across the parent, resets the anchored position to zero,
+        /// and sets the size delta to zero so the element fills its parent completely.
+        /// </para>
+        /// </remarks>
+        /// <param name="rectTransform">要设置为全屏的 <see cref="RectTransform"/> 实例 / The <see cref="RectTransform"/> instance to make full screen</param>
+        [UnityEngine.Scripting.Preserve]
         public static void MakeFullScreen(this RectTransform rectTransform)
         {
             rectTransform.anchorMin = Vector2.zero;

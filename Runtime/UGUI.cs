@@ -1,4 +1,4 @@
-﻿// ==========================================================================================
+// ==========================================================================================
 //  GameFrameX 组织及其衍生项目的版权、商标、专利及其他相关权利
 //  GameFrameX organization and its derivative projects' copyrights, trademarks, patents, and related rights
 //  均受中华人民共和国及相关国际法律法规保护。
@@ -46,6 +46,7 @@ namespace GameFrameX.UI.UGUI.Runtime
         /// </summary>
         /// <param name="handler">界面显示处理接口</param>
         /// <param name="complete">完成回调</param>
+        [UnityEngine.Scripting.Preserve]
         public override void Show(IUIFormShowHandler handler, Action complete)
         {
             if (handler != null)
@@ -64,6 +65,7 @@ namespace GameFrameX.UI.UGUI.Runtime
         /// </summary>
         /// <param name="handler">界面隐藏处理接口</param>
         /// <param name="complete">完成回调</param>
+        [UnityEngine.Scripting.Preserve]
         public override void Hide(IUIFormHideHandler handler, Action complete)
         {
             if (handler != null)
@@ -80,6 +82,7 @@ namespace GameFrameX.UI.UGUI.Runtime
         /// 设置UI的显示状态，不发出事件
         /// </summary>
         /// <param name="value"></param>
+        [UnityEngine.Scripting.Preserve]
         protected override void InternalSetVisible(bool value)
         {
             if (gameObject.activeSelf == value)
@@ -90,6 +93,7 @@ namespace GameFrameX.UI.UGUI.Runtime
             gameObject.SetActive(value);
         }
 
+        [UnityEngine.Scripting.Preserve]
         public override bool Visible
         {
             get
@@ -144,6 +148,7 @@ namespace GameFrameX.UI.UGUI.Runtime
         /// <summary>
         /// 设置当前UI对象为全屏
         /// </summary>
+        [UnityEngine.Scripting.Preserve]
         protected override void MakeFullScreen()
         {
             gameObject?.GetOrAddComponent<RectTransform>()?.MakeFullScreen();

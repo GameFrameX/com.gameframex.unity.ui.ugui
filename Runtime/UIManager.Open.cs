@@ -44,9 +44,12 @@ namespace GameFrameX.UI.UGUI.Runtime
     /// </summary>
     internal sealed partial class UIManager
     {
+        [UnityEngine.Scripting.Preserve]
         private readonly List<UIFormLoadingObject> m_LoadingUIForms = new List<UIFormLoadingObject>(64);
+        [UnityEngine.Scripting.Preserve]
         private readonly List<UIFormLoadingObject> m_UIFormsRemoveList = new List<UIFormLoadingObject>(64);
 
+        [UnityEngine.Scripting.Preserve]
         protected override async Task<IUIForm> InnerOpenUIFormAsync(string uiFormAssetPath, Type uiFormType, bool pauseCoveredUIForm, object userData, bool isFullScreen = false)
         {
             GameFrameworkGuard.NotNull(m_AssetManager, nameof(m_AssetManager));
@@ -96,6 +99,7 @@ namespace GameFrameX.UI.UGUI.Runtime
         /// <param name="uiFormAssetName">界面资源名称。</param>
         /// <param name="assetPath">界面资源路径。</param>
         /// <returns>界面实例。</returns>
+        [UnityEngine.Scripting.Preserve]
         private async Task<IUIForm> InnerLoadUIFormAsync(string uiFormAssetPath, Type uiFormType, bool pauseCoveredUIForm, object userData, bool isFullScreen, string uiFormAssetName, string assetPath)
         {
             int serialId = ++m_Serial;
@@ -129,6 +133,7 @@ namespace GameFrameX.UI.UGUI.Runtime
             return LoadAssetFailureCallback(assetPath, assetHandle.LastError, openUIFormInfo);
         }
 
+        [UnityEngine.Scripting.Preserve]
         private IUIForm InternalOpenUIForm(int serialId, string uiFormAssetPath, string uiFormAssetName, Type uiFormType, object uiFormInstance, bool pauseCoveredUIForm, bool isNewInstance, float duration, object userData, bool isFullScreen)
         {
             try
@@ -180,6 +185,7 @@ namespace GameFrameX.UI.UGUI.Runtime
             }
         }
 
+        [UnityEngine.Scripting.Preserve]
         private IUIForm LoadAssetSuccessCallback(string uiFormAssetPath, object uiFormAsset, float duration, object userData)
         {
             OpenUIFormInfo openUIFormInfo = (OpenUIFormInfo)userData;
@@ -206,6 +212,7 @@ namespace GameFrameX.UI.UGUI.Runtime
             return uiForm;
         }
 
+        [UnityEngine.Scripting.Preserve]
         private IUIForm LoadAssetFailureCallback(string uiFormAssetName, string errorMessage, object userData)
         {
             OpenUIFormInfo openUIFormInfo = (OpenUIFormInfo)userData;

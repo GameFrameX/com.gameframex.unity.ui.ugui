@@ -1,4 +1,4 @@
-﻿// ==========================================================================================
+// ==========================================================================================
 //  GameFrameX 组织及其衍生项目的版权、商标、专利及其他相关权利
 //  GameFrameX organization and its derivative projects' copyrights, trademarks, patents, and related rights
 //  均受中华人民共和国及相关国际法律法规保护。
@@ -36,11 +36,13 @@ namespace GameFrameX.UI.UGUI.Runtime
     [DisallowMultipleComponent]
     public class UIImage : UnityEngine.UI.Image
     {
+        [UnityEngine.Scripting.Preserve]
         private string m_icon { get; set; }
 
         /// <summary>
         /// Icon
         /// </summary>
+        [UnityEngine.Scripting.Preserve]
         public string icon
         {
             get { return m_icon; }
