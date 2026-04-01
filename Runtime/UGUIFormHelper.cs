@@ -177,6 +177,11 @@ namespace GameFrameX.UI.UGUI.Runtime
         [UnityEngine.Scripting.Preserve]
         public override void ReleaseUIForm(object uiFormAsset, object uiFormInstance, object assetHandle, string uiFormAssetPath, string uiFormAssetName)
         {
+            if (!m_UIComponent.EnableAutoReleaseUIForm)
+            {
+                return;
+            }
+
             if (uiFormAssetPath.IndexOf(Utility.Asset.Path.BundlesDirectoryName, StringComparison.OrdinalIgnoreCase) >= 0)
             {
                 m_AssetComponent.UnloadAsset(uiFormAssetPath);
