@@ -65,7 +65,7 @@ namespace GameFrameX.UI.UGUI.Runtime
                 if (m_icon != value)
                 {
                     m_icon = value;
-                    this.SetIcon(m_icon);
+                    _ = this.SetIconAsync(m_icon);
                 }
             }
         }
