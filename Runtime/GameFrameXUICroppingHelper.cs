@@ -50,10 +50,9 @@ namespace GameFrameX.UI.UGUI.Runtime
                 typeof(UGUI),
                 typeof(UGUIButtonExtension),
                 typeof(UGUIElementPropertyAttribute),
-                typeof(UGUIFormHelper),
                 typeof(UGUIUIGroupHelper),
                 typeof(UIImage),
-                typeof(UIManager),
+                typeof(UGUIImageExtension),
             };
         }
     }
