@@ -27,6 +27,7 @@
 //   Official Documentation: https://gameframex.doc.alianblank.com/
 //  ==========================================================================================
 
+using System.Threading.Tasks;
 using GameFrameX.Asset.Runtime;
 using GameFrameX.Runtime;
 using UnityEngine;
@@ -43,24 +44,32 @@ namespace GameFrameX.UI.UGUI.Runtime
     public static class UGUIImageExtension
     {
         /// <summary>
-        /// 设置图标。
+        /// 异步设置图标（带异常处理）。
         /// </summary>
         /// <remarks>
-        /// Sets the icon by loading the texture from the asset system and creating a sprite.
+        /// Sets the icon asynchronously by loading texture from the asset system and creating a sprite.
         /// </remarks>
         /// <param name="self">目标图片组件 / Target image component</param>
         /// <param name="icon">图标资源地址 / Icon asset path</param>
+        /// <returns>异步任务 / Async task</returns>
         [UnityEngine.Scripting.Preserve]
-        public static async void SetIcon(this UnityEngine.UI.Image self, string icon)
+        public static async Task SetIconAsync(this UnityEngine.UI.Image self, string icon)
         {
-            var assetComponent = GameEntry.GetComponent<AssetComponent>();
-            using (var valueHandle = await assetComponent.LoadAssetAsync<Texture2D>(icon))
+            try
             {
-                if (valueHandle.IsDone && valueHandle.Status == EOperationStatus.Succeed)
+                var assetComponent = GameEntry.GetComponent<AssetComponent>();
+                using (var valueHandle = await assetComponent.LoadAssetAsync<Texture2D>(icon))
                 {
-                    var texture2D = valueHandle.GetAssetObject<Texture2D>();
-                    self.sprite = Sprite.Create(texture2D, new Rect(0, 0, texture2D.width, texture2D.height), new Vector2(0.5f, 0.5f));
+                    if (valueHandle.IsDone && valueHandle.Status == EOperationStatus.Succeed)
+                    {
+                        var texture2D = valueHandle.GetAssetObject<Texture2D>();
+                        self.sprite = Sprite.Create(texture2D, new Rect(0, 0, texture2D.width, texture2D.height), new Vector2(0.5f, 0.5f));
+                    }
                 }
+            }
+            catch (System.Exception e)
+            {
+                Log.Error($"Failed to load icon '{icon}': {e.Message}");
             }
         }
     }
