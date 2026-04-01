@@ -41,19 +41,38 @@ namespace GameFrameX.UI.UGUI.Runtime
     /// <summary>
     /// 默认界面辅助器。
     /// </summary>
+    /// <remarks>
+    /// Default UI form helper that handles UI form instantiation, creation, and release.
+    /// </remarks>
     [Preserve]
     public sealed class UGUIFormHelper : UIFormHelperBase
     {
+        /// <summary>
+        /// UI组件引用。
+        /// </summary>
+        /// <remarks>
+        /// Reference to the UI component.
+        /// </remarks>
         [UnityEngine.Scripting.Preserve]
         private UIComponent m_UIComponent = null;
+
+        /// <summary>
+        /// 资源组件引用。
+        /// </summary>
+        /// <remarks>
+        /// Reference to the asset component.
+        /// </remarks>
         [UnityEngine.Scripting.Preserve]
         private AssetComponent m_AssetComponent = null;
 
         /// <summary>
         /// 实例化界面。
         /// </summary>
-        /// <param name="uiFormAsset">要实例化的界面资源。</param>
-        /// <returns>实例化后的界面。</returns>
+        /// <remarks>
+        /// Instantiates a UI form from the given asset.
+        /// </remarks>
+        /// <param name="uiFormAsset">要实例化的界面资源 / UI form asset to instantiate</param>
+        /// <returns>实例化后的界面 / Instantiated UI form</returns>
         [UnityEngine.Scripting.Preserve]
         public override object InstantiateUIForm(object uiFormAsset)
         {
@@ -63,10 +82,13 @@ namespace GameFrameX.UI.UGUI.Runtime
         /// <summary>
         /// 创建界面。
         /// </summary>
-        /// <param name="uiFormInstance">界面实例。</param>
-        /// <param name="uiFormType">界面逻辑类</param>
-        /// <param name="userData">用户自定义数据。</param>
-        /// <returns>界面。</returns>
+        /// <remarks>
+        /// Creates a UI form from the instance and type, setting up animations and group.
+        /// </remarks>
+        /// <param name="uiFormInstance">界面实例 / UI form instance</param>
+        /// <param name="uiFormType">界面逻辑类 / UI form logic class type</param>
+        /// <param name="userData">用户自定义数据 / User custom data</param>
+        /// <returns>界面实例 / UI form instance</returns>
         [UnityEngine.Scripting.Preserve]
         public override IUIForm CreateUIForm(object uiFormInstance, Type uiFormType, object userData)
         {
@@ -144,11 +166,14 @@ namespace GameFrameX.UI.UGUI.Runtime
         /// <summary>
         /// 释放界面。
         /// </summary>
-        /// <param name="uiFormAsset">要释放的界面资源。</param>
-        /// <param name="uiFormInstance">要释放的界面实例。</param>
-        /// <param name="assetHandle">资源句柄。</param>
-        /// <param name="uiFormAssetPath">界面资源路径。</param>
-        /// <param name="uiFormAssetName">界面资源名称。</param>
+        /// <remarks>
+        /// Releases the UI form asset and destroys the instance.
+        /// </remarks>
+        /// <param name="uiFormAsset">要释放的界面资源 / UI form asset to release</param>
+        /// <param name="uiFormInstance">要释放的界面实例 / UI form instance to release</param>
+        /// <param name="assetHandle">资源句柄 / Asset handle</param>
+        /// <param name="uiFormAssetPath">界面资源路径 / UI form asset path</param>
+        /// <param name="uiFormAssetName">界面资源名称 / UI form asset name</param>
         [UnityEngine.Scripting.Preserve]
         public override void ReleaseUIForm(object uiFormAsset, object uiFormInstance, object assetHandle, string uiFormAssetPath, string uiFormAssetName)
         {

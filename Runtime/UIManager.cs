@@ -34,12 +34,18 @@ namespace GameFrameX.UI.UGUI.Runtime
     /// <summary>
     /// 界面管理器。
     /// </summary>
+    /// <remarks>
+    /// UI manager that handles UI form lifecycle, loading, and caching.
+    /// </remarks>
     [UnityEngine.Scripting.Preserve]
     internal sealed partial class UIManager : BaseUIManager
     {
         /// <summary>
         /// 初始化界面管理器的新实例。
         /// </summary>
+        /// <remarks>
+        /// Initializes a new instance of the UI manager.
+        /// </remarks>
         [UnityEngine.Scripting.Preserve]
         public UIManager()
         {

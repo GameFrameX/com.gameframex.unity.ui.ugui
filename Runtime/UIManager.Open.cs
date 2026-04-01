@@ -40,13 +40,41 @@ namespace GameFrameX.UI.UGUI.Runtime
     /// <summary>
     /// 界面管理器。
     /// </summary>
+    /// <remarks>
+    /// UI manager.
+    /// </remarks>
     internal sealed partial class UIManager
     {
+        /// <summary>
+        /// 正在加载的界面列表。
+        /// </summary>
+        /// <remarks>
+        /// List of UI forms currently being loaded.
+        /// </remarks>
         [UnityEngine.Scripting.Preserve]
         private readonly List<UIFormLoadingObject> m_LoadingUIForms = new List<UIFormLoadingObject>(64);
+
+        /// <summary>
+        /// 需要移除的界面加载对象列表。
+        /// </summary>
+        /// <remarks>
+        /// List of UI form loading objects to be removed.
+        /// </remarks>
         [UnityEngine.Scripting.Preserve]
         private readonly List<UIFormLoadingObject> m_UIFormsRemoveList = new List<UIFormLoadingObject>(64);
 
+        /// <summary>
+        /// 异步打开界面。
+        /// </summary>
+        /// <remarks>
+        /// Opens a UI form asynchronously.
+        /// </remarks>
+        /// <param name="uiFormAssetPath">界面资源路径 / UI form asset path</param>
+        /// <param name="uiFormType">界面类型 / UI form type</param>
+        /// <param name="pauseCoveredUIForm">是否暂停被覆盖的界面 / Whether to pause covered UI forms</param>
+        /// <param name="userData">用户自定义数据 / User custom data</param>
+        /// <param name="isFullScreen">是否全屏显示 / Whether to display in full screen</param>
+        /// <returns>界面实例 / UI form instance</returns>
         [UnityEngine.Scripting.Preserve]
         protected override async Task<IUIForm> InnerOpenUIFormAsync(string uiFormAssetPath, Type uiFormType, bool pauseCoveredUIForm, object userData, bool isFullScreen = false)
         {
@@ -89,14 +117,17 @@ namespace GameFrameX.UI.UGUI.Runtime
         /// <summary>
         /// 异步加载界面。
         /// </summary>
-        /// <param name="uiFormAssetPath">界面资源路径。</param>
-        /// <param name="uiFormType">界面类型。</param>
-        /// <param name="pauseCoveredUIForm">是否暂停被覆盖的界面。</param>
-        /// <param name="userData">用户自定义数据。</param>
-        /// <param name="isFullScreen">是否全屏显示。</param>
-        /// <param name="uiFormAssetName">界面资源名称。</param>
-        /// <param name="assetPath">界面资源路径。</param>
-        /// <returns>界面实例。</returns>
+        /// <remarks>
+        /// Loads a UI form asynchronously.
+        /// </remarks>
+        /// <param name="uiFormAssetPath">界面资源路径 / UI form asset path</param>
+        /// <param name="uiFormType">界面类型 / UI form type</param>
+        /// <param name="pauseCoveredUIForm">是否暂停被覆盖的界面 / Whether to pause covered UI forms</param>
+        /// <param name="userData">用户自定义数据 / User custom data</param>
+        /// <param name="isFullScreen">是否全屏显示 / Whether to display in full screen</param>
+        /// <param name="uiFormAssetName">界面资源名称 / UI form asset name</param>
+        /// <param name="assetPath">完整资源路径 / Full asset path</param>
+        /// <returns>界面实例 / UI form instance</returns>
         [UnityEngine.Scripting.Preserve]
         private async Task<IUIForm> InnerLoadUIFormAsync(string uiFormAssetPath, Type uiFormType, bool pauseCoveredUIForm, object userData, bool isFullScreen, string uiFormAssetName, string assetPath)
         {
@@ -131,6 +162,23 @@ namespace GameFrameX.UI.UGUI.Runtime
             return LoadAssetFailureCallback(assetPath, assetHandle.LastError, openUIFormInfo);
         }
 
+        /// <summary>
+        /// 内部打开界面。
+        /// </summary>
+        /// <remarks>
+        /// Opens a UI form internally.
+        /// </remarks>
+        /// <param name="serialId">界面序列号 / UI form serial ID</param>
+        /// <param name="uiFormAssetPath">界面资源路径 / UI form asset path</param>
+        /// <param name="uiFormAssetName">界面资源名称 / UI form asset name</param>
+        /// <param name="uiFormType">界面类型 / UI form type</param>
+        /// <param name="uiFormInstance">界面实例 / UI form instance</param>
+        /// <param name="pauseCoveredUIForm">是否暂停被覆盖的界面 / Whether to pause covered UI forms</param>
+        /// <param name="isNewInstance">是否为新实例 / Whether it is a new instance</param>
+        /// <param name="duration">加载耗时 / Loading duration</param>
+        /// <param name="userData">用户自定义数据 / User custom data</param>
+        /// <param name="isFullScreen">是否全屏显示 / Whether to display in full screen</param>
+        /// <returns>界面实例 / UI form instance</returns>
         [UnityEngine.Scripting.Preserve]
         private IUIForm InternalOpenUIForm(int serialId, string uiFormAssetPath, string uiFormAssetName, Type uiFormType, object uiFormInstance, bool pauseCoveredUIForm, bool isNewInstance, float duration, object userData, bool isFullScreen)
         {
@@ -183,6 +231,17 @@ namespace GameFrameX.UI.UGUI.Runtime
             }
         }
 
+        /// <summary>
+        /// 资源加载成功回调。
+        /// </summary>
+        /// <remarks>
+        /// Callback when asset loading succeeds.
+        /// </remarks>
+        /// <param name="uiFormAssetPath">界面资源路径 / UI form asset path</param>
+        /// <param name="uiFormAsset">界面资源对象 / UI form asset object</param>
+        /// <param name="duration">加载耗时 / Loading duration</param>
+        /// <param name="userData">用户自定义数据 / User custom data</param>
+        /// <returns>界面实例 / UI form instance</returns>
         [UnityEngine.Scripting.Preserve]
         private IUIForm LoadAssetSuccessCallback(string uiFormAssetPath, object uiFormAsset, float duration, object userData)
         {
@@ -210,6 +269,16 @@ namespace GameFrameX.UI.UGUI.Runtime
             return uiForm;
         }
 
+        /// <summary>
+        /// 资源加载失败回调。
+        /// </summary>
+        /// <remarks>
+        /// Callback when asset loading fails.
+        /// </remarks>
+        /// <param name="uiFormAssetName">界面资源名称 / UI form asset name</param>
+        /// <param name="errorMessage">错误信息 / Error message</param>
+        /// <param name="userData">用户自定义数据 / User custom data</param>
+        /// <returns>界面实例 / UI form instance</returns>
         [UnityEngine.Scripting.Preserve]
         private IUIForm LoadAssetFailureCallback(string uiFormAssetName, string errorMessage, object userData)
         {

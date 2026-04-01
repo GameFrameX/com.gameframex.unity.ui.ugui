@@ -37,19 +37,29 @@ namespace GameFrameX.UI.UGUI.Runtime
     /// <summary>
     /// UGUI界面组辅助器。
     /// </summary>
+    /// <remarks>
+    /// UGUI UI group helper that manages UI group depth and hierarchy.
+    /// </remarks>
     [Preserve]
     public sealed class UGUIUIGroupHelper : UIGroupHelperBase
     {
         /// <summary>
         /// 获取界面组深度。
         /// </summary>
+        /// <remarks>
+        /// Gets the UI group depth.
+        /// </remarks>
+        /// <value>界面组深度 / UI group depth</value>
         [UnityEngine.Scripting.Preserve]
         public override int Depth { get; protected set; }
 
         /// <summary>
         /// 设置界面组深度。
         /// </summary>
-        /// <param name="depth">界面组深度。</param>
+        /// <remarks>
+        /// Sets the UI group depth and updates the local position accordingly.
+        /// </remarks>
+        /// <param name="depth">界面组深度 / UI group depth</param>
         [UnityEngine.Scripting.Preserve]
         public override void SetDepth(int depth)
         {
@@ -61,11 +71,15 @@ namespace GameFrameX.UI.UGUI.Runtime
         /// <summary>
         /// 创建界面组。
         /// </summary>
-        /// <param name="root">根节点。</param>
-        /// <param name="groupName">界面组名称。</param>
-        /// <param name="uiGroupHelperTypeName">界面组辅助器类型名。</param>
-        /// <param name="customUIGroupHelper">自定义的界面组辅助器.</param>
-        /// <param name="depth">界面组深度。</param>
+        /// <remarks>
+        /// Creates a UI group with the specified parameters.
+        /// </remarks>
+        /// <param name="root">根节点 / Root transform</param>
+        /// <param name="groupName">界面组名称 / UI group name</param>
+        /// <param name="uiGroupHelperTypeName">界面组辅助器类型名 / UI group helper type name</param>
+        /// <param name="customUIGroupHelper">自定义的界面组辅助器 / Custom UI group helper</param>
+        /// <param name="depth">界面组深度 / UI group depth</param>
+        /// <returns>界面组辅助器实例 / UI group helper instance</returns>
         [UnityEngine.Scripting.Preserve]
         public override IUIGroupHelper Handler(Transform root, string groupName, string uiGroupHelperTypeName, IUIGroupHelper customUIGroupHelper, int depth = 0)
         {

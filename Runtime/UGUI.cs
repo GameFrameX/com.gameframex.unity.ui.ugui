@@ -35,6 +35,12 @@ using UnityEngine.Scripting;
 
 namespace GameFrameX.UI.UGUI.Runtime
 {
+    /// <summary>
+    /// UGUI界面基类，提供UGUI特定的界面功能实现。
+    /// </summary>
+    /// <remarks>
+    /// Base class for UGUI forms, providing UGUI-specific UI form functionality.
+    /// </remarks>
     [Preserve]
     [DisallowMultipleComponent]
     public class UGUI : UIForm
@@ -42,8 +48,11 @@ namespace GameFrameX.UI.UGUI.Runtime
         /// <summary>
         /// 界面显示。
         /// </summary>
-        /// <param name="handler">界面显示处理接口</param>
-        /// <param name="complete">完成回调</param>
+        /// <remarks>
+        /// Shows the UI form with optional animation.
+        /// </remarks>
+        /// <param name="handler">界面显示处理接口 / UI form show handler interface</param>
+        /// <param name="complete">完成回调 / Completion callback</param>
         [UnityEngine.Scripting.Preserve]
         public override void Show(IUIFormShowHandler handler, Action complete)
         {
@@ -61,8 +70,11 @@ namespace GameFrameX.UI.UGUI.Runtime
         /// <summary>
         /// 界面隐藏。
         /// </summary>
-        /// <param name="handler">界面隐藏处理接口</param>
-        /// <param name="complete">完成回调</param>
+        /// <remarks>
+        /// Hides the UI form with optional animation.
+        /// </remarks>
+        /// <param name="handler">界面隐藏处理接口 / UI form hide handler interface</param>
+        /// <param name="complete">完成回调 / Completion callback</param>
         [UnityEngine.Scripting.Preserve]
         public override void Hide(IUIFormHideHandler handler, Action complete)
         {
@@ -77,9 +89,12 @@ namespace GameFrameX.UI.UGUI.Runtime
         }
 
         /// <summary>
-        /// 设置UI的显示状态，不发出事件
+        /// 设置UI的显示状态，不发出事件。
         /// </summary>
-        /// <param name="value"></param>
+        /// <remarks>
+        /// Sets the visibility state of the UI without triggering events.
+        /// </remarks>
+        /// <param name="value">显示状态 / Visibility state</param>
         [UnityEngine.Scripting.Preserve]
         protected override void InternalSetVisible(bool value)
         {
@@ -91,6 +106,13 @@ namespace GameFrameX.UI.UGUI.Runtime
             gameObject.SetActive(value);
         }
 
+        /// <summary>
+        /// 获取或设置界面的可见性。
+        /// </summary>
+        /// <remarks>
+        /// Gets or sets the visibility of the UI form.
+        /// </remarks>
+        /// <value>界面的可见性 / Visibility of the UI form</value>
         [UnityEngine.Scripting.Preserve]
         public override bool Visible
         {
@@ -144,8 +166,11 @@ namespace GameFrameX.UI.UGUI.Runtime
         }
 
         /// <summary>
-        /// 设置当前UI对象为全屏
+        /// 设置当前UI对象为全屏。
         /// </summary>
+        /// <remarks>
+        /// Sets the current UI element to fill the entire parent area.
+        /// </remarks>
         [UnityEngine.Scripting.Preserve]
         protected override void MakeFullScreen()
         {

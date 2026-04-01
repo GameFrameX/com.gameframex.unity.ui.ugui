@@ -35,15 +35,21 @@ using YooAsset;
 namespace GameFrameX.UI.UGUI.Runtime
 {
     /// <summary>
-    /// UGUI图片扩展
+    /// UGUI图片扩展。
     /// </summary>
+    /// <remarks>
+    /// Provides extension methods for UGUI Image component.
+    /// </remarks>
     public static class UGUIImageExtension
     {
         /// <summary>
-        /// 设置Icon
+        /// 设置图标。
         /// </summary>
-        /// <param name="self"></param>
-        /// <param name="icon">icon地址</param>
+        /// <remarks>
+        /// Sets the icon by loading the texture from the asset system and creating a sprite.
+        /// </remarks>
+        /// <param name="self">目标图片组件 / Target image component</param>
+        /// <param name="icon">图标资源地址 / Icon asset path</param>
         [UnityEngine.Scripting.Preserve]
         public static async void SetIcon(this UnityEngine.UI.Image self, string icon)
         {

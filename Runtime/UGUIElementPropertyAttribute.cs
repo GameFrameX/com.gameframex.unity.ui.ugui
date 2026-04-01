@@ -32,16 +32,30 @@ using System;
 namespace GameFrameX.UI.UGUI.Runtime
 {
     /// <summary>
-    /// UGUI控件属性
+    /// UGUI控件属性特性，用于标记UI控件在预制体中的路径。
     /// </summary>
+    /// <remarks>
+    /// Attribute for UGUI element properties, used to mark the path of UI controls in prefabs.
+    /// </remarks>
     public sealed class UGUIElementPropertyAttribute : Attribute
     {
         /// <summary>
-        /// 控件路径
+        /// 获取控件路径。
         /// </summary>
+        /// <remarks>
+        /// Gets the control path.
+        /// </remarks>
+        /// <value>控件在预制体中的路径 / Path of the control in the prefab</value>
         [UnityEngine.Scripting.Preserve]
         public string Path { get; }
 
+        /// <summary>
+        /// 初始化 <see cref="UGUIElementPropertyAttribute"/> 类的新实例。
+        /// </summary>
+        /// <remarks>
+        /// Initializes a new instance of the <see cref="UGUIElementPropertyAttribute"/> class.
+        /// </remarks>
+        /// <param name="path">控件路径 / Control path</param>
         [UnityEngine.Scripting.Preserve]
         public UGUIElementPropertyAttribute(string path)
         {

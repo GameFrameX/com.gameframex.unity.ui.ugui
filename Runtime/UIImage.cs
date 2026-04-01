@@ -31,15 +31,31 @@ using UnityEngine;
 
 namespace GameFrameX.UI.UGUI.Runtime
 {
+    /// <summary>
+    /// 扩展的 UGUI 图片组件，支持通过资源路径设置图标。
+    /// </summary>
+    /// <remarks>
+    /// Extended UGUI image component that supports setting icons via asset path.
+    /// </remarks>
     [DisallowMultipleComponent]
     public class UIImage : UnityEngine.UI.Image
     {
+        /// <summary>
+        /// 图标资源路径的内部存储。
+        /// </summary>
+        /// <remarks>
+        /// Internal storage for the icon asset path.
+        /// </remarks>
         [UnityEngine.Scripting.Preserve]
         private string m_icon { get; set; }
 
         /// <summary>
-        /// Icon
+        /// 获取或设置图标资源路径。
         /// </summary>
+        /// <remarks>
+        /// Gets or sets the icon asset path. When set, automatically loads the icon from the asset system.
+        /// </remarks>
+        /// <value>图标资源路径 / Icon asset path</value>
         [UnityEngine.Scripting.Preserve]
         public string icon
         {

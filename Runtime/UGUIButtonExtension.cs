@@ -34,15 +34,21 @@ using UnityEngine.UI;
 namespace GameFrameX.UI.UGUI.Runtime
 {
     /// <summary>
-    /// UGUI按钮扩展
+    /// UGUI按钮扩展。
     /// </summary>
+    /// <remarks>
+    /// Provides extension methods for UGUI Button click events.
+    /// </remarks>
     public static class UGUIButtonExtension
     {
         /// <summary>
-        /// 添加按钮点击事件
+        /// 添加按钮点击事件。
         /// </summary>
-        /// <param name="self"></param>
-        /// <param name="action">点击回调</param>
+        /// <remarks>
+        /// Adds a click event listener to the button.
+        /// </remarks>
+        /// <param name="self">按钮点击事件 / Button click event</param>
+        /// <param name="action">点击回调 / Click callback</param>
         [UnityEngine.Scripting.Preserve]
         public static void Add(this Button.ButtonClickedEvent self, UnityAction action)
         {
@@ -51,10 +57,13 @@ namespace GameFrameX.UI.UGUI.Runtime
         }
 
         /// <summary>
-        /// 移除按钮点击事件
+        /// 移除按钮点击事件。
         /// </summary>
-        /// <param name="self"></param>
-        /// <param name="action">点击回调</param>
+        /// <remarks>
+        /// Removes a click event listener from the button.
+        /// </remarks>
+        /// <param name="self">按钮点击事件 / Button click event</param>
+        /// <param name="action">点击回调 / Click callback</param>
         [UnityEngine.Scripting.Preserve]
         public static void Remove(this Button.ButtonClickedEvent self, UnityAction action)
         {
@@ -63,9 +72,12 @@ namespace GameFrameX.UI.UGUI.Runtime
         }
 
         /// <summary>
-        /// 清除按钮点击事件
+        /// 清除按钮点击事件。
         /// </summary>
-        /// <param name="self"></param>
+        /// <remarks>
+        /// Removes all click event listeners from the button.
+        /// </remarks>
+        /// <param name="self">按钮点击事件 / Button click event</param>
         [UnityEngine.Scripting.Preserve]
         public static void Clear(this Button.ButtonClickedEvent self)
         {
@@ -73,10 +85,13 @@ namespace GameFrameX.UI.UGUI.Runtime
         }
 
         /// <summary>
-        /// 设置按钮点击事件
+        /// 设置按钮点击事件（替换现有事件）。
         /// </summary>
-        /// <param name="self"></param>
-        /// <param name="action">点击回调</param>
+        /// <remarks>
+        /// Sets the button click event, replacing any existing listeners.
+        /// </remarks>
+        /// <param name="self">按钮点击事件 / Button click event</param>
+        /// <param name="action">点击回调 / Click callback</param>
         [UnityEngine.Scripting.Preserve]
         public static void Set(this Button.ButtonClickedEvent self, UnityAction action)
         {
@@ -86,11 +101,14 @@ namespace GameFrameX.UI.UGUI.Runtime
         }
 
         /// <summary>
-        /// 设置按钮点击事件
+        /// 设置按钮点击事件（带用户数据，替换现有事件）。
         /// </summary>
-        /// <param name="self"></param>
-        /// <param name="action">点击回调</param>
-        /// <param name="userData">用户数据</param>
+        /// <remarks>
+        /// Sets the button click event with user data, replacing any existing listeners.
+        /// </remarks>
+        /// <param name="self">按钮点击事件 / Button click event</param>
+        /// <param name="action">点击回调（带用户数据参数） / Click callback with user data parameter</param>
+        /// <param name="userData">用户自定义数据 / User custom data</param>
         [UnityEngine.Scripting.Preserve]
         public static void Set(this Button.ButtonClickedEvent self, UnityAction<object> action, object userData)
         {
