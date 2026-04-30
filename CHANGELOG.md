@@ -1,3 +1,18 @@
+# [2.4.0](https://github.com/gameframex/com.gameframex.unity.ui.ugui/compare/2.3.8...2.4.0) (2026-04-30)
+
+
+### Bug Fixes
+
+* **UIManager:** 为池复用路径分配独立的请求序列号 ([0e0b004](https://github.com/gameframex/com.gameframex.unity.ui.ugui/commit/0e0b0046dd13d06b283ec484e915d69a8aaa8243))
+* **UIManager:** 修复UI资源加载失败时的内存泄漏问题 ([6b5bcb7](https://github.com/gameframex/com.gameframex.unity.ui.ugui/commit/6b5bcb7d10caab0761b05d6b250f47072acf3e04))
+* **UIManager:** 修复打开失败时静默返回而非抛出异常的问题 ([7b5139f](https://github.com/gameframex/com.gameframex.unity.ui.ugui/commit/7b5139f6a70c167b7f6aa5bcc64146721578e8ba))
+* **UIManager:** 确保 openUIFormInfo 在所有路径下正确释放 ([f546cd6](https://github.com/gameframex/com.gameframex.unity.ui.ugui/commit/f546cd6a4c6f870151e43299eea7a796f2cee1ee))
+
+
+### Features
+
+* **UIManager:** 添加单例界面的并发打开复用逻辑 ([ed47706](https://github.com/gameframex/com.gameframex.unity.ui.ugui/commit/ed4770609fa57f900f3fd4b942b2cb21b70d2ca9))
+
 ## [2.3.8](https://github.com/gameframex/com.gameframex.unity.ui.ugui/compare/2.3.7...2.3.8) (2026-04-30)
 
 
