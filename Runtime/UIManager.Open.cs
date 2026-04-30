@@ -82,6 +82,29 @@ namespace GameFrameX.UI.UGUI.Runtime
             GameFrameworkGuard.NotNull(m_UIFormHelper, nameof(m_UIFormHelper));
             GameFrameworkGuard.NotNull(uiFormType, nameof(uiFormType));
             var uiFormAssetName = uiFormType.Name;
+
+            if (UseSingletonOpenMode(uiFormType))
+            {
+                // Singleton behavior: if already opened, return the existing instance.
+                var openedUIForm = GetUIForm(uiFormAssetName);
+                if (openedUIForm != null)
+                {
+                    RefocusUIForm(openedUIForm, userData);
+                    return openedUIForm;
+                }
+
+                // Reuse the same loading task for concurrent open requests of the same UI.
+                foreach (var loadingUIForm in m_LoadingUIForms)
+                {
+                    if (loadingUIForm.UIFormAssetPath == uiFormAssetPath &&
+                        loadingUIForm.UIFormAssetName == uiFormAssetName &&
+                        loadingUIForm.UIFormType == uiFormType)
+                    {
+                        return await loadingUIForm.Task;
+                    }
+                }
+            }
+
             string assetPath = PathHelper.Combine(uiFormAssetPath, uiFormAssetName);
             var uiFormInstanceObject = m_InstancePool.Spawn(assetPath);
             if (uiFormInstanceObject != null)
