@@ -55,15 +55,6 @@ namespace GameFrameX.UI.UGUI.Runtime
         private readonly List<UIFormLoadingObject> m_LoadingUIForms = new List<UIFormLoadingObject>(64);
 
         /// <summary>
-        /// 需要移除的界面加载对象列表。
-        /// </summary>
-        /// <remarks>
-        /// List of UI form loading objects to be removed.
-        /// </remarks>
-        [UnityEngine.Scripting.Preserve]
-        private readonly List<UIFormLoadingObject> m_UIFormsRemoveList = new List<UIFormLoadingObject>(64);
-
-        /// <summary>
         /// 异步打开界面。
         /// </summary>
         /// <remarks>
@@ -116,25 +107,17 @@ namespace GameFrameX.UI.UGUI.Runtime
             var uiForm = InnerLoadUIFormAsync(uiFormAssetPath, uiFormType, pauseCoveredUIForm, userData, isFullScreen, uiFormAssetName, assetPath);
             UIFormLoadingObject uiFormLoadingObject = UIFormLoadingObject.Create(uiFormAssetPath, uiFormAssetName, uiFormType, uiForm);
             m_LoadingUIForms.Add(uiFormLoadingObject);
-            var result = await uiForm;
-
-            foreach (var value in m_LoadingUIForms)
+            try
             {
-                if (value.UIFormAssetPath == uiFormAssetPath && value.UIFormAssetName == uiFormAssetName && value.UIFormType == uiFormType)
+                return await uiForm;
+            }
+            finally
+            {
+                if (m_LoadingUIForms.Remove(uiFormLoadingObject))
                 {
-                    m_UIFormsRemoveList.Add(value);
+                    ReferencePool.Release(uiFormLoadingObject);
                 }
             }
-
-            foreach (var value in m_UIFormsRemoveList)
-            {
-                m_LoadingUIForms.Remove(value);
-                ReferencePool.Release(value);
-            }
-
-            m_UIFormsRemoveList.Clear();
-
-            return result;
         }
 
         /// <summary>
