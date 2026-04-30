@@ -1,3 +1,10 @@
+## [2.3.7](https://github.com/gameframex/com.gameframex.unity.ui.ugui/compare/2.3.6...2.3.7) (2026-04-30)
+
+
+### Bug Fixes
+
+* **UI:** 修正卸载UI资源时实例销毁顺序问题 ([0fe8966](https://github.com/gameframex/com.gameframex.unity.ui.ugui/commit/0fe8966b42103f9d13d7b0d45b9bbdea7b900b2b))
+
 ## [2.3.6](https://github.com/gameframex/com.gameframex.unity.ui.ugui/compare/2.3.5...2.3.6) (2026-04-01)
 
 
