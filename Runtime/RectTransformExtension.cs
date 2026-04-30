@@ -41,23 +41,23 @@ namespace GameFrameX.UI.UGUI.Runtime
     public static class RectTransformExtension
     {
         /// <summary>
-        /// 设置当前UI对象为全屏。
+        /// 设置当前UI对象填满父节点。
         /// </summary>
         /// <remarks>
-        /// Sets the current UI element to full screen.
+        /// Stretches the current UI element to fill its parent.
         /// <para>
-        /// This method configures the anchors to stretch across the parent, resets the anchored position to zero,
-        /// and sets the size delta to zero so the element fills its parent completely.
+        /// This method configures the anchors to stretch across the parent
+        /// and resets all four edge offsets to zero so the element fills its parent completely.
         /// </para>
         /// </remarks>
-        /// <param name="rectTransform">要设置为全屏的 <see cref="RectTransform"/> 实例 / The <see cref="RectTransform"/> instance to make full screen</param>
+        /// <param name="rectTransform">要设置为填满父节点的 <see cref="RectTransform"/> 实例 / The <see cref="RectTransform"/> instance to stretch to parent</param>
         [UnityEngine.Scripting.Preserve]
         public static void MakeFullScreen(this RectTransform rectTransform)
         {
             rectTransform.anchorMin = Vector2.zero;
             rectTransform.anchorMax = Vector2.one;
-            rectTransform.anchoredPosition = Vector2.zero;
-            rectTransform.sizeDelta = Vector2.zero;
+            rectTransform.offsetMin = Vector2.zero;
+            rectTransform.offsetMax = Vector2.zero;
         }
     }
 }
