@@ -33,8 +33,6 @@ using GameFrameX.Asset.Runtime;
 using GameFrameX.Runtime;
 using GameFrameX.UI.Runtime;
 using UnityEngine;
-using UnityEngine.Scripting;
-using Object = UnityEngine.Object;
 
 namespace GameFrameX.UI.UGUI.Runtime
 {
@@ -44,7 +42,7 @@ namespace GameFrameX.UI.UGUI.Runtime
     /// <remarks>
     /// Default UI form helper that handles UI form instantiation, creation, and release.
     /// </remarks>
-    [Preserve]
+    [UnityEngine.Scripting.Preserve]
     public sealed class UGUIFormHelper : UIFormHelperBase
     {
         /// <summary>
@@ -53,7 +51,7 @@ namespace GameFrameX.UI.UGUI.Runtime
         /// <remarks>
         /// Reference to the UI component.
         /// </remarks>
-        [UnityEngine.Scripting.Preserve]
+        [UnityEngine.Scripting.Preserve] 
         private UIComponent m_UIComponent = null;
 
         /// <summary>
@@ -62,7 +60,7 @@ namespace GameFrameX.UI.UGUI.Runtime
         /// <remarks>
         /// Reference to the asset component.
         /// </remarks>
-        [UnityEngine.Scripting.Preserve]
+        [UnityEngine.Scripting.Preserve] 
         private AssetComponent m_AssetComponent = null;
 
         /// <summary>
@@ -76,7 +74,7 @@ namespace GameFrameX.UI.UGUI.Runtime
         [UnityEngine.Scripting.Preserve]
         public override object InstantiateUIForm(object uiFormAsset)
         {
-            return (Object)uiFormAsset;
+            return (UnityEngine.Object)uiFormAsset;
         }
 
         /// <summary>
@@ -158,6 +156,7 @@ namespace GameFrameX.UI.UGUI.Runtime
                 Log.Error("UI group helper is invalid.");
                 return null;
             }
+
             uiTransform.SetParent(helper.transform);
             uiTransform.localScale = Vector3.one;
             return uiForm;
@@ -182,7 +181,7 @@ namespace GameFrameX.UI.UGUI.Runtime
                 return;
             }
 
-            Destroy((Object)uiFormInstance);
+            Destroy((UnityEngine.Object)uiFormInstance);
             if (uiFormAssetPath.IndexOf(Utility.Asset.Path.BundlesDirectoryName, StringComparison.OrdinalIgnoreCase) >= 0)
             {
                 m_AssetComponent.UnloadAsset(uiFormAssetPath);
