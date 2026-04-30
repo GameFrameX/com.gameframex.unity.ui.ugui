@@ -1,3 +1,10 @@
+## [2.3.8](https://github.com/gameframex/com.gameframex.unity.ui.ugui/compare/2.3.7...2.3.8) (2026-04-30)
+
+
+### Bug Fixes
+
+* **UGUI代码生成器:** 优化预制体验证逻辑并添加更多检查 ([322b358](https://github.com/gameframex/com.gameframex.unity.ui.ugui/commit/322b3585f008f1dc3202057bf73bd56981736c92))
+
 ## [2.3.7](https://github.com/gameframex/com.gameframex.unity.ui.ugui/compare/2.3.6...2.3.7) (2026-04-30)
 
 
