@@ -289,25 +289,30 @@ namespace GameFrameX.UI.UGUI.Runtime
             {
                 throw new GameFrameworkException("Open UI form info is invalid.");
             }
-
-            if (m_UIFormsToReleaseOnLoad.Contains(openUIFormInfo.SerialId))
+            try
             {
-                var uiForm = GetUIForm(openUIFormInfo.SerialId);
-                m_UIFormsToReleaseOnLoad.Remove(openUIFormInfo.SerialId);
+                if (m_UIFormsToReleaseOnLoad.Contains(openUIFormInfo.SerialId))
+                {
+                    var uiForm = GetUIForm(openUIFormInfo.SerialId);
+                    m_UIFormsToReleaseOnLoad.Remove(openUIFormInfo.SerialId);
+                    return uiForm;
+                }
+
+                m_UIFormsBeingLoaded.Remove(openUIFormInfo.SerialId);
+                string appendErrorMessage = Utility.Text.Format("Load UI form failure, asset name '{0}', error message '{1}'.", uiFormAssetName, errorMessage);
+                if (m_OpenUIFormFailureEventHandler != null)
+                {
+                    OpenUIFormFailureEventArgs openUIFormFailureEventArgs = OpenUIFormFailureEventArgs.Create(openUIFormInfo.SerialId, uiFormAssetName, openUIFormInfo.PauseCoveredUIForm, appendErrorMessage, openUIFormInfo.UserData);
+                    m_OpenUIFormFailureEventHandler(this, openUIFormFailureEventArgs);
+                    return GetUIForm(openUIFormInfo.SerialId);
+                }
+
+                throw new GameFrameworkException(appendErrorMessage);
+            }
+            finally
+            {
                 ReferencePool.Release(openUIFormInfo);
-                return uiForm;
             }
-
-            m_UIFormsBeingLoaded.Remove(openUIFormInfo.SerialId);
-            string appendErrorMessage = Utility.Text.Format("Load UI form failure, asset name '{0}', error message '{1}'.", uiFormAssetName, errorMessage);
-            if (m_OpenUIFormFailureEventHandler != null)
-            {
-                OpenUIFormFailureEventArgs openUIFormFailureEventArgs = OpenUIFormFailureEventArgs.Create(openUIFormInfo.SerialId, uiFormAssetName, openUIFormInfo.PauseCoveredUIForm, appendErrorMessage, openUIFormInfo.UserData);
-                m_OpenUIFormFailureEventHandler(this, openUIFormFailureEventArgs);
-                return GetUIForm(openUIFormInfo.SerialId);
-            }
-
-            throw new GameFrameworkException(appendErrorMessage);
         }
     }
 }
