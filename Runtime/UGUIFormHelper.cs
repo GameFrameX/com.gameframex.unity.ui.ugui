@@ -182,16 +182,15 @@ namespace GameFrameX.UI.UGUI.Runtime
                 return;
             }
 
+            Destroy((Object)uiFormInstance);
             if (uiFormAssetPath.IndexOf(Utility.Asset.Path.BundlesDirectoryName, StringComparison.OrdinalIgnoreCase) >= 0)
             {
                 m_AssetComponent.UnloadAsset(uiFormAssetPath);
             }
             else
             {
-                UnityEngine.Resources.UnloadAsset((Object)uiFormInstance);
+                UnityEngine.Resources.UnloadUnusedAssets();
             }
-
-            Destroy((Object)uiFormInstance);
         }
 
         [UnityEngine.Scripting.Preserve]
