@@ -1,4 +1,4 @@
-﻿// ==========================================================================================
+// ==========================================================================================
 //   GameFrameX 组织及其衍生项目的版权、商标、专利及其他相关权利
 //   GameFrameX organization and its derivative projects' copyrights, trademarks, patents, and related rights
 //   均受中华人民共和国及相关国际法律法规保护。
@@ -255,7 +255,9 @@ namespace GameFrameX.UI.UGUI.Runtime
             {
                 var form = GetUIForm(openUIFormInfo.SerialId);
                 m_UIFormsToReleaseOnLoad.Remove(openUIFormInfo.SerialId);
-                m_UIFormHelper.ReleaseUIForm(uiFormAsset, null, openUIFormInfo.AssetHandle, uiFormAssetPath, openUIFormInfo.AssetName);
+                // This branch means the loaded UI should be discarded immediately.
+                // Pass the actual instance so helper can destroy it instead of leaking.
+                m_UIFormHelper.ReleaseUIForm(uiFormAsset, uiFormAsset, openUIFormInfo.AssetHandle, uiFormAssetPath, openUIFormInfo.AssetName);
                 ReferencePool.Release(openUIFormInfo);
                 return form;
             }
