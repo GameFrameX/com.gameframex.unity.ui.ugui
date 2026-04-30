@@ -31,7 +31,6 @@ using System;
 using GameFrameX.Runtime;
 using GameFrameX.UI.Runtime;
 using UnityEngine;
-using UnityEngine.Scripting;
 
 namespace GameFrameX.UI.UGUI.Runtime
 {
@@ -41,7 +40,7 @@ namespace GameFrameX.UI.UGUI.Runtime
     /// <remarks>
     /// Base class for UGUI forms, providing UGUI-specific UI form functionality.
     /// </remarks>
-    [Preserve]
+    [UnityEngine.Scripting.Preserve]
     [DisallowMultipleComponent]
     public class UGUI : UIForm
     {

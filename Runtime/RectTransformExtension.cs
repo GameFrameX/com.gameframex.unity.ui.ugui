@@ -28,7 +28,6 @@
 //  ==========================================================================================
 
 using UnityEngine;
-using UnityEngine.Scripting;
 
 namespace GameFrameX.UI.UGUI.Runtime
 {
@@ -38,7 +37,7 @@ namespace GameFrameX.UI.UGUI.Runtime
     /// <remarks>
     /// Provides extension methods for <see cref="RectTransform"/>.
     /// </remarks>
-    [Preserve]
+    [UnityEngine.Scripting.Preserve]
     public static class RectTransformExtension
     {
         /// <summary>
