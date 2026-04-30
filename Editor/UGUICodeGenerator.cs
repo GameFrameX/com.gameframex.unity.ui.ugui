@@ -56,17 +56,10 @@ namespace GameFrameX.UI.UGUI.Editor
         [MenuItem("GameObject/UI/Generate UGUI Code(生成UGUI代码)", false, 1)]
         static void Code()
         {
-            if (Selection.activeObject)
+            if (Selection.activeObject is GameObject selectedObject)
             {
-                var selectedObject = (GameObject)Selection.activeObject;
-                if (selectedObject)
-                {
-                    if (PrefabUtility.GetPrefabAssetType(selectedObject) != PrefabAssetType.NotAPrefab)
-                    {
-                        Generate(selectedObject);
-                        return;
-                    }
-                }
+                Generate(selectedObject);
+                return;
             }
 
             Debug.LogError("请选择一个有效的UGUI预制体进行操作");
@@ -83,9 +76,27 @@ namespace GameFrameX.UI.UGUI.Editor
         /// <param name="selectedObject">选中的游戏对象</param>
         public static void Generate(GameObject selectedObject)
         {
-            if (PrefabUtility.GetPrefabAssetType(selectedObject) != PrefabAssetType.NotAPrefab)
+            if (selectedObject == null)
             {
                 Debug.LogError("请选择一个有效的UGUI预制体进行操作");
+                return;
+            }
+
+            if (PrefabUtility.GetPrefabAssetType(selectedObject) == PrefabAssetType.NotAPrefab)
+            {
+                Debug.LogError("请选择一个有效的UGUI预制体进行操作");
+                return;
+            }
+
+            if (selectedObject.GetComponent<RectTransform>() == null)
+            {
+                Debug.LogError("请选择包含RectTransform组件的UI根节点预制体进行操作");
+                return;
+            }
+
+            if (selectedObject.transform.parent != null)
+            {
+                Debug.LogError("请选择UI对象根节点进行操作，不能选择子节点");
                 return;
             }
             
