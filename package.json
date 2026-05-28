@@ -2,7 +2,7 @@
   "name": "com.gameframex.unity.ui.ugui",
   "displayName": "Game Frame X UI UGUI",
   "category": "GameFrameX",
-  "description": "独立游戏前后端一体化解决方案,独立游戏开发者的圆梦大使。\n文档地址: https://gameframex.doc.alianblank.com \n Game Frame X UGUI 组件 - Unity UI功能包，提供UGUI组件的封装，使UGUI组件的使用更加简单高效。",
+  "description": "GameFrameX UI UGUI — Unity UGUI adapter for the GameFrameX UI system. Provides prefab-based form instantiation, Canvas-based UI groups with depth-ordered z-sorting, attribute-driven configuration (OptionUIGroup, OptionUIShowAnimation, OptionUIHideAnimation), and automatic asset cleanup on form release. Docs: https://gameframex.doc.alianblank.com\n\nGameFrameX UI UGUI — GameFrameX UI 系统的 Unity UGUI 适配器。提供基于预制体的窗体实例化、基于 Canvas 的 UI 分组与深度排序，支持属性驱动配置（OptionUIGroup、OptionUIShowAnimation、OptionUIHideAnimation），以及窗体释放时的自动资源清理。文档：https://gameframex.doc.alianblank.com",
   "version": "2.4.0",
   "unity": "2019.4",
   "keywords": [
