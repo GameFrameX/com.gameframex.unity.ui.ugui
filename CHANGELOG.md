@@ -1,3 +1,10 @@
+## [2.4.1](https://github.com/gameframex/com.gameframex.unity.ui.ugui/compare/2.4.0...2.4.1) (2026-05-28)
+
+
+### Bug Fixes
+
+* **ci:** 统一 .github 工作流配置 ([7548f13](https://github.com/gameframex/com.gameframex.unity.ui.ugui/commit/7548f13e5b4caf12a87e6aaebb70d0e09864b28b))
+
 # [2.4.0](https://github.com/gameframex/com.gameframex.unity.ui.ugui/compare/2.3.8...2.4.0) (2026-04-30)
 
 
