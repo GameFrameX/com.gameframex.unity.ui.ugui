@@ -219,6 +219,30 @@ namespace GameFrameX.UI.UGUI.Editor
             PropertyHandler(selectedObject, null, nodeInfos, true);
             PropertyCodeHandler(codeBuilder, nodeInfos);
 
+            // 生成工厂方法
+            codeBuilder.AppendLine($"\t\tpublic static {className} Create(GameObject go)");
+            codeBuilder.AppendLine("\t\t{");
+            codeBuilder.AppendLine("\t\t\tvar ui = go.GetOrAddComponent<" + className + ">();");
+            codeBuilder.AppendLine("\t\t\tui?.InitView();");
+            codeBuilder.AppendLine("\t\t\treturn ui;");
+            codeBuilder.AppendLine("\t\t}");
+            codeBuilder.AppendLine();
+            codeBuilder.AppendLine("\t\t/// <summary>");
+            codeBuilder.AppendLine("\t\t/// 通过此方法获取的UGUI，在Dispose时不会释放GameObject，需要自行管理（一般在配合对象池机制时使用）。");
+            codeBuilder.AppendLine("\t\t/// </summary>");
+            codeBuilder.AppendLine($"\t\tpublic static {className} GetFromPool(GameObject go)");
+            codeBuilder.AppendLine("\t\t{");
+            codeBuilder.AppendLine("\t\t\tvar ui = go.GetComponent<" + className + ">();");
+            codeBuilder.AppendLine("\t\t\tif (ui == null)");
+            codeBuilder.AppendLine("\t\t\t{");
+            codeBuilder.AppendLine("\t\t\t\tui = Create(go);");
+            codeBuilder.AppendLine("\t\t\t}");
+            codeBuilder.AppendLine();
+            codeBuilder.AppendLine("\t\t\tui.IsFromPool = true;");
+            codeBuilder.AppendLine("\t\t\treturn ui;");
+            codeBuilder.AppendLine("\t\t}");
+            codeBuilder.AppendLine();
+
             // 生成初始化方法
             codeBuilder.AppendLine("\t\tprivate bool _isInitView = false;");
             codeBuilder.AppendLine();
@@ -269,7 +293,7 @@ namespace GameFrameX.UI.UGUI.Editor
             foreach (var nodeInfo in nodeInfos)
             {
                 string path = PathHandler(nodeInfo);
-                codeBuilder.AppendLine($"\t\t[SerializeField] [UGUIElementProperty(\"{path}\")]");
+                codeBuilder.AppendLine($"\t\t[UGUIElementProperty(\"{path}\")]");
                 codeBuilder.AppendLine($"\t\tprivate {nodeInfo.Type} {nodeInfo.Name};");
                 codeBuilder.AppendLine();
 
