@@ -1,3 +1,10 @@
+# [2.5.0](https://github.com/gameframex/com.gameframex.unity.ui.ugui/compare/2.4.1...2.5.0) (2026-06-05)
+
+
+### Features
+
+* **editor:** 添加工厂方法并移除冗余 SerializeField 特性 ([6f4baa6](https://github.com/gameframex/com.gameframex.unity.ui.ugui/commit/6f4baa6c9b91ab5f79e577e9a8b76032b253a833))
+
 ## [2.4.1](https://github.com/gameframex/com.gameframex.unity.ui.ugui/compare/2.4.0...2.4.1) (2026-05-28)
 
 
