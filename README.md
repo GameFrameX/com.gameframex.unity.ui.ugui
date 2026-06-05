@@ -161,4 +161,4 @@ public class IconDisplay : MonoBehaviour
 
 ## License
 
-This project is primarily distributed under the MIT License and Apache License (Version 2.0).
+See [LICENSE.md](LICENSE.md) for license information.

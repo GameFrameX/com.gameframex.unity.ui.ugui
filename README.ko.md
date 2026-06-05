@@ -57,4 +57,4 @@ Game Frame X UGUI 컴포넌트 - Unity UI 패키지. UGUI 컴포넌트 래퍼를
 
 ## 라이선스
 
-이 프로젝트는 주로 MIT 라이선스와 Apache 라이선스(버전 2.0)에 따라 배포됩니다.
+자세한 내용은 [LICENSE.md](LICENSE.md) 파일을 참조하세요.

@@ -57,4 +57,4 @@ Game Frame X UGUI コンポーネント - Unity UI パッケージ。UGUI コン
 
 ## ライセンス
 
-このプロジェクトは主に MIT ライセンスと Apache ライセンス（バージョン 2.0）の下で配布されています。
+詳しくは [LICENSE.md](LICENSE.md) をご参照ください。

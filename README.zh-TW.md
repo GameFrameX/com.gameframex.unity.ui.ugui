@@ -107,4 +107,4 @@ public class MainMenuUI : UGUI
 
 ## 開源協議
 
-本項目主要遵循 MIT 許可證和 Apache 許可證（版本 2.0）進行分發和使用。
+詳見 [LICENSE.md](LICENSE.md) 檔案。

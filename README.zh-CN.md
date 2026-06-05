@@ -161,4 +161,4 @@ public class IconDisplay : MonoBehaviour
 
 ## 开源协议
 
-本项目主要遵循 MIT 许可证和 Apache 许可证（版本 2.0）进行分发和使用。
+详见 [LICENSE.md](LICENSE.md) 文件。
