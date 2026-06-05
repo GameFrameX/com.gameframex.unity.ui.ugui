@@ -1,3 +1,10 @@
+## [2.5.1](https://github.com/gameframex/com.gameframex.unity.ui.ugui/compare/2.5.0...2.5.1) (2026-06-05)
+
+
+### Bug Fixes
+
+* **ui:** 卸载资源前检查路径是否存在 ([8b2d173](https://github.com/gameframex/com.gameframex.unity.ui.ugui/commit/8b2d17370d179f28db4c29f142759201dd705294))
+
 # [2.5.0](https://github.com/gameframex/com.gameframex.unity.ui.ugui/compare/2.4.1...2.5.0) (2026-06-05)
 
 
