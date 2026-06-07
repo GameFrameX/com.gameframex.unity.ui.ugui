@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="https://download.alianblank.com/gameframex/gameframex_logo_320.png" alt="GameFrameX Logo" width="160" height="160" />
+<img src="https://download.alianblank.com/gameframex/gameframex_logo_320.png" alt="Game Frame X Logo" width="160" />
 
 # Game Frame X UI UGUI
 
@@ -12,16 +12,13 @@
 
 <br />
 
-[ドキュメント](https://gameframex.doc.alianblank.com) | [クイックスタート](https://gameframex.doc.alianblank.com) | [QQグループ](https://qm.qq.com/q/urKenB9AU)
+[ドキュメント](https://gameframex.doc.alianblank.com) · [クイックスタート](#quick-start) · [QQグループ](https://qm.qq.com/q/urKenB9AU)
 
 <br />
 
 [English](README.md) | [简体中文](README.zh-CN.md) | [繁體中文](README.zh-TW.md) | **日本語** | [한국어](README.ko.md)
 
 </div>
-
-Game Frame X UGUI コンポーネント - Unity UI パッケージ。UGUI コンポーネントのラッパーを提供し、よりシンプルで効率的な使用を実現します。
-
 ## 機能特性
 
 - **UGUI コンポーネントラッパー**: Unity UGUI コンポーネントの高レベルラッパー

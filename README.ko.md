@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="https://download.alianblank.com/gameframex/gameframex_logo_320.png" alt="GameFrameX Logo" width="160" height="160" />
+<img src="https://download.alianblank.com/gameframex/gameframex_logo_320.png" alt="Game Frame X Logo" width="160" />
 
 # Game Frame X UI UGUI
 
@@ -12,16 +12,13 @@
 
 <br />
 
-[문서](https://gameframex.doc.alianblank.com) | [빠른 시작](https://gameframex.doc.alianblank.com) | [QQ 그룹](https://qm.qq.com/q/urKenB9AU)
+[문서](https://gameframex.doc.alianblank.com) · [빠른 시작](#quick-start) · [QQ 그룹](https://qm.qq.com/q/urKenB9AU)
 
 <br />
 
 [English](README.md) | [简体中文](README.zh-CN.md) | [繁體中文](README.zh-TW.md) | [日本語](README.ja.md) | **한국어**
 
 </div>
-
-Game Frame X UGUI 컴포넌트 - Unity UI 패키지. UGUI 컴포넌트 래퍼를 제공하여 더 간단하고 효율적인 사용을 가능하게 합니다.
-
 ## 기능 특징
 
 - **UGUI 컴포넌트 래퍼**: Unity UGUI 컴포넌트의 고수준 래퍼

@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="https://download.alianblank.com/gameframex/gameframex_logo_320.png" alt="GameFrameX Logo" width="160" height="160" />
+<img src="https://download.alianblank.com/gameframex/gameframex_logo_320.png" alt="Game Frame X Logo" width="160" />
 
 # Game Frame X UI UGUI
 
@@ -12,16 +12,13 @@
 
 <br />
 
-[文档](https://gameframex.doc.alianblank.com) | [快速开始](https://gameframex.doc.alianblank.com) | [QQ群](https://qm.qq.com/q/urKenB9AU)
+[文档](https://gameframex.doc.alianblank.com) · [快速开始](#quick-start) · [QQ群](https://qm.qq.com/q/urKenB9AU)
 
 <br />
 
 [English](README.md) | **简体中文** | [繁體中文](README.zh-TW.md) | [日本語](README.ja.md) | [한국어](README.ko.md)
 
 </div>
-
-Game Frame X UGUI 组件 - Unity UI功能包，提供UGUI组件的封装，使UGUI组件的使用更加简单高效。
-
 ## 特性
 
 ### 核心功能

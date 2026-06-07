@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="https://download.alianblank.com/gameframex/gameframex_logo_320.png" alt="GameFrameX Logo" width="160" height="160" />
+<img src="https://download.alianblank.com/gameframex/gameframex_logo_320.png" alt="Game Frame X Logo" width="160" />
 
 # Game Frame X UI UGUI
 
@@ -12,16 +12,13 @@ All-in-One Solution for Indie Game Development · Empowering Indie Developers' D
 
 <br />
 
-[Documentation](https://gameframex.doc.alianblank.com) | [Quick Start](https://gameframex.doc.alianblank.com) | [QQ Group](https://qm.qq.com/q/urKenB9AU)
+[Documentation](https://gameframex.doc.alianblank.com) · [Quick Start](#quick-start) · [QQ Group](https://qm.qq.com/q/urKenB9AU)
 
 <br />
 
 **English** | [简体中文](README.zh-CN.md) | [繁體中文](README.zh-TW.md) | [日本語](README.ja.md) | [한국어](README.ko.md)
 
 </div>
-
-Game Frame X UGUI Component - Unity UI package providing UGUI component wrappers for simpler and more efficient usage.
-
 ## Features
 
 ### Core Functionality
