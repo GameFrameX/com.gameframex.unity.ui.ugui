@@ -1,3 +1,10 @@
+## [2.5.2](https://github.com/gameframex/com.gameframex.unity.ui.ugui/compare/2.5.1...2.5.2) (2026-06-07)
+
+
+### Bug Fixes
+
+* 补全包规范文件（LICENSE/CHANGELOG/URL 字段/unity 字段） ([efef298](https://github.com/gameframex/com.gameframex.unity.ui.ugui/commit/efef2982a3b1b0ff024b1c7cc29d3fd4e9a4fc38))
+
 ## [2.5.1](https://github.com/gameframex/com.gameframex.unity.ui.ugui/compare/2.5.0...2.5.1) (2026-06-05)
 
 
