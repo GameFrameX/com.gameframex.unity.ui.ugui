@@ -29,7 +29,9 @@
 - **확장 메서드**: 풍부한 UGUI 컴포넌트 확장 메서드
 - **폼 헬퍼**: UI 폼 생성 및 관리 헬퍼 도구
 
-## 설치
+## 빠른 시작
+
+### 설치
 
 ### 설치
 
@@ -62,6 +64,26 @@ Then add the package to `dependencies`:
 ```
 
 
+## 의존성
+
+| 패키지 | 설명 |
+|--------|------|
+| `com.gameframex.unity` | 1.1.1 |
+| `com.gameframex.unity.asset` | 1.0.6 |
+| `com.gameframex.unity.event` | 1.0.0 |
+| `com.gameframex.unity.ui` | 1.0.0 |
+
+## 문서 및 자료
+
+- [문서](https://gameframex.doc.alianblank.com)
+
+## 커뮤니티 및 지원
+
+- QQ 그룹: 467608841 / 233840761
+
+## 변경 로그
+
+[Releases](https://github.com/GameFrameX/gameframex/com.gameframex.unity.ui.ugui/releases)에서 변경 로그를 확인하세요.
 ## 라이선스
 
 자세한 내용은 [LICENSE.md](LICENSE.md) 파일을 참조하세요.

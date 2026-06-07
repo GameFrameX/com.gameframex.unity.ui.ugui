@@ -49,36 +49,6 @@
 - `UGUIComponentInspector`: UGUI 組件檢查器
 - `UIImageReplaceHandler`: UI 圖片替換處理器
 
-## 安裝
-
-### 依賴項
-
-```json
-{
-  "com.gameframex.unity": "1.1.1",
-  "com.gameframex.unity.ui": "1.0.0",
-  "com.gameframex.unity.asset": "1.0.6",
-  "com.gameframex.unity.event": "1.0.0"
-}
-```
-
-### 安裝方式（任選其一）
-
-1. **Package Manager (推薦)**
-   - 打開 Unity 編輯器
-   - 打開 Package Manager 窗口
-   - 點擊"+"按鈕，選擇"Add package from git URL"
-   - 輸入：`https://github.com/gameframex/com.gameframex.unity.ui.ugui.git`
-
-2. **manifest.json**
-   - 直接在 `manifest.json` 文件中的 `dependencies` 節點下添加以下內容
-   ```json
-   {"com.gameframex.unity.ui.ugui": "https://github.com/gameframex/com.gameframex.unity.ui.ugui.git"}
-   ```
-
-3. **本地安裝**
-   - 直接下載倉庫放置到 Unity 項目的 `Packages` 目錄下，會自動加載識別
-
 ## 快速開始
 
 ### 安裝
@@ -112,6 +82,26 @@ Then add the package to `dependencies`:
 ```
 
 
+## 依賴
+
+| 套件 | 說明 |
+|------|------|
+| `com.gameframex.unity` | 1.1.1 |
+| `com.gameframex.unity.asset` | 1.0.6 |
+| `com.gameframex.unity.event` | 1.0.0 |
+| `com.gameframex.unity.ui` | 1.0.0 |
+
+## 文檔與資源
+
+- [官方文檔](https://gameframex.doc.alianblank.com)
+
+## 社區與支援
+
+- QQ群: 467608841 / 233840761
+
+## 更新日誌
+
+查看 [Releases](https://github.com/GameFrameX/gameframex/com.gameframex.unity.ui.ugui/releases) 了解更新日誌。
 ## 開源協議
 
 詳見 [LICENSE.md](LICENSE.md) 檔案。

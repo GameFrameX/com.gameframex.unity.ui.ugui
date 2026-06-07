@@ -29,7 +29,9 @@
 - **拡張メソッド**: 豊富な UGUI コンポーネント拡張メソッド
 - **フォームヘルパー**: UI フォーム作成・管理ヘルパーツール
 
-## インストール
+## クイックスタート
+
+### インストール
 
 ### インストール
 
@@ -62,6 +64,26 @@ Then add the package to `dependencies`:
 ```
 
 
+## 依存関係
+
+| パッケージ | 説明 |
+|----------|------|
+| `com.gameframex.unity` | 1.1.1 |
+| `com.gameframex.unity.asset` | 1.0.6 |
+| `com.gameframex.unity.event` | 1.0.0 |
+| `com.gameframex.unity.ui` | 1.0.0 |
+
+## ドキュメントとリソース
+
+- [ドキュメント](https://gameframex.doc.alianblank.com)
+
+## コミュニティとサポート
+
+- QQグループ: 467608841 / 233840761
+
+## 変更履歴
+
+[Releases](https://github.com/GameFrameX/gameframex/com.gameframex.unity.ui.ugui/releases) で変更履歴を確認してください。
 ## ライセンス
 
 詳しくは [LICENSE.md](LICENSE.md) をご参照ください。

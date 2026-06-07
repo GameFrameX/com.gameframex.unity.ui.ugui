@@ -49,36 +49,6 @@ All-in-One Solution for Indie Game Development · Empowering Indie Developers' D
 - `UGUIComponentInspector`: UGUI component inspector
 - `UIImageReplaceHandler`: UI image replacement handler
 
-## Installation
-
-### Dependencies
-
-```json
-{
-  "com.gameframex.unity": "1.1.1",
-  "com.gameframex.unity.ui": "1.0.0",
-  "com.gameframex.unity.asset": "1.0.6",
-  "com.gameframex.unity.event": "1.0.0"
-}
-```
-
-### Installation Methods (choose one)
-
-1. **Package Manager (Recommended)**
-   - Open Unity Editor
-   - Open Package Manager window
-   - Click the "+" button and select "Add package from git URL"
-   - Enter: `https://github.com/gameframex/com.gameframex.unity.ui.ugui.git`
-
-2. **manifest.json**
-   - Add the following to the `dependencies` section of your `manifest.json` file
-   ```json
-   {"com.gameframex.unity.ui.ugui": "https://github.com/gameframex/com.gameframex.unity.ui.ugui.git"}
-   ```
-
-3. **Local Installation**
-   - Download the repository and place it in your Unity project's `Packages` directory. It will be auto-detected.
-
 ## Quick Start
 
 ### Installation
@@ -112,6 +82,26 @@ Then add the package to `dependencies`:
 ```
 
 
+## Dependencies
+
+| Package | Description |
+|---------|-------------|
+| `com.gameframex.unity` | 1.1.1 |
+| `com.gameframex.unity.asset` | 1.0.6 |
+| `com.gameframex.unity.event` | 1.0.0 |
+| `com.gameframex.unity.ui` | 1.0.0 |
+
+## Documentation & Resources
+
+- [Documentation](https://gameframex.doc.alianblank.com)
+
+## Community & Support
+
+- QQ Group: 467608841 / 233840761
+
+## Changelog
+
+See [Releases](https://github.com/GameFrameX/gameframex/com.gameframex.unity.ui.ugui/releases) for changelog.
 ## License
 
 See [LICENSE.md](LICENSE.md) for license information.
