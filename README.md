@@ -81,87 +81,36 @@ All-in-One Solution for Indie Game Development · Empowering Indie Developers' D
 
 ## Quick Start
 
-### 1. Basic UI Class Creation
+### Installation
 
-```csharp
-using GameFrameX.UI.UGUI.Runtime;
-using UnityEngine;
+Edit your Unity project's `Packages/manifest.json` and add the `scopedRegistries` section:
 
-public class MainMenuUI : UGUI
+```json
 {
-    protected override void OnInit(object userData)
+  "scopedRegistries": [
     {
-        base.OnInit(userData);
-        // Initialize UI logic
+      "name": "GameFrameX",
+      "url": "https://gameframex.upm.alianblank.uk",
+      "scopes": [
+        "com.gameframex"
+      ]
     }
-
-    protected override void OnOpen(object userData)
-    {
-        base.OnOpen(userData);
-        // Logic when UI opens
-    }
-
-    protected override void OnClose(bool isShutdown, object userData)
-    {
-        base.OnClose(isShutdown, userData);
-        // Logic when UI closes
-    }
+  ]
 }
 ```
 
-### 2. Using Extension Methods
+`scopes` controls which packages are resolved through this registry. Only packages whose names start with `com.gameframex` will be fetched from it.
 
-```csharp
-using GameFrameX.UI.UGUI.Runtime;
-using UnityEngine.UI;
+Then add the package to `dependencies`:
 
-public class UIController : MonoBehaviour
+```json
 {
-    [SerializeField] private Button startButton;
-    [SerializeField] private Image iconImage;
-    [SerializeField] private RectTransform panel;
-
-    void Start()
-    {
-        // Button extension method
-        startButton.onClick.Add(OnStartButtonClick);
-
-        // Image extension method
-        iconImage.SetIcon("UI/Icons/StartIcon");
-
-        // RectTransform extension method
-        panel.MakeFullScreen();
-    }
-
-    private void OnStartButtonClick()
-    {
-        Debug.Log("Start button clicked!");
-    }
+  "dependencies": {
+    "com.gameframex.unity.ui.ugui": "2.5.1"
+  }
 }
 ```
 
-### 3. Using the Code Generator
-
-1. Select a UGUI prefab in the Hierarchy
-2. Right-click and select `GameObject/UI/Generate UGUI Code`
-3. Code will be auto-generated in the `Assets/Hotfix/UI/UGUI/` directory
-
-### 4. Using UIImage Component
-
-```csharp
-using GameFrameX.UI.UGUI.Runtime;
-
-public class IconDisplay : MonoBehaviour
-{
-    [SerializeField] private UIImage iconImage;
-
-    void Start()
-    {
-        // Set icon with async loading support
-        iconImage.icon = "UI/Icons/PlayerAvatar";
-    }
-}
-```
 
 ## License
 

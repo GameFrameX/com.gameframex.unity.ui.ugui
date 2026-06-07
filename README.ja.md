@@ -31,33 +31,36 @@
 
 ## インストール
 
-### 依存関係
+### インストール
+
+Unity プロジェクトの `Packages/manifest.json` を編集し、`scopedRegistries` セクションを追加してください：
 
 ```json
 {
-  "com.gameframex.unity": "1.1.1",
-  "com.gameframex.unity.ui": "1.0.0",
-  "com.gameframex.unity.asset": "1.0.6",
-  "com.gameframex.unity.event": "1.0.0"
+  "scopedRegistries": [
+    {
+      "name": "GameFrameX",
+      "url": "https://gameframex.upm.alianblank.uk",
+      "scopes": [
+        "com.gameframex"
+      ]
+    }
+  ]
 }
 ```
 
-### インストール方法（いずれかを選択）
+`scopes` は、どのパッケージをこのレジストリから解決するかを制御します。`com.gameframex` で始まるパッケージのみがこのレジストリから取得されます。
 
-1. **Package Manager (推奨)**
-   - Unity エディタを開く
-   - Package Manager ウィンドウを開く
-   - "+" ボタンをクリックし、「Add package from git URL」を選択
-   - 入力: `https://github.com/gameframex/com.gameframex.unity.ui.ugui.git`
+Then add the package to `dependencies`:
 
-2. **manifest.json**
-   - `manifest.json` ファイルの `dependencies` セクションに追加
-   ```json
-   {"com.gameframex.unity.ui.ugui": "https://github.com/gameframex/com.gameframex.unity.ui.ugui.git"}
-   ```
+```json
+{
+  "dependencies": {
+    "com.gameframex.unity.ui.ugui": "2.5.1"
+  }
+}
+```
 
-3. **ローカルインストール**
-   - リポジトリをダウンロードして Unity プロジェクトの `Packages` ディレクトリに配置。自動検出されます。
 
 ## ライセンス
 

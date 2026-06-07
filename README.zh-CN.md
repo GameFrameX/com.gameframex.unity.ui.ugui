@@ -81,87 +81,36 @@
 
 ## 快速开始
 
-### 1. 基本UI类创建
+### 安装
 
-```csharp
-using GameFrameX.UI.UGUI.Runtime;
-using UnityEngine;
+编辑 Unity 项目的 `Packages/manifest.json`，添加 `scopedRegistries` 部分：
 
-public class MainMenuUI : UGUI
+```json
 {
-    protected override void OnInit(object userData)
+  "scopedRegistries": [
     {
-        base.OnInit(userData);
-        // 初始化UI逻辑
+      "name": "GameFrameX",
+      "url": "https://gameframex.upm.alianblank.uk",
+      "scopes": [
+        "com.gameframex"
+      ]
     }
-
-    protected override void OnOpen(object userData)
-    {
-        base.OnOpen(userData);
-        // UI打开时的逻辑
-    }
-
-    protected override void OnClose(bool isShutdown, object userData)
-    {
-        base.OnClose(isShutdown, userData);
-        // UI关闭时的逻辑
-    }
+  ]
 }
 ```
 
-### 2. 使用扩展方法
+`scopes` 控制哪些包通过此注册表解析。只有以 `com.gameframex` 开头的包才会从这个注册表获取。
 
-```csharp
-using GameFrameX.UI.UGUI.Runtime;
-using UnityEngine.UI;
+Then add the package to `dependencies`:
 
-public class UIController : MonoBehaviour
+```json
 {
-    [SerializeField] private Button startButton;
-    [SerializeField] private Image iconImage;
-    [SerializeField] private RectTransform panel;
-
-    void Start()
-    {
-        // 按钮扩展方法
-        startButton.onClick.Add(OnStartButtonClick);
-
-        // 图片扩展方法
-        iconImage.SetIcon("UI/Icons/StartIcon");
-
-        // RectTransform扩展方法
-        panel.MakeFullScreen();
-    }
-
-    private void OnStartButtonClick()
-    {
-        Debug.Log("Start button clicked!");
-    }
+  "dependencies": {
+    "com.gameframex.unity.ui.ugui": "2.5.1"
+  }
 }
 ```
 
-### 3. 使用代码生成器
-
-1. 在Hierarchy中选择一个UGUI预制体
-2. 右键选择 `GameObject/UI/Generate UGUI Code(生成UGUI代码)`
-3. 代码将自动生成到 `Assets/Hotfix/UI/UGUI/` 目录下
-
-### 4. 使用UIImage组件
-
-```csharp
-using GameFrameX.UI.UGUI.Runtime;
-
-public class IconDisplay : MonoBehaviour
-{
-    [SerializeField] private UIImage iconImage;
-
-    void Start()
-    {
-        // 设置图标，支持异步加载
-        iconImage.icon = "UI/Icons/PlayerAvatar";
-    }
-}
-```
 
 ## 开源协议
 

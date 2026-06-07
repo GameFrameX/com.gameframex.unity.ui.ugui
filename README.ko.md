@@ -31,33 +31,36 @@
 
 ## 설치
 
-### 종속성
+### 설치
+
+Unity 프로젝트의 `Packages/manifest.json`을 편집하여 `scopedRegistries` 섹션을 추가하세요:
 
 ```json
 {
-  "com.gameframex.unity": "1.1.1",
-  "com.gameframex.unity.ui": "1.0.0",
-  "com.gameframex.unity.asset": "1.0.6",
-  "com.gameframex.unity.event": "1.0.0"
+  "scopedRegistries": [
+    {
+      "name": "GameFrameX",
+      "url": "https://gameframex.upm.alianblank.uk",
+      "scopes": [
+        "com.gameframex"
+      ]
+    }
+  ]
 }
 ```
 
-### 설치 방법 (택 1)
+`scopes`는 이 레지스트리를 통해 어떤 패키지를 해석할지 제어합니다. `com.gameframex`로 시작하는 패키지만 이 레지스트리에서 가져옵니다.
 
-1. **Package Manager (권장)**
-   - Unity 에디터 열기
-   - Package Manager 창 열기
-   - "+" 버튼을 클릭하고 "Add package from git URL" 선택
-   - 입력: `https://github.com/gameframex/com.gameframex.unity.ui.ugui.git`
+Then add the package to `dependencies`:
 
-2. **manifest.json**
-   - `manifest.json` 파일의 `dependencies` 섹션에 추가
-   ```json
-   {"com.gameframex.unity.ui.ugui": "https://github.com/gameframex/com.gameframex.unity.ui.ugui.git"}
-   ```
+```json
+{
+  "dependencies": {
+    "com.gameframex.unity.ui.ugui": "2.5.1"
+  }
+}
+```
 
-3. **로컬 설치**
-   - 저장소를 다운로드하여 Unity 프로젝트의 `Packages` 디렉토리에 배치. 자동 감지됩니다.
 
 ## 라이선스
 

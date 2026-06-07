@@ -81,33 +81,36 @@
 
 ## 快速開始
 
-### 1. 基本 UI 類創建
+### 安裝
 
-```csharp
-using GameFrameX.UI.UGUI.Runtime;
-using UnityEngine;
+編輯 Unity 專案的 `Packages/manifest.json`，添加 `scopedRegistries` 部分：
 
-public class MainMenuUI : UGUI
+```json
 {
-    protected override void OnInit(object userData)
+  "scopedRegistries": [
     {
-        base.OnInit(userData);
-        // 初始化 UI 邏輯
+      "name": "GameFrameX",
+      "url": "https://gameframex.upm.alianblank.uk",
+      "scopes": [
+        "com.gameframex"
+      ]
     }
-
-    protected override void OnOpen(object userData)
-    {
-        base.OnOpen(userData);
-        // UI 打開時的邏輯
-    }
-
-    protected override void OnClose(bool isShutdown, object userData)
-    {
-        base.OnClose(isShutdown, userData);
-        // UI 關閉時的邏輯
-    }
+  ]
 }
 ```
+
+`scopes` 控制哪些套件透過此註冊表解析。只有以 `com.gameframex` 開頭的套件才會從這個註冊表取得。
+
+Then add the package to `dependencies`:
+
+```json
+{
+  "dependencies": {
+    "com.gameframex.unity.ui.ugui": "2.5.1"
+  }
+}
+```
+
 
 ## 開源協議
 
