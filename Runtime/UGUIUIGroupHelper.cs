@@ -30,7 +30,9 @@
 using GameFrameX.Runtime;
 using GameFrameX.UI.Runtime;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.Scripting;
+using UnityEngine.UI;
 
 namespace GameFrameX.UI.UGUI.Runtime
 {
@@ -84,7 +86,14 @@ namespace GameFrameX.UI.UGUI.Runtime
         public override IUIGroupHelper Handler(Transform root, string groupName, string uiGroupHelperTypeName, IUIGroupHelper customUIGroupHelper, int depth = 0)
         {
             SetDepth(depth);
-            GameObject component = new GameObject();
+            root = EnsureRuntimeRoot(root);
+            if (!root)
+            {
+                Log.Error("UGUI runtime root is invalid.");
+                return null;
+            }
+
+            GameObject component = new GameObject(groupName);
             var comName = groupName;
             component.name = comName;
             component.transform.SetParent(root, false);
@@ -102,6 +111,231 @@ namespace GameFrameX.UI.UGUI.Runtime
             // canvas.additionalShaderChannels = AdditionalCanvasShaderChannels.Normal | AdditionalCanvasShaderChannels.Tangent | AdditionalCanvasShaderChannels.TexCoord1 | AdditionalCanvasShaderChannels.TexCoord2 | AdditionalCanvasShaderChannels.TexCoord3;
             var uiGroupHelper = Helper.CreateHelper(component, uiGroupHelperTypeName, (UIGroupHelperBase)customUIGroupHelper, 0);
             return uiGroupHelper;
+        }
+
+        private static Transform EnsureRuntimeRoot(Transform root)
+        {
+            if (!TryGetGameObject(root, out var rootObject))
+            {
+                Log.Error("UGUI root transform is invalid.");
+                return null;
+            }
+
+            var designResolution = root.GetComponentInParent<UIComponent>(true)?.DesignResolution;
+            var uiLayer = LayerMask.NameToLayer("UI");
+
+            rootObject.SetLayerRecursively(uiLayer);
+
+            var uiCamera = EnsureCamera(root, uiLayer);
+            if (uiCamera == null)
+            {
+                Log.Error("UGUI camera is invalid.");
+                return null;
+            }
+
+            var canvasRoot = EnsureCanvas(root, uiCamera, designResolution, uiLayer);
+            if (!canvasRoot)
+            {
+                Log.Error("UGUI canvas is invalid.");
+                return null;
+            }
+
+            EnsureEventSystem(root);
+
+            return canvasRoot;
+        }
+
+        private static Camera EnsureCamera(Transform root, int uiLayer)
+        {
+            var cameraTransform = EnsureChild(root, "UGUICamera");
+            if (!TryGetGameObject(cameraTransform, out var cameraObject))
+            {
+                return null;
+            }
+
+            cameraObject.SetLayerRecursively(uiLayer);
+
+            var uiCamera = cameraObject.GetOrAddComponent<Camera>();
+            uiCamera.clearFlags = CameraClearFlags.Depth;
+            uiCamera.orthographic = true;
+            uiCamera.orthographicSize = 5f;
+            uiCamera.nearClipPlane = -500f;
+            uiCamera.farClipPlane = 500f;
+            uiCamera.depth = 10f;
+            uiCamera.cullingMask = uiLayer >= 0 ? 1 << uiLayer : uiCamera.cullingMask;
+#if UNITY_5_4_OR_NEWER
+            uiCamera.stereoTargetEye = StereoTargetEyeMask.None;
+#endif
+#if UNITY_5_6_OR_NEWER
+            uiCamera.allowHDR = false;
+            uiCamera.allowMSAA = false;
+#endif
+            return uiCamera;
+        }
+
+        private static Transform EnsureCanvas(Transform root, Camera uiCamera, UIDesignResolutionComponent designResolution, int uiLayer)
+        {
+            if (uiCamera == null)
+            {
+                return null;
+            }
+
+            var canvasTransform = EnsureChild(root, "UGUICanvas", true);
+            if (!TryGetGameObject(canvasTransform, out var canvasObject))
+            {
+                return null;
+            }
+
+            canvasObject.SetLayerRecursively(uiLayer);
+
+            var rectTransform = canvasObject.GetComponent<RectTransform>();
+            if (rectTransform == null)
+            {
+                return null;
+            }
+
+            rectTransform.MakeFullScreen();
+
+            var canvas = canvasObject.GetOrAddComponent<Canvas>();
+            canvas.renderMode = RenderMode.ScreenSpaceCamera;
+            canvas.worldCamera = uiCamera;
+            canvas.planeDistance = 100f;
+            canvas.overrideSorting = true;
+            canvas.sortingOrder = 0;
+            canvas.additionalShaderChannels = AdditionalCanvasShaderChannels.Normal |
+                                              AdditionalCanvasShaderChannels.Tangent |
+                                              AdditionalCanvasShaderChannels.TexCoord1 |
+                                              AdditionalCanvasShaderChannels.TexCoord2 |
+                                              AdditionalCanvasShaderChannels.TexCoord3;
+
+            ApplyDesignResolution(canvasObject.GetOrAddComponent<CanvasScaler>(), designResolution);
+            canvasObject.GetOrAddComponent<GraphicRaycaster>();
+
+            return canvasTransform;
+        }
+
+        private static void ApplyDesignResolution(CanvasScaler scaler, UIDesignResolutionComponent designResolution)
+        {
+            if (designResolution == null)
+            {
+                return;
+            }
+
+            scaler.referencePixelsPerUnit = designResolution.ReferencePixelsPerUnit;
+            switch (designResolution.ScaleMode)
+            {
+                case UIDesignResolutionComponent.UIScaleMode.ConstantPixelSize:
+                    scaler.uiScaleMode = CanvasScaler.ScaleMode.ConstantPixelSize;
+                    scaler.scaleFactor = designResolution.ConstantScaleFactor;
+                    break;
+                case UIDesignResolutionComponent.UIScaleMode.ConstantPhysicalSize:
+                    scaler.uiScaleMode = CanvasScaler.ScaleMode.ConstantPhysicalSize;
+                    scaler.fallbackScreenDPI = designResolution.FallbackScreenDPI;
+                    scaler.defaultSpriteDPI = designResolution.DefaultSpriteDPI;
+                    break;
+                default:
+                    scaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
+                    scaler.referenceResolution = new Vector2(designResolution.DesignWidth, designResolution.DesignHeight);
+                    scaler.screenMatchMode = CanvasScaler.ScreenMatchMode.MatchWidthOrHeight;
+                    scaler.matchWidthOrHeight = GetMatchWidthOrHeight(designResolution);
+                    break;
+            }
+        }
+
+        private static float GetMatchWidthOrHeight(UIDesignResolutionComponent designResolution)
+        {
+            switch (designResolution.ScreenMatchMode)
+            {
+                case UIDesignResolutionComponent.UIScreenMatchMode.MatchWidth:
+                    return 0f;
+                case UIDesignResolutionComponent.UIScreenMatchMode.MatchHeight:
+                    return 1f;
+                default:
+                    return designResolution.MatchWidthOrHeight;
+            }
+        }
+
+        private static void EnsureEventSystem(Transform root)
+        {
+            if (EventSystem.current != null)
+            {
+                return;
+            }
+
+            if (!TryGetGameObject(root, out _))
+            {
+                return;
+            }
+
+            var eventSystemObject = new GameObject("EventSystem");
+            eventSystemObject.transform.SetParent(root, false);
+            eventSystemObject.GetOrAddComponent<EventSystem>();
+            eventSystemObject.GetOrAddComponent<StandaloneInputModule>();
+        }
+
+
+        private static Transform EnsureChild(Transform root, string name)
+        {
+            return EnsureChild(root, name, false);
+        }
+
+        private static Transform EnsureChild(Transform root, string name, bool requireRectTransform)
+        {
+            if (!TryGetGameObject(root, out _))
+            {
+                return null;
+            }
+
+            var child = root.Find(name);
+            if (TryGetGameObject(child, out _))
+            {
+                if (!requireRectTransform || child.GetComponent<RectTransform>() != null)
+                {
+                    return child;
+                }
+
+                child.name = Utility.Text.Format("{0} (Invalid)", name);
+                UnityEngine.Object.Destroy(child.gameObject);
+            }
+
+            GameObject childObject;
+            if (requireRectTransform)
+            {
+                childObject = new GameObject(name);
+                childObject.GetOrAddComponent<RectTransform>();
+            }
+            else
+            {
+                childObject = new GameObject(name);
+            }
+
+            child = childObject.transform;
+            child.SetParent(root, false);
+            if (TryGetGameObject(child, out _))
+            {
+                return child;
+            }
+
+            return null;
+        }
+
+        private static bool TryGetGameObject(Transform transform, out GameObject gameObject)
+        {
+            gameObject = null;
+            if (!transform)
+            {
+                return false;
+            }
+
+            try
+            {
+                gameObject = transform.gameObject;
+                return gameObject != null;
+            }
+            catch (MissingReferenceException)
+            {
+                return false;
+            }
         }
     }
 }
