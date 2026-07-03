@@ -1,3 +1,10 @@
+# [2.6.0](https://github.com/gameframex/com.gameframex.unity.ui.ugui/compare/2.5.2...2.6.0) (2026-07-03)
+
+
+### Features
+
+* **ugui:** 实现 UGUI 运行时根节点自动初始化 ([2fcf14e](https://github.com/gameframex/com.gameframex.unity.ui.ugui/commit/2fcf14ed20cafec6f803ef3008da76e7ce9d47bf))
+
 ## [2.5.2](https://github.com/gameframex/com.gameframex.unity.ui.ugui/compare/2.5.1...2.5.2) (2026-06-07)
 
 
