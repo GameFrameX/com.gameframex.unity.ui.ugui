@@ -1,3 +1,10 @@
+## [2.6.1](https://github.com/gameframex/com.gameframex.unity.ui.ugui/compare/2.6.0...2.6.1) (2026-07-29)
+
+
+### Bug Fixes
+
+* 更新依赖版本以支持最新功能和修复已知问题 ([77b0756](https://github.com/gameframex/com.gameframex.unity.ui.ugui/commit/77b07563e89521c5468cceee7b57e148f88fe5aa))
+
 # [2.6.0](https://github.com/gameframex/com.gameframex.unity.ui.ugui/compare/2.5.2...2.6.0) (2026-07-03)
 
 
