@@ -1,3 +1,10 @@
+## [2.6.2](https://github.com/gameframex/com.gameframex.unity.ui.ugui/compare/2.6.1...2.6.2) (2026-08-27)
+
+
+### Bug Fixes
+
+* **ui:** 多实例界面不再复用实例池中同一实例 ([b624d61](https://github.com/gameframex/com.gameframex.unity.ui.ugui/commit/b624d6159a59b9d42ff5b4a12ef39ce8e839ee18))
+
 ## [2.6.1](https://github.com/gameframex/com.gameframex.unity.ui.ugui/compare/2.6.0...2.6.1) (2026-07-29)
 
 
