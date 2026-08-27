@@ -74,6 +74,8 @@ namespace GameFrameX.UI.UGUI.Runtime
             GameFrameworkGuard.NotNull(uiFormType, nameof(uiFormType));
             var uiFormAssetName = uiFormType.Name;
 
+            string assetPath = PathHelper.Combine(uiFormAssetPath, uiFormAssetName);
+
             if (UseSingletonOpenMode(uiFormType))
             {
                 // Singleton behavior: if already opened, return the existing instance.
@@ -94,15 +96,18 @@ namespace GameFrameX.UI.UGUI.Runtime
                         return await loadingUIForm.Task;
                     }
                 }
-            }
 
-            string assetPath = PathHelper.Combine(uiFormAssetPath, uiFormAssetName);
-            var uiFormInstanceObject = m_InstancePool.Spawn(assetPath);
-            if (uiFormInstanceObject != null)
-            {
-                // 池复用也分配新的请求序列号，确保每次打开请求可观测。
-                int serialId = ++m_Serial;
-                return InternalOpenUIForm(serialId, uiFormAssetPath, uiFormAssetName, uiFormType, uiFormInstanceObject.Target, pauseCoveredUIForm, false, 0f, userData, isFullScreen);
+                // 实例池复用仅用于单实例模式。实例池是 MultiSpawn 池（允许同一对象被并发取出），
+                // 多实例界面打开时会取回使用中的同一 GameObject，GetOrAddComponent 又取回同一逻辑组件，
+                // 造成多个界面共用一个对象互相覆盖；多实例界面每次走下方加载流程新建实例，
+                // 关闭时照常 Unspawn/Release，不依赖池复用。
+                var uiFormInstanceObject = m_InstancePool.Spawn(assetPath);
+                if (uiFormInstanceObject != null)
+                {
+                    // 池复用也分配新的请求序列号，确保每次打开请求可观测。
+                    int serialId = ++m_Serial;
+                    return InternalOpenUIForm(serialId, uiFormAssetPath, uiFormAssetName, uiFormType, uiFormInstanceObject.Target, pauseCoveredUIForm, false, 0f, userData, isFullScreen);
+                }
             }
 
             var uiForm = InnerLoadUIFormAsync(uiFormAssetPath, uiFormType, pauseCoveredUIForm, userData, isFullScreen, uiFormAssetName, assetPath);
