@@ -36,8 +36,10 @@ using UnityEngine;
 
 namespace GameFrameX.UI.UGUI.Editor
 {
-    [CustomEditor(typeof(UnityEngine.UI.Image))]
-    public class UIImageReplaceHandler : UnityEditor.Editor
+    // CONTEXT 菜单不依赖 CustomEditor。此前用 [CustomEditor(typeof(UnityEngine.UI.Image))]
+    // 接管 Image 的 Inspector 却未重写 OnInspectorGUI, 导致内置 ImageEditor 的绘制
+    // (含 Set Native Size 按钮) 被通用 DrawDefaultInspector 替代, 故改为普通静态类。
+    internal static class UIImageReplaceHandler
     {
         [MenuItem("CONTEXT/Image/Replace To UIImage(替换为UIImage)", false, 10)]
         static void Run()
@@ -57,7 +59,7 @@ namespace GameFrameX.UI.UGUI.Editor
             var raycastTarget = image.raycastTarget;
             var maskable = image.maskable;
 
-            DestroyImmediate(image);
+            Object.DestroyImmediate(image);
 
             var uiImage = Selection.activeGameObject.GetOrAddComponent<UIImage>();
             uiImage.type = imageType;
