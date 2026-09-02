@@ -1,3 +1,10 @@
+## [2.6.3](https://github.com/gameframex/com.gameframex.unity.ui.ugui/compare/2.6.2...2.6.3) (2026-09-02)
+
+
+### Bug Fixes
+
+* **ui:** 移除 CustomEditor 恢复 Image 默认 Inspector ([8b92ada](https://github.com/gameframex/com.gameframex.unity.ui.ugui/commit/8b92adaacd1b6bc0badfccc4f73427063a834f3e))
+
 ## [2.6.2](https://github.com/gameframex/com.gameframex.unity.ui.ugui/compare/2.6.1...2.6.2) (2026-08-27)
 
 
