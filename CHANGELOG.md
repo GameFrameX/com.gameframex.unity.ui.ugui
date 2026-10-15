@@ -1,3 +1,10 @@
+## [2.7.1](https://github.com/gameframex/com.gameframex.unity.ui.ugui/compare/2.7.0...2.7.1) (2026-10-15)
+
+
+### Bug Fixes
+
+* **dependencies:** 对齐依赖至实际发布版本 ([59e5175](https://github.com/gameframex/com.gameframex.unity.ui.ugui/commit/59e5175d387bfa5be24c48decd72a312619a1cc0))
+
 # [2.7.0](https://github.com/gameframex/com.gameframex.unity.ui.ugui/compare/2.6.3...2.7.0) (2026-10-15)
 
 
