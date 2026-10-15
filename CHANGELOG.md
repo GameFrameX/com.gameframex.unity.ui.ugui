@@ -1,3 +1,10 @@
+## [2.7.2](https://github.com/gameframex/com.gameframex.unity.ui.ugui/compare/2.7.1...2.7.2) (2026-10-15)
+
+
+### Bug Fixes
+
+* **dependencies:** asset 依赖升至 5.0.0 ([4ef4225](https://github.com/gameframex/com.gameframex.unity.ui.ugui/commit/4ef4225a7f9040c2136267cde520fb4c8ae18b82))
+
 ## [2.7.1](https://github.com/gameframex/com.gameframex.unity.ui.ugui/compare/2.7.0...2.7.1) (2026-10-15)
 
 
