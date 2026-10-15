@@ -1,3 +1,10 @@
+# [2.7.0](https://github.com/gameframex/com.gameframex.unity.ui.ugui/compare/2.6.3...2.7.0) (2026-10-15)
+
+
+### Features
+
+* **ui:** UGUI 后端自注册默认实现 ([78c3590](https://github.com/gameframex/com.gameframex.unity.ui.ugui/commit/78c3590eb8ae943935d6be8e3d8ecdb0d30dc8cd))
+
 ## [Unreleased]
 
 ### Features
