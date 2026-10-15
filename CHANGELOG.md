@@ -1,3 +1,9 @@
+## [Unreleased]
+
+### Features
+
+* **ui:** UI Helper 实现经后端注册表自注册（`UIHelperBackendRegistration`），作为 `UIOptions` 工厂闭包的默认后端；用户在 Options 中设置的 `Func` 工厂闭包（Custom 引用）优先
+
 ## [2.6.3](https://github.com/gameframex/com.gameframex.unity.ui.ugui/compare/2.6.2...2.6.3) (2026-09-02)
 
 

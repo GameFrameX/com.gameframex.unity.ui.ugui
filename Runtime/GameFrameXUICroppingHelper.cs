@@ -29,17 +29,16 @@
 
 using System;
 using UnityEngine;
-using UnityEngine.Scripting;
 
 namespace GameFrameX.UI.UGUI.Runtime
 {
-    [Preserve]
+    [UnityEngine.Scripting.Preserve]
     public class GameFrameXUIToUGUICroppingHelper : MonoBehaviour
     {
-        [Preserve]
+        [UnityEngine.Scripting.Preserve]
         private Type[] m_Types;
 
-        [Preserve]
+        [UnityEngine.Scripting.Preserve]
         private void Start()
         {
             m_Types = new[]

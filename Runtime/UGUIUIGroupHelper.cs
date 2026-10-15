@@ -31,7 +31,6 @@ using GameFrameX.Runtime;
 using GameFrameX.UI.Runtime;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.Scripting;
 using UnityEngine.UI;
 
 namespace GameFrameX.UI.UGUI.Runtime
@@ -42,7 +41,7 @@ namespace GameFrameX.UI.UGUI.Runtime
     /// <remarks>
     /// UGUI UI group helper that manages UI group depth and hierarchy.
     /// </remarks>
-    [Preserve]
+    [UnityEngine.Scripting.Preserve]
     public sealed class UGUIUIGroupHelper : UIGroupHelperBase
     {
         /// <summary>
@@ -78,14 +77,12 @@ namespace GameFrameX.UI.UGUI.Runtime
         /// </remarks>
         /// <param name="root">根节点 / Root transform</param>
         /// <param name="groupName">界面组名称 / UI group name</param>
-        /// <param name="uiGroupHelperTypeName">界面组辅助器类型名 / UI group helper type name</param>
         /// <param name="customUIGroupHelper">自定义的界面组辅助器 / Custom UI group helper</param>
         /// <param name="depth">界面组深度 / UI group depth</param>
         /// <returns>界面组辅助器实例 / UI group helper instance</returns>
         [UnityEngine.Scripting.Preserve]
-        public override IUIGroupHelper Handler(Transform root, string groupName, string uiGroupHelperTypeName, IUIGroupHelper customUIGroupHelper, int depth = 0)
+        public override IUIGroupHelper Handler(Transform root, string groupName, IUIGroupHelper customUIGroupHelper, int depth = 0)
         {
-            SetDepth(depth);
             root = EnsureRuntimeRoot(root);
             if (!root)
             {
@@ -98,19 +95,16 @@ namespace GameFrameX.UI.UGUI.Runtime
             component.name = comName;
             component.transform.SetParent(root, false);
             var uiLayer = LayerMask.NameToLayer("UI");
-            component.SetLayerRecursively(uiLayer);
+            component.SetLayer(uiLayer);
 
             RectTransform rectTransform = component.GetOrAddComponent<RectTransform>();
             rectTransform.MakeFullScreen();
-            // var canvas = component.AddComponent<Canvas>();
-            // // canvas.pixelPerfect = true;
-            // // canvas.overridePixelPerfect = true;
-            // canvas.sortingLayerID = uiLayer;
-            // canvas.sortingLayerName = "UI";
-            // canvas.overrideSorting = true;
-            // canvas.additionalShaderChannels = AdditionalCanvasShaderChannels.Normal | AdditionalCanvasShaderChannels.Tangent | AdditionalCanvasShaderChannels.TexCoord1 | AdditionalCanvasShaderChannels.TexCoord2 | AdditionalCanvasShaderChannels.TexCoord3;
-            var uiGroupHelper = Helper.CreateHelper(component, uiGroupHelperTypeName, (UIGroupHelperBase)customUIGroupHelper, 0);
-            return uiGroupHelper;
+            // 界面组辅助器必须挂在组容器（UGUICanvas 层级）上：UGUIFormHelper 经 SetParent(helper.transform) 把界面挂入组容器。
+            // customUIGroupHelper 是原型实例（即本方法的调用接收者），不能直接返回——它不在 UGUICanvas 之下，界面会脱离 Canvas 不渲染；
+            // 其类型（含用户经 UIOptions 配置的自定义子类）通过 GetType() 落到组容器，每组独立一个实例。
+            var helper = (UIGroupHelperBase)component.AddComponent(GetType());
+            helper.SetDepth(depth);
+            return helper;
         }
 
         private static Transform EnsureRuntimeRoot(Transform root)
@@ -124,7 +118,7 @@ namespace GameFrameX.UI.UGUI.Runtime
             var designResolution = root.GetComponentInParent<UIComponent>(true)?.DesignResolution;
             var uiLayer = LayerMask.NameToLayer("UI");
 
-            rootObject.SetLayerRecursively(uiLayer);
+            rootObject.SetLayer(uiLayer);
 
             var uiCamera = EnsureCamera(root, uiLayer);
             if (uiCamera == null)
@@ -153,7 +147,7 @@ namespace GameFrameX.UI.UGUI.Runtime
                 return null;
             }
 
-            cameraObject.SetLayerRecursively(uiLayer);
+            cameraObject.SetLayer(uiLayer);
 
             var uiCamera = cameraObject.GetOrAddComponent<Camera>();
             uiCamera.clearFlags = CameraClearFlags.Depth;
@@ -186,7 +180,7 @@ namespace GameFrameX.UI.UGUI.Runtime
                 return null;
             }
 
-            canvasObject.SetLayerRecursively(uiLayer);
+            canvasObject.SetLayer(uiLayer);
 
             var rectTransform = canvasObject.GetComponent<RectTransform>();
             if (rectTransform == null)
