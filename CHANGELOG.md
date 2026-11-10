@@ -1,3 +1,10 @@
+## [2.7.3](https://github.com/gameframex/com.gameframex.unity.ui.ugui/compare/2.7.2...2.7.3) (2026-11-10)
+
+
+### Bug Fixes
+
+* **ui.ugui:** 添加完整 link.xml 防代码裁剪保护 ([c177aec](https://github.com/gameframex/com.gameframex.unity.ui.ugui/commit/c177aecd123fa126ab3da1b07d4e239001299a5a))
+
 ## [2.7.2](https://github.com/gameframex/com.gameframex.unity.ui.ugui/compare/2.7.1...2.7.2) (2026-10-15)
 
 
