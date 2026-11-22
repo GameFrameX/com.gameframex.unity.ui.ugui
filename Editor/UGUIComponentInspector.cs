@@ -85,7 +85,7 @@ namespace GameFrameX.UI.UGUI.Editor
             {
                 GameObject targetGameObject = targetUGUI.gameObject;
                 var fieldInfos = targetUGUI.GetType().GetFields(BindingFlags.Instance | BindingFlags.NonPublic);
-                EditorGUI.BeginDisabledGroup(EditorApplication.isPlayingOrWillChangePlaymode);
+                using (new EditorGUI.DisabledScope(EditorApplication.isPlayingOrWillChangePlaymode))
                 {
                     bool buttonGenerateClicked = EditorGUILayout.DropdownButton(_reGenerate, FocusType.Passive, CustomButtonStyle);
                     if (buttonGenerateClicked && !EditorApplication.isPlaying)
