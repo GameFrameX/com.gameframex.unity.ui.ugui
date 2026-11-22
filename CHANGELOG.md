@@ -1,3 +1,10 @@
+## [2.7.4](https://github.com/gameframex/com.gameframex.unity.ui.ugui/compare/2.7.3...2.7.4) (2026-11-22)
+
+
+### Bug Fixes
+
+* **inspector:** 修复 UGUI Inspector 禁用组未闭合 ([#7](https://github.com/gameframex/com.gameframex.unity.ui.ugui/issues/7)) ([6abd5ef](https://github.com/gameframex/com.gameframex.unity.ui.ugui/commit/6abd5ef974e7c853175f5142ed1b4bc2fa5fc15b))
+
 ## [2.7.3](https://github.com/gameframex/com.gameframex.unity.ui.ugui/compare/2.7.2...2.7.3) (2026-11-10)
 
 
